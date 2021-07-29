@@ -4,7 +4,7 @@ Feature: Create Cases
     Given I login to salesforce as an "admin" user
     When I navigate to the "CASES" page
     When I create a case with fields
-      | status | New |
+      | status | Working |
       | caseOrigin | Phone |
     Then a success message is displayed
     When I check on the site's headers

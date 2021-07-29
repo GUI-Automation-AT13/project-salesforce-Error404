@@ -75,6 +75,19 @@ public class WebElementAction {
     }
 
     /**
+     * Selects an option of a dropdown menu.
+     *
+     * @param webElement the dropdown menu
+     * @param value the value to choose
+     * @param xpath the displayed values xpath
+     */
+    public void selectOnDropDownMenu(final WebElement webElement, final String value, final String xpath) {
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+        webElement.click();
+        driver.findElement(By.xpath(String.format(xpath, value))).click();
+    }
+
+    /**
      * Selects a value on autocomplete text box.
      *
      * @param webElement the text box

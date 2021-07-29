@@ -21,11 +21,12 @@ public class CasesFormPage extends BasePage {
     private WebElementAction webElementAction = new WebElementAction();
     @FindBy(xpath = "//button[@title='Save']")
     private WebElement saveButton;
-    @FindBy(xpath = "//label[text()='Status']/../..//input[@role='combobox']")
+    @FindBy(xpath = "//abbr[@title='required']/../../div//input")
     private WebElement statusMenu;
     @FindBy(xpath = "//label[contains(@class,'inputLabel')]"
             + "/span[text()='Subject']/../../input")
     private WebElement subjectTextBox;
+    private String displayedStatusOnComboBoxXpath = "//span[@title='%s']";
     private String comboBoxXpath = "//span[text()='%s']/../..//a[@class='select']";
     private String textBoxXpath = "//span[text()='%s']/../..//input";
     private String textAreaXpath = "//label[contains(@class,'inputLabel')]"
@@ -118,7 +119,7 @@ public class CasesFormPage extends BasePage {
      * @param value the value to choose
      */
     public void selectValueOnStatusMenu(final String value) {
-        webElementAction.selectOnDropdownMenu(statusMenu, value);
+        webElementAction.selectOnDropDownMenu(statusMenu, value, displayedStatusOnComboBoxXpath);
     }
 
     /**
@@ -280,7 +281,7 @@ public class CasesFormPage extends BasePage {
     public SingleCasePage createCase(final Set<String> fields, final Case newCase) {
         //Compose map
         HashMap<String, Runnable> strategyMap = new HashMap<>();
-        strategyMap.put("status", () -> System.out.println("Hello World"));
+        strategyMap.put("status", () -> selectValueOnStatusMenu(newCase.getStatus()));
         strategyMap.put("caseOrigin", () -> selectValueOnCaseOriginMenu(newCase.getCaseOrigin()));
         strategyMap.put("contactName", () -> selectValueOnContacts(newCase.getContactName()));
         strategyMap.put("accountName", () -> selectValueOnAccounts(newCase.getAccountName()));
