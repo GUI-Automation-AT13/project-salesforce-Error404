@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'checkstyle'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.github.cdimascio:dotenv-java:2.2.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    implementation 'io.github.bonigarcia:webdrivermanager:4.4.3'
+    implementation 'commons-beanutils:commons-beanutils:1.9.4'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
+    implementation 'io.rest-assured:rest-assured:4.4.0'
+    testCompile 'io.cucumber:cucumber-java:6.10.4'
+    testCompile 'io.cucumber:cucumber-picocontainer:6.10.4'
+    testCompile 'io.cucumber:cucumber-testng:6.10.4'
+    testImplementation 'org.testng:testng:7.4.0'
+}
+
+test {
+    useTestNG()
+}
+
+checkstyle {
+    toolVersion '8.44'
+    configFile file('config/checkstyle/checkstyle.xml')
+    checkstyleMain.source = "src/main/"
+    checkstyleMain.excludes = ["**/src/test/**"]
+}
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+checkstyleTest {
+    source = 'src/main/java'
+}
+
+test.finalizedBy("checkstyleMain")
