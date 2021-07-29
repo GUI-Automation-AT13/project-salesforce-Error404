@@ -12,7 +12,6 @@ import core.selenium.WebElementAction;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 
 public abstract class BasePage {

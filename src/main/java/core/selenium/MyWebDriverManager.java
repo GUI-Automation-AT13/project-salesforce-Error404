@@ -11,7 +11,6 @@ package core.selenium;
 import core.selenium.browsers.BrowserFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
 
 public final class MyWebDriverManager {

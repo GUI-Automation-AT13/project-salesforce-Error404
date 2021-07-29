@@ -14,7 +14,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Case;
 import salesforce.ui.PopUpMessage;
-
 import java.util.HashMap;
 import java.util.Set;
 

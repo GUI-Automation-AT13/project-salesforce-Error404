@@ -1,4 +1,5 @@
 Feature: Create Cases
+  @DeleteCase
   Scenario: Create a case with required fields
     Given I login to salesforce as an "admin" user
     When I navigate to the "CASES" page
