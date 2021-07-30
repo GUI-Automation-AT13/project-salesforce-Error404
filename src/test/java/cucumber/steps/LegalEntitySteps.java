@@ -45,11 +45,9 @@ public class LegalEntitySteps {
 
     @When("^I create a new (.*?) with fields$")
     public void iCreateAnNewFeatureWithFields(final String feature, final Map<String, String> table) throws JsonProcessingException, IllegalAccessException {
-        // setear la entidad
         tableData = table;
         String json = new ObjectMapper().writeValueAsString(tableData);
         legalEntity = new ObjectMapper().readValue(json, LegalEntity.class);
-        // crear el Legal Entity por UI
         legalEntitiesPage = new LegalEntitiesPage();
         newLegalEntityPage = legalEntitiesPage.clickOnNew();
         newLegalEntityPage.createLegalEntity(tableData.keySet(), legalEntity);
@@ -57,20 +55,18 @@ public class LegalEntitySteps {
 
     @Then("A successful message is displayed")
     public void aSuccessfulMessageIsDisplayed() {
-//        SoftAssert softAssert = new SoftAssert();
-//        legalEntityPage  = new LegalEntityPage();
-//        String expectedMessage = legalEntityPage.getUserSuccessMessage();
-//        softAssert.assertEquals(expectedMessage, "success\nLegal Entity \"" + legalEntity.getName()
-//                + "\" was created.\nClose", "Message is incorrect");
-//        softAssert.assertAll();
+        SoftAssert softAssert = new SoftAssert();
+        legalEntityPage  = new LegalEntityPage();
+        boolean message = legalEntityPage.getUserSuccessMessage().contains(legalEntity.getName());
+        softAssert.assertTrue(message, "Message is incorrect");
+        softAssert.assertAll();
     }
 
     @And("The title matches")
     public void theTitleMatches() {
         SoftAssert softAssert = new SoftAssert();
         legalEntityPage = new LegalEntityPage();
-        String expectedTitle = legalEntityPage.getHeaderEntityNameText();
-        softAssert.assertEquals(expectedTitle, legalEntityPage.getHeaderEntityNameText(), "Header name is incorrect");
+        softAssert.assertEquals(legalEntity.getName(), legalEntityPage.getHeaderEntityNameText(), "Header name is incorrect");
         softAssert.assertAll();
     }
 
@@ -78,7 +74,7 @@ public class LegalEntitySteps {
     public void allGivenDetailsFieldsMatches() {
         SoftAssert softAssert = new SoftAssert();
         legalEntityPage = new LegalEntityPage();
-        softAssert.assertTrue(newLegalEntityPage.compareMaps(legalEntityPage), "Fields doesn't match");
+        softAssert.assertEquals(legalEntity.summaryMap(), legalEntityPage.entityMap(), "Fields doesn't match");
         softAssert.assertAll();
     }
 

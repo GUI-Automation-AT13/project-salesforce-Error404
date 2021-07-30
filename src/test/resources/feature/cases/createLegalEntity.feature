@@ -25,7 +25,7 @@ Feature: create legal entity
       | LegalEntityState      | the state            |
       | LegalEntityPostalCode | 0023                 |
       | LegalEntityCountry    | boolivia             |
-      | Status                | Activa               |
+      | Status                | Active               |
     Then A successful message is displayed
     And The title matches
     And All given details fields matches

@@ -19,6 +19,9 @@ public class NewLegalEntityPage extends BasePage {
 
     private WebElementAction webElementAction = new WebElementAction();
 
+    @FindBy(xpath = "//div/textarea[@class=\" textarea\"]")
+    private WebElement descriptionTxtBox;
+
     private By saveBtnXpath = By.xpath("//button[@title='"
             + ResourceBundle.getBundle("internationalization/i18NLegalEntities",
             new Locale("en")).getString("button.save") + "']");
@@ -32,11 +35,6 @@ public class NewLegalEntityPage extends BasePage {
             ResourceBundle.getBundle("internationalization/i18NLegalEntities",
                     new Locale("en")).getString("input.companyname");
 
-    @FindBy(xpath = "//div/textarea[@class=\" textarea\"]")
-    private WebElement descriptionTxtBox;
-
-    private HashMap<String, String> summaryMap;
-    private HashMap<String, String> entityMap;
     private static final String INPUT_XPATH = "//label/span[text()='%s']/../..//input";
     private static final String INPUT_ADDRESS_CSS = "input.%s";
     private static final String DROPDOWN_XPATH = "//a[@class='%s']";
@@ -72,11 +70,6 @@ public class NewLegalEntityPage extends BasePage {
      * @param value a String to input
      */
     public void setInputFieldWithInternationalization(final String fieldName, final String value) {
-        String newValue = "";
-        if (value.equals(null)) {
-            webElementAction.setTextField(webElementAction
-                    .getWebElementByXpathAndValue(INPUT_XPATH, INPUT_FIELDS_NAMES.get(fieldName)), newValue);
-        }
         webElementAction.setTextField(webElementAction
                 .getWebElementByXpathAndValue(INPUT_XPATH, INPUT_FIELDS_NAMES.get(fieldName)), value);
     }
@@ -87,11 +80,6 @@ public class NewLegalEntityPage extends BasePage {
      * @param value a String to input
      */
     public void setInputFieldByClass(final String fieldName, final String value) {
-        String newValue = "";
-        if (value.equals(null)) {
-            webElementAction.setTextField(webElementAction
-                    .getWebElementByCssAndValue(INPUT_ADDRESS_CSS, INPUT_ADDRESS_NAMES.get(fieldName)), newValue);
-        }
         webElementAction.setTextField(webElementAction
                 .getWebElementByCssAndValue(INPUT_ADDRESS_CSS, INPUT_ADDRESS_NAMES.get(fieldName)), value);
     }
@@ -147,7 +135,7 @@ public class NewLegalEntityPage extends BasePage {
      * @param legalEntity with given fields.
      * @return the built map.
      */
-    private HashMap<String, Runnable> buildMap(final LegalEntity legalEntity) throws IllegalAccessException {
+    private HashMap<String, Runnable> buildMap(final LegalEntity legalEntity) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Name", () -> setInputFieldWithInternationalization("Name", legalEntity.getName()));
         strategyMap.put("CompanyName", () -> setInputFieldWithInternationalization("CompanyName",
@@ -161,51 +149,7 @@ public class NewLegalEntityPage extends BasePage {
         strategyMap.put("LegalEntityStreet", () -> setStreetTxtBox(legalEntity.getLegalEntityStreet()));
         strategyMap.put("Description", () -> setDescriptionTxtBox(legalEntity.getDescription()));
         strategyMap.put("Status", () -> selectFromDropDown("select", legalEntity.getStatus()));
-        summaryMap(legalEntity);
         return strategyMap;
-    }
-
-    /**
-     * Builds a summary map, city-state-postalCode as the address.
-     *
-     * @param legalEntity to build the map.
-     */
-    private void summaryMap(final LegalEntity legalEntity) {
-        summaryMap = new HashMap<>();
-        summaryMap.put("Name", legalEntity.getName());
-        summaryMap.put("CompanyName", legalEntity.getCompanyName());
-        summaryMap.put("LegalEntityStreet", legalEntity.getLegalEntityStreet());
-        summaryMap.put("Address", legalEntity.getAddress());
-        summaryMap.put("Country", legalEntity.getLegalEntityCountry());
-        summaryMap.put("Description", legalEntity.getDescription());
-        summaryMap.put("Status", legalEntity.getStatus());
-        System.out.println("mapa seteado" + summaryMap);
-    }
-
-    /**
-     * Builds a summary map, city-state-postalCode as the address from the ui.
-     *
-     * @param legalEntityPage to build the map.
-     */
-    private void entityMap(final LegalEntityPage legalEntityPage) {
-        entityMap = new HashMap<>();
-        String status = "";
-        String description = "";
-        if (legalEntityPage.getStatusText().isEmpty() | legalEntityPage.getDescriptionText().isEmpty()) {
-            status = null;
-            description = null;
-        } else {
-            status = legalEntityPage.getStatusText();
-            description = legalEntityPage.getDescriptionText();
-        }
-        entityMap.put("Name", legalEntityPage.getNamesText("Name"));
-        entityMap.put("CompanyName", legalEntityPage.getNamesText("CompanyName"));
-        entityMap.put("LegalEntityStreet", legalEntityPage.getAddressNamesText("Street"));
-        entityMap.put("Address", legalEntityPage.getAddressNamesText("CityStatePostalCode"));
-        entityMap.put("Country", legalEntityPage.getAddressNamesText("Country"));
-        entityMap.put("Description", description);
-        entityMap.put("Status", status);
-        System.out.println("mapa obtenido" + entityMap);
     }
 
     /**
@@ -223,14 +167,4 @@ public class NewLegalEntityPage extends BasePage {
         return clickSaveBtn();
     }
 
-    /**
-     * Compare the built map and the obtained map form the ui.
-     *
-     * @param legalEntityPage to build the map.
-     * @return true if the maps are equals, false otherwise.
-     */
-    public boolean compareMaps(final LegalEntityPage legalEntityPage) {
-        entityMap(legalEntityPage);
-        return entityMap.equals(summaryMap);
-    }
 }

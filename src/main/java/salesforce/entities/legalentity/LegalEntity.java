@@ -2,9 +2,11 @@ package salesforce.entities.legalentity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import salesforce.ui.pages.legalentity.LegalEntityPage;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.jar.Attributes;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -268,6 +270,21 @@ public class LegalEntity {
             return null;
         }
         return legalEntityCity+ ", " + legalEntityState + " " + legalEntityPostalCode;
+    }
+
+    /**
+     * Builds a summary map, city-state-postalCode as the address.
+     */
+    public HashMap<String, String> summaryMap() {
+        HashMap<String, String> summaryMap = new HashMap<>();
+        summaryMap.put("Name", getName());
+        summaryMap.put("CompanyName", getCompanyName());
+        summaryMap.put("LegalEntityStreet", getLegalEntityStreet());
+        summaryMap.put("Address", getAddress());
+        summaryMap.put("Country", getLegalEntityCountry());
+        summaryMap.put("Description", getDescription());
+        summaryMap.put("Status", getStatus());
+        return summaryMap;
     }
 }
 
