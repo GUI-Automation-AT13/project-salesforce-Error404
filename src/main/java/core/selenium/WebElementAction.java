@@ -63,6 +63,19 @@ public class WebElementAction {
     }
 
     /**
+     * Gets the web element with xpath and two values to replace in it.
+     *
+     * @param xpath the element's xpath
+     * @param firstValue the value to replace the xpath
+     * @param secondValue the value to replace the xpath
+     * @return a web element with the provided features
+     */
+    public WebElement getWebElementByXpathAndValue(final String xpath, final String firstValue,
+                                                   final String secondValue) {
+        return driver.findElement(By.xpath(String.format(xpath, firstValue, secondValue)));
+    }
+
+    /**
      * Selects an option of a dropdown menu.
      *
      * @param webElement the dropdown menu
