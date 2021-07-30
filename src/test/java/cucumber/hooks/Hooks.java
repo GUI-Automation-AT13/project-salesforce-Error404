@@ -31,7 +31,7 @@ public class Hooks {
     }
 
     @Before(order = 0)
-    public void generateToken() {
+    public void generateToken() throws Exception {
         requestBuilder
                 .addBaseUri(getTheLoginUrl())
                 .addEndpoint("/services/oauth2/token")
@@ -49,7 +49,7 @@ public class Hooks {
     }
 
     @Before(order = 1)
-    public void setUp() {
+    public void setUp() throws Exception {
         requestBuilder
                 .addHeader("Authorization", token)
                 .addBaseUri(getTheBaseUrl());

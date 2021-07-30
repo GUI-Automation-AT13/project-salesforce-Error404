@@ -18,7 +18,7 @@ public final class EnvironmentConfig {
     private static String username;
     private static String password;
 
-    private EnvironmentConfig() {
+    private EnvironmentConfig() throws Exception {
         initialize();
     }
 
@@ -27,14 +27,14 @@ public final class EnvironmentConfig {
      *
      * @return an instance of the environment's configuration
      */
-    public static EnvironmentConfig getEnvironmentConfig() {
+    public static EnvironmentConfig getEnvironmentConfig() throws Exception {
         if (environmentConfig == null) {
             environmentConfig = new EnvironmentConfig();
         }
         return environmentConfig;
     }
 
-    private void initialize() {
+    private void initialize() throws Exception {
         login = getTheLoginUrl();
         baseUrl = getTheBaseUrl();
         username = getTheSalesforceUsername();

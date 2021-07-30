@@ -9,8 +9,13 @@
 package core.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import static core.utils.EncryptorAES.getDecryptedValue;
+
 
 public final class LoadEnvironmentFile {
+
+    private static String key = "error404";
+
     private LoadEnvironmentFile() {
     }
 
@@ -75,8 +80,8 @@ public final class LoadEnvironmentFile {
      *
      * @return a String with the salesforce username
      */
-    public static String getTheSalesforceUsername() {
-        return getDotenv().get("SALESFORCE_USERNAME");
+    public static String getTheSalesforceUsername() throws Exception {
+        return getDecryptedValue(getDotenv().get("SALESFORCE_USERNAME"), key);
     }
 
     /**
@@ -84,8 +89,8 @@ public final class LoadEnvironmentFile {
      *
      * @return a String with the salesforce password
      */
-    public static String getTheSalesforcePassword() {
-        return getDotenv().get("SALESFORCE_PASSWORD");
+    public static String getTheSalesforcePassword() throws Exception {
+        return getDecryptedValue(getDotenv().get("SALESFORCE_PASSWORD"), key);
     }
 
     /**

@@ -15,10 +15,8 @@ import io.cucumber.java.en.When;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Case;
 import salesforce.ui.pages.*;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-
 import static salesforce.config.EnvironmentConfig.getPassword;
 import static salesforce.config.EnvironmentConfig.getUsername;
 

@@ -13,7 +13,7 @@ import salesforce.ui.PageTransporter;
 
 public class NavigationSteps {
     @When("I navigate to the {string} page")
-    public void iNavigateToThePage(final String pageName) {
+    public void iNavigateToThePage(final String pageName) throws Exception {
         //Navigate to web site
         PageTransporter pageTransporter = new PageTransporter();
         pageTransporter.goToPage(pageName);
