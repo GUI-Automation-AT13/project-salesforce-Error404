@@ -8,20 +8,20 @@
 
 package salesforce.ui.urls;
 
-public enum SalesforceUrl {
-//    CASES("Case"),
-//    LEGAL_ENTITIES("LegalEntity"),
-//    PRODUCTS("Product2"),
-//    OPPORTUNITIES("Opportunity"),
-    CASES("lightning/o/Case/list?filterName=Recent"),
-    LEGAL_ENTITIES("lightning/o/LegalEntity/list?filterName=Recent"),
-    PRODUCTS("lightning/o/Product2/list?filterName=Recent"),
-    OPPORTUNITIES("lightning/o/Opportunity/list?filterName=Recent"),
-    FEATURE_URL("lightning/o/%s/list?filterName=Recent");
+public enum SalesforceClassicUrl {
+//    CASES("500"),
+//    LEGAL_ENTITIES("0fw"),
+//    PRODUCTS("01t"),
+//    OPPORTUNITIES("006"),
+    CASES("500/o"),
+    LEGAL_ENTITIES("0fw/o"),
+    PRODUCTS("01t/o"),
+    OPPORTUNITIES("006/o"),
+    FEATURE_URL("%s/o");
 
     private final String url;
 
-    SalesforceUrl(final String enumUrl) {
+    SalesforceClassicUrl(final String enumUrl) {
         this.url = enumUrl;
     }
 

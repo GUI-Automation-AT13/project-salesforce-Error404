@@ -62,6 +62,15 @@ public final class LoadEnvironmentFile {
     }
 
     /**
+     * Gets the base url classic from environment file.
+     *
+     * @return a String with the base url classic
+     */
+    public static String getTheBaseUrlClassic() {
+        return getDotenv().get("BASE_URL_CLASSIC");
+    }
+
+    /**
      * Gets the login url from environment file.
      *
      * @return a String with the login url
@@ -113,5 +122,14 @@ public final class LoadEnvironmentFile {
      */
     public static String getTheSalesforceToken() {
         return getDotenv().get("SALESFORCE_TOKEN");
+    }
+
+    /**
+     * Gets the salesforce version.
+     *
+     * @return a String with the salesforce version
+     */
+    public static String getTheSalesforceVersion() {
+        return getDotenv().get("SALESFORCE_VERSION");
     }
 }
