@@ -9,12 +9,17 @@
 package cucumber.steps;
 
 import io.cucumber.java.en.When;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import salesforce.ui.PageTransporter;
 
 public class NavigationSteps {
+
+    private Logger logger = LogManager.getLogger(getClass());
+
     @When("I navigate to the {string} page")
     public void iNavigateToThePage(final String pageName) throws Exception {
-        //Navigate to web site
+        logger.info("=================== When I navigate to a feature page ==========================");
         PageTransporter pageTransporter = new PageTransporter();
         pageTransporter.goToPage(pageName);
     }

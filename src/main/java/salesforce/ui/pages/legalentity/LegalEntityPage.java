@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.legalentity;
 
 import org.openqa.selenium.By;
@@ -26,12 +34,12 @@ public class LegalEntityPage extends BasePage {
     private static final String INTERNATIONALIZED_NAME = translateValue("LegalEntities", "input.name");
     private static final String INTERNATIONALIZED_COMPANY_NAME =
             translateValue("LegalEntities", "input.companyname");
-    private By statusSpanXpath = By.xpath("//div//span[text()='"
+    private By statusSpanXpath = By.xpath("//span[text()='"
             + translateValue("LegalEntities", "span.status") + "']/../..//div//span/*");
     private By descriptionCss = By.cssSelector("span.uiOutputTextArea");
     private By headerEntityName = By.xpath("//h1//div//span[@class=\"uiOutputText\"]");
     private final int time = 2000;
-    private static final String NAMES_XPATH = "//div/div/span[text()='%s']/../..//div//span[@class=\"uiOutputText\"]";
+    private static final String NAMES_XPATH = "//span[text()='%s']/../..//div//span[@class=\"uiOutputText\"]";
     private static final String ADDRESS_XPATH = "a.forceOutputAddress div:nth-child(%s)";
     private static final HashMap<String, String> SPAN_NAMES = new HashMap<>();
 
