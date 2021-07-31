@@ -63,12 +63,12 @@ public class WebElementAction {
     /**
      * Gets the web element with xpath and a value to replace in it.
      *
-     * @param xpath the element's xpath
+     * @param cssLocator the element's xpath
      * @param value the value to replace the xpath
      * @return a web element with the provided features
      */
-    public WebElement getWebElementByCssAndValue(final String xpath, final String value) {
-        return driver.findElement(By.cssSelector(String.format(xpath, value)));
+    public WebElement getWebElementByCssAndValue(final String cssLocator, final String value) {
+        return driver.findElement(By.cssSelector(String.format(cssLocator, value)));
     }
 
     /**

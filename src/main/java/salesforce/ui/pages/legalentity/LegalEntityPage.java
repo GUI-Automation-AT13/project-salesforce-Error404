@@ -30,7 +30,7 @@ public class LegalEntityPage extends BasePage {
             + translateValue("LegalEntities", "span.status") + "']/../..//div//span/*");
     private By descriptionCss = By.cssSelector("span.uiOutputTextArea");
     private By headerEntityName = By.xpath("//h1//div//span[@class=\"uiOutputText\"]");
-    private final int time = 5000;
+    private final int time = 2000;
     private static final String NAMES_XPATH = "//div/div/span[text()='%s']/../..//div//span[@class=\"uiOutputText\"]";
     private static final String ADDRESS_XPATH = "a.forceOutputAddress div:nth-child(%s)";
     private static final HashMap<String, String> SPAN_NAMES = new HashMap<>();

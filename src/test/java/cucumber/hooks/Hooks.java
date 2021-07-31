@@ -31,7 +31,7 @@ public class Hooks {
     }
 
     @Before(order = 0)
-    public void generateToken() throws Exception {
+    public void generateToken() {
         requestBuilder
                 .addBaseUri(getTheLoginUrl())
                 .addEndpoint("/services/oauth2/token")
@@ -49,10 +49,10 @@ public class Hooks {
     }
 
     @Before(order = 1)
-    public void setUp() throws Exception {
+    public void setUp() {
         requestBuilder
                 .addHeader("Authorization", token)
-                .addBaseUri("https://freeorg01com-dev-ed.my.salesforce.com");
+                .addBaseUri(getTheAdminUrl());
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }

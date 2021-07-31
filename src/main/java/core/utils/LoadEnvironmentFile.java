@@ -70,6 +70,15 @@ public final class LoadEnvironmentFile {
     }
 
     /**
+     * Gets the admin url from environment file.
+     *
+     * @return a String with the admin url
+     */
+    public static String getTheAdminUrl() {
+        return getDotenv().get("ADMIN_URL");
+    }
+
+    /**
      * Gets the login url from environment file.
      *
      * @return a String with the login url
@@ -83,7 +92,7 @@ public final class LoadEnvironmentFile {
      *
      * @return a String with the salesforce username
      */
-    public static String getTheSalesforceUsername() throws Exception {
+    public static String getTheSalesforceUsername() {
         return getDecryptedValue(getDotenv().get("SALESFORCE_USERNAME"), key);
     }
 
@@ -92,7 +101,7 @@ public final class LoadEnvironmentFile {
      *
      * @return a String with the salesforce password
      */
-    public static String getTheSalesforcePassword() throws Exception {
+    public static String getTheSalesforcePassword() {
         return getDecryptedValue(getDotenv().get("SALESFORCE_PASSWORD"), key);
     }
 

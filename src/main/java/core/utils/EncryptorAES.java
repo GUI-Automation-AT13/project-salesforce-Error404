@@ -39,7 +39,7 @@ public class EncryptorAES {
      *
      * @param text              text to encrypt.
      * @param incomingSecretKey key to encrypt.
-     * @return Información encriptada.
+     * @return Encrypted information.
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeyException
@@ -92,7 +92,7 @@ public class EncryptorAES {
      * @return a string with the decrypted text.
      * @throws Exception
      */
-    public static String getDecryptedValue(final String incomingText, final String incomingKey) throws Exception {
+    public static String getDecryptedValue(final String incomingText, final String incomingKey) {
         String simpleText = "";
         try {
             final String key = incomingKey;
@@ -101,7 +101,7 @@ public class EncryptorAES {
             simpleText = encryptor.decryptText(text, key);
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException
                 | IllegalBlockSizeException | BadPaddingException ex) {
-            System.out.println(ex);
+            throw new UnsupportedOperationException("The value was not decrypted");
         }
         return simpleText;
     }

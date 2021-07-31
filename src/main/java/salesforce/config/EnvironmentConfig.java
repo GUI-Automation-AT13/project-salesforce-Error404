@@ -15,10 +15,11 @@ public final class EnvironmentConfig {
 
     private String login;
     private String baseUrl;
+    private String adminUrl;
     private static String username;
     private static String password;
 
-    private EnvironmentConfig() throws Exception {
+    private EnvironmentConfig() {
         initialize();
     }
 
@@ -27,18 +28,19 @@ public final class EnvironmentConfig {
      *
      * @return an instance of the environment's configuration
      */
-    public static EnvironmentConfig getEnvironmentConfig() throws Exception {
+    public static EnvironmentConfig getEnvironmentConfig() {
         if (environmentConfig == null) {
             environmentConfig = new EnvironmentConfig();
         }
         return environmentConfig;
     }
 
-    private void initialize() throws Exception {
+    private void initialize() {
         login = getTheLoginUrl();
         baseUrl = getTheBaseUrl();
         username = getTheSalesforceUsername();
         password = getTheSalesforcePassword();
+        adminUrl = getTheAdminUrl();
     }
 
     /**
@@ -57,6 +59,15 @@ public final class EnvironmentConfig {
      */
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    /**
+     * Gets the salesforce admin url.
+     *
+     * @return a String with the salesforce admin url.
+     */
+    public String getAdminUrl() {
+        return adminUrl;
     }
 
     /**

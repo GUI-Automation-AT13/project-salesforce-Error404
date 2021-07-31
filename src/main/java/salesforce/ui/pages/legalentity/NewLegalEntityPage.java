@@ -83,35 +83,29 @@ public class NewLegalEntityPage extends BasePage {
      *
      * @param fieldName the name of the menu field.
      * @param option    the option to select.
-     * @return a NewLegalEntity.
      */
-    public NewLegalEntityPage selectFromDropDown(final String fieldName, final String option) {
+    public void selectFromDropDown(final String fieldName, final String option) {
         webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(String.format(DROPDOWN_XPATH, fieldName))));
         webElementAction.clickOnWebElement(getDriver().findElement(
                 By.xpath(String.format(DROPDOWN_OPTION_XPATH, option))));
-        return this;
     }
 
     /**
      * Sets the street.
      *
      * @param street a String with the street.
-     * @return a NewLegalEntityPage
      */
-    public NewLegalEntityPage setStreetTxtBox(final String street) {
+    public void setStreetTxtBox(final String street) {
         webElementAction.setTextField(getDriver().findElement(streetTxtBoxXpath), street);
-        return this;
     }
 
     /**
      * Sets the description.
      *
      * @param description a String with the description.
-     * @return a NewLegalEntityPage
      */
-    public NewLegalEntityPage setDescriptionTxtBox(final String description) {
+    public void setDescriptionTxtBox(final String description) {
         webElementAction.setTextField(descriptionTxtBox, description);
-        return this;
     }
 
     /**
