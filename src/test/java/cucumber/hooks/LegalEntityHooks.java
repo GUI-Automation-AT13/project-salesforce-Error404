@@ -18,12 +18,12 @@ public class LegalEntityHooks {
         this.legalEntity = legalEntity;
     }
 
-    @After(value = "@DeleteLegalEntity",order = 2)
+    @After(value = "@DeleteLegalEntity")
     public void deleteALegalEntity() {
         requestBuilder
                 .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/LegalEntity/{id}")
-                .addPathParams("id", legalEntity.getId())
+                .addEndpoint("/services/data/v52.0/sobjects/LegalEntity/{legalId}")
+                .addPathParams("legalId", legalEntity.getId())
                 .addMethod(ApiMethod.DELETE)
                 .build();
         ApiManager.execute(requestBuilder.build(), apiResponse);

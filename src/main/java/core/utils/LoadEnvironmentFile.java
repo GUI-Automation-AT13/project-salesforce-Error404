@@ -9,6 +9,9 @@
 package core.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
+
+import java.util.Locale;
+
 import static core.utils.EncryptorAES.getDecryptedValue;
 
 
@@ -118,5 +121,14 @@ public final class LoadEnvironmentFile {
      */
     public static String getTheSalesforceToken() {
         return getDotenv().get("SALESFORCE_TOKEN");
+    }
+
+    /**
+     * Gets the internationalization language.
+     *
+     * @return Locale with language.
+     */
+    public static Locale getLanguage() {
+        return new Locale(getDotenv().get("LANGUAGE"));
     }
 }

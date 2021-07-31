@@ -79,10 +79,9 @@ public class LegalEntitySteps {
     }
 
     @Then("the created legal entity is displayed")
-    public void theCreatedCaseIsDisplayed() throws IllegalAccessException {
+    public void theCreatedCaseIsDisplayed() {
         SoftAssert softAssert = new SoftAssert();
         LegalEntitiesPage legalEntitiesPage = new LegalEntitiesPage();
-        System.out.println(legalEntitiesPage.getLegalEntityId(legalEntity.getName()));
         legalEntity.setId(legalEntitiesPage.getLegalEntityId(legalEntity.getName()));
         softAssert.assertAll();
     }

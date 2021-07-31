@@ -52,7 +52,7 @@ public class Hooks {
     public void setUp() throws Exception {
         requestBuilder
                 .addHeader("Authorization", token)
-                .addBaseUri(getTheBaseUrl());
+                .addBaseUri("https://freeorg01com-dev-ed.my.salesforce.com");
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }

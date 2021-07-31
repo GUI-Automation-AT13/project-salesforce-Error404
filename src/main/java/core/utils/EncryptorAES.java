@@ -24,7 +24,8 @@ public class EncryptorAES {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    private static SecretKeySpec createKey(final String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private static SecretKeySpec createKey(final String key) throws UnsupportedEncodingException,
+            NoSuchAlgorithmException {
         byte[] encryptingKey = key.getBytes("UTF-8");
         MessageDigest sha = MessageDigest.getInstance("SHA-1");
         encryptingKey = sha.digest(encryptingKey);
@@ -85,8 +86,9 @@ public class EncryptorAES {
 
     /**
      * Gets the decrypted value.
+     *
      * @param incomingText text to decrypt.
-     * @param incomingKey key to decrypt.
+     * @param incomingKey  key to decrypt.
      * @return a string with the decrypted text.
      * @throws Exception
      */
@@ -95,8 +97,8 @@ public class EncryptorAES {
         try {
             final String key = incomingKey;
             String text = incomingText;
-            EncryptorAES encriptador = new EncryptorAES();
-            simpleText = encriptador.decryptText(text, key);
+            EncryptorAES encryptor = new EncryptorAES();
+            simpleText = encryptor.decryptText(text, key);
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException
                 | IllegalBlockSizeException | BadPaddingException ex) {
             System.out.println(ex);
@@ -104,19 +106,5 @@ public class EncryptorAES {
         return simpleText;
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            final String encryptedKey = "error404";
-//            String text = "clmerZXN3m++pNw9916Fww==";
-//            EncryptorAES encriptador = new EncryptorAES();
-//            String simpleText = encriptador.decryptText(text, encryptedKey);
-//            System.out.println(text);
-//            System.out.println(encryptedKey);
-//            System.out.println(simpleText);
-//        } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException
-//                | IllegalBlockSizeException | BadPaddingException ex) {
-//            System.out.println(ex);
-//        }
-//    }
 }
 

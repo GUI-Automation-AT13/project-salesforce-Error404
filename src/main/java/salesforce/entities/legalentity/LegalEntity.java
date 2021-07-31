@@ -2,9 +2,9 @@ package salesforce.entities.legalentity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import salesforce.ui.pages.legalentity.LegalEntityPage;
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.jar.Attributes;
@@ -60,196 +60,436 @@ public class LegalEntity {
     @JsonProperty("LegalEntityAddress")
     public Object legalEntityAddress;
 
+    /**
+     * Gets the name of the legal entity.
+     *
+     * @return a string with the name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the attributes of the legal entity.
+     *
+     * @return the attributes.
+     */
     public Attributes getAttributes() {
         return attributes;
     }
 
-    public void setAttributes(Attributes attributes) {
-        this.attributes = attributes;
+    /**
+     * Sets the attributes of the legal entity.
+     *
+     * @param incomingAttributes the attributes to be set.
+     */
+    public void setAttributes(final Attributes incomingAttributes) {
+        this.attributes = incomingAttributes;
     }
 
+    /**
+     * Gets the legal entity id.
+     *
+     * @return a string with the id.
+     */
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    /**
+     * Sets the id of the legal entity.
+     *
+     * @param newId the new id to be set.
+     */
+    public void setId(final String newId) {
+        this.id = newId;
     }
 
+    /**
+     * Gets the owner id.
+     *
+     * @return a string with the owner id.
+     */
     public String getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
+    /**
+     * Sets the owner id.
+     *
+     * @param newOwnerId the new owner id
+     */
+    public void setOwnerId(final String newOwnerId) {
+        this.ownerId = newOwnerId;
     }
 
+    /**
+     * Verify if a legal entity is deleted.
+     *
+     * @return true if it's deleted, false otherwise.
+     */
     public boolean isDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    /**
+     * Sets the deleted state.
+     *
+     * @param deleted true or false.
+     */
+    public void setDeleted(final boolean deleted) {
         isDeleted = deleted;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Sets the name.
+     *
+     * @param newName the new Name
+     */
+    public void setName(final String newName) {
+        this.name = newName.concat(getTodayDate());
     }
 
+    /**
+     * Gets the created date.
+     *
+     * @return a Date.
+     */
     public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    /**
+     * Sets the created date.
+     *
+     * @param newCreatedDate the new Date.
+     */
+    public void setCreatedDate(final Date newCreatedDate) {
+        this.createdDate = newCreatedDate;
     }
 
+    /**
+     * Gets the create by id.
+     *
+     * @return a string with the created by id.
+     */
     public String getCreatedById() {
         return createdById;
     }
 
-    public void setCreatedById(String createdById) {
-        this.createdById = createdById;
+    /**
+     * Sets the created by id.
+     *
+     * @param newCreatedById the new created by id.
+     */
+    public void setCreatedById(final String newCreatedById) {
+        this.createdById = newCreatedById;
     }
 
+    /**
+     * Gets last modified date.
+     *
+     * @return a Date.
+     */
     public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
+    /**
+     * Sets the last modified date.
+     *
+     * @param newLastModifiedDate a date.
+     */
+    public void setLastModifiedDate(final Date newLastModifiedDate) {
+        this.lastModifiedDate = newLastModifiedDate;
     }
 
+    /**
+     * Gets the last modified by id.
+     *
+     * @return a string with the last modified by id.
+     */
     public String getLastModifiedById() {
         return lastModifiedById;
     }
 
-    public void setLastModifiedById(String lastModifiedById) {
-        this.lastModifiedById = lastModifiedById;
+    /**
+     * Sets the last modified by id.
+     *
+     * @param newLastModifiedById a string with the last modified id.
+     */
+    public void setLastModifiedById(final String newLastModifiedById) {
+        this.lastModifiedById = newLastModifiedById;
     }
 
+    /**
+     * Gets the system modstamp.
+     *
+     * @return a Date.
+     */
     public Date getSystemModstamp() {
         return systemModstamp;
     }
 
-    public void setSystemModstamp(Date systemModstamp) {
-        this.systemModstamp = systemModstamp;
+    /**
+     * Sets the system modstamp.
+     *
+     * @param newSystemModstamp a Date.
+     */
+    public void setSystemModstamp(final Date newSystemModstamp) {
+        this.systemModstamp = newSystemModstamp;
     }
 
+    /**
+     * Gets the last view date.
+     *
+     * @return a Date.
+     */
     public Date getLastViewedDate() {
         return lastViewedDate;
     }
 
-    public void setLastViewedDate(Date lastViewedDate) {
-        this.lastViewedDate = lastViewedDate;
+    /**
+     * Sets the last viewed date.
+     *
+     * @param newLastViewedDate a Date to set.
+     */
+    public void setLastViewedDate(final Date newLastViewedDate) {
+        this.lastViewedDate = newLastViewedDate;
     }
 
+    /**
+     * Gets the last referenced date.
+     *
+     * @return a Date.
+     */
     public Date getLastReferencedDate() {
         return lastReferencedDate;
     }
 
-    public void setLastReferencedDate(Date lastReferencedDate) {
-        this.lastReferencedDate = lastReferencedDate;
+    /**
+     * Sets the last referenced date.
+     *
+     * @param newLastReferencedDate a Date.
+     */
+    public void setLastReferencedDate(final Date newLastReferencedDate) {
+        this.lastReferencedDate = newLastReferencedDate;
     }
 
+    /**
+     * Gets the company name.
+     *
+     * @return a string with the company name.
+     */
     public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    /**
+     * Sets the company name.
+     *
+     * @param newCompanyName the new company name.
+     */
+    public void setCompanyName(final String newCompanyName) {
+        this.companyName = newCompanyName;
     }
 
+    /**
+     * Gets the description.
+     *
+     * @return a string with the description.
+     */
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    /**
+     * Sets the description.
+     *
+     * @param newDescription the new description.
+     */
+    public void setDescription(final String newDescription) {
+        this.description = newDescription;
     }
 
+    /**
+     * Gets the status.
+     *
+     * @return a string with the status.
+     */
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    /**
+     * Sets the status.
+     *
+     * @param newStatus the new status
+     */
+    public void setStatus(final String newStatus) {
+        this.status = newStatus;
     }
 
+    /**
+     * Gets the street.
+     *
+     * @return a string with the street.
+     */
     public String getLegalEntityStreet() {
         return legalEntityStreet;
     }
 
-    public void setLegalEntityStreet(String legalEntityStreet) {
-        this.legalEntityStreet = legalEntityStreet;
+    /**
+     * Sets the street.
+     *
+     * @param newLegalEntityStreet the new street.
+     */
+    public void setLegalEntityStreet(final String newLegalEntityStreet) {
+        this.legalEntityStreet = newLegalEntityStreet;
     }
 
+    /**
+     * Gets the city.
+     *
+     * @return a string with the city.
+     */
     public String getLegalEntityCity() {
         return legalEntityCity;
     }
 
-    public void setLegalEntityCity(String legalEntityCity) {
-        this.legalEntityCity = legalEntityCity;
+    /**
+     * Sets the city.
+     *
+     * @param newLegalEntityCity the new city.
+     */
+    public void setLegalEntityCity(final String newLegalEntityCity) {
+        this.legalEntityCity = newLegalEntityCity;
     }
 
+    /**
+     * Gets the state.
+     *
+     * @return a string with the state.
+     */
     public String getLegalEntityState() {
         return legalEntityState;
     }
 
-    public void setLegalEntityState(String legalEntityState) {
-        this.legalEntityState = legalEntityState;
+    /**
+     * Sets the state.
+     *
+     * @param newLegalEntityState the new state.
+     */
+    public void setLegalEntityState(final String newLegalEntityState) {
+        this.legalEntityState = newLegalEntityState;
     }
 
+    /**
+     * Sets the postal code.
+     *
+     * @return a string with the postal code.
+     */
     public String getLegalEntityPostalCode() {
         return legalEntityPostalCode;
     }
 
-    public void setLegalEntityPostalCode(String legalEntityPostalCode) {
-        this.legalEntityPostalCode = legalEntityPostalCode;
+    /**
+     * Sets the postal code.
+     *
+     * @param newLegalEntityPostalCode the new postal code.
+     */
+    public void setLegalEntityPostalCode(final String newLegalEntityPostalCode) {
+        this.legalEntityPostalCode = newLegalEntityPostalCode;
     }
 
+    /**
+     * Gets the country.
+     *
+     * @return a string with the country.
+     */
     public String getLegalEntityCountry() {
         return legalEntityCountry;
     }
 
-    public void setLegalEntityCountry(String legalEntityCountry) {
-        this.legalEntityCountry = legalEntityCountry;
+    /**
+     * Sets the country.
+     *
+     * @param newLegalEntityCountry the new country.
+     */
+    public void setLegalEntityCountry(final String newLegalEntityCountry) {
+        this.legalEntityCountry = newLegalEntityCountry;
     }
 
+    /**
+     * Gets the latitude.
+     *
+     * @return an object with the latitude.
+     */
     public Object getLegalEntityLatitude() {
         return legalEntityLatitude;
     }
 
-    public void setLegalEntityLatitude(Object legalEntityLatitude) {
-        this.legalEntityLatitude = legalEntityLatitude;
+    /**
+     * Sets the latitude.
+     *
+     * @param newLegalEntityLatitude an object.
+     */
+    public void setLegalEntityLatitude(final Object newLegalEntityLatitude) {
+        this.legalEntityLatitude = newLegalEntityLatitude;
     }
 
+    /**
+     * Gets the longitude.
+     *
+     * @return an object with the longitude.
+     */
     public Object getLegalEntityLongitude() {
         return legalEntityLongitude;
     }
 
-    public void setLegalEntityLongitude(Object legalEntityLongitude) {
-        this.legalEntityLongitude = legalEntityLongitude;
+    /**
+     * Sets the longitude.
+     *
+     * @param newLegalEntityLongitude an object.
+     */
+    public void setLegalEntityLongitude(final Object newLegalEntityLongitude) {
+        this.legalEntityLongitude = newLegalEntityLongitude;
     }
 
+    /**
+     * Gets the geocode accuracy.
+     *
+     * @return an object.
+     */
     public Object getLegalEntityGeocodeAccuracy() {
         return legalEntityGeocodeAccuracy;
     }
 
-    public void setLegalEntityGeocodeAccuracy(Object legalEntityGeocodeAccuracy) {
-        this.legalEntityGeocodeAccuracy = legalEntityGeocodeAccuracy;
+    /**
+     * Sets the geocode accuracy.
+     *
+     * @param newLegalEntityGeocodeAccuracy an object.
+     */
+    public void setLegalEntityGeocodeAccuracy(final Object newLegalEntityGeocodeAccuracy) {
+        this.legalEntityGeocodeAccuracy = newLegalEntityGeocodeAccuracy;
     }
 
+    /**
+     * Gets the address.
+     *
+     * @return an object.
+     */
     public Object getLegalEntityAddress() {
         return legalEntityAddress;
     }
 
-    public void setLegalEntityAddress(Object legalEntityAddress) {
-        this.legalEntityAddress = legalEntityAddress;
+    /**
+     * Sets the address.
+     *
+     * @param newLegalEntityAddress an object
+     */
+    public void setLegalEntityAddress(final Object newLegalEntityAddress) {
+        this.legalEntityAddress = newLegalEntityAddress;
     }
 
     /**
@@ -265,15 +505,22 @@ public class LegalEntity {
         }
     }
 
+    /**
+     * Gets the entity address composed of city, state and postal code.
+     *
+     * @return a string with the address.
+     */
     public String getAddress() {
         if (legalEntityCity == null && legalEntityState == null && legalEntityPostalCode == null) {
             return null;
         }
-        return legalEntityCity+ ", " + legalEntityState + " " + legalEntityPostalCode;
+        return legalEntityCity + ", " + legalEntityState + " " + legalEntityPostalCode;
     }
 
     /**
      * Builds a summary map, city-state-postalCode as the address.
+     *
+     * @return HashMap<String, String>.
      */
     public HashMap<String, String> summaryMap() {
         HashMap<String, String> summaryMap = new HashMap<>();
@@ -286,6 +533,15 @@ public class LegalEntity {
         summaryMap.put("Status", getStatus());
         return summaryMap;
     }
+
+    /**
+     * Gets today date.
+     *
+     * @return a String with the date.
+     */
+    public String getTodayDate() {
+        Date actualDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy HH:mm");
+        return dateFormat.format(actualDate);
+    }
 }
-
-

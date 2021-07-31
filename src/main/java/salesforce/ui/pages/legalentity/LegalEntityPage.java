@@ -5,10 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
-
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.ResourceBundle;
+
+import static salesforce.utils.Translator.translateValue;
 
 /**
  * Interacts with the Legal Entities elements.
@@ -24,22 +23,16 @@ public class LegalEntityPage extends BasePage {
     @FindBy(css = "span.uiOutputTextArea")
     private WebElement description;
 
-    private static final String INTERNATIONALIZED_NAME =
-            ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-                    new Locale("en")).getString("input.name");
+    private static final String INTERNATIONALIZED_NAME = translateValue("LegalEntities", "input.name");
     private static final String INTERNATIONALIZED_COMPANY_NAME =
-            ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-                    new Locale("en")).getString("input.companyname");
+            translateValue("LegalEntities", "input.companyname");
     private By statusSpanXpath = By.xpath("//div//span[text()='"
-            + ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-            new Locale("en")).getString("span.status") + "']/../..//div//span/*");
+            + translateValue("LegalEntities", "span.status") + "']/../..//div//span/*");
     private By descriptionCss = By.cssSelector("span.uiOutputTextArea");
     private By headerEntityName = By.xpath("//h1//div//span[@class=\"uiOutputText\"]");
-
-    private final int TIME = 5000;
+    private final int time = 5000;
     private static final String NAMES_XPATH = "//div/div/span[text()='%s']/../..//div//span[@class=\"uiOutputText\"]";
     private static final String ADDRESS_XPATH = "a.forceOutputAddress div:nth-child(%s)";
-    //    private static final String HEADER_ENTITY_NAME = "//h1//div//span[@class=\"uiOutputText\"]";
     private static final HashMap<String, String> SPAN_NAMES = new HashMap<>();
 
     static {
@@ -147,7 +140,7 @@ public class LegalEntityPage extends BasePage {
      * @return null if the span is not present, span text otherwise.
      */
     private String getSpanText(final By span) {
-        if (getWebElementAction().isElementPresent(span, TIME)) {
+        if (getWebElementAction().isElementPresent(span, time)) {
             return getDriver().findElement(span).getText();
         }
         return null;
@@ -156,14 +149,14 @@ public class LegalEntityPage extends BasePage {
     /**
      * Gets the description text.
      *
+     * @param spanToFixText span with text to fix.
      * @return null if the text obtained is empty, a string with the text otherwise.
      */
-    private String getSpanFixedText(String spanToFixText) {
-        String span = spanToFixText;
-        if (span.isEmpty()) {
-            return span = null;
+    private String getSpanFixedText(final String spanToFixText) {
+        if (spanToFixText.isEmpty()) {
+            return null;
         }
-        return span;
+        return spanToFixText;
     }
 
     /**
@@ -172,9 +165,11 @@ public class LegalEntityPage extends BasePage {
      * @param keyMap of the map.
      * @return null if the address is not present, span text otherwise.
      */
-    private String getAddressTextWithKeyMapByCss(String keyMap) {
-        if (getWebElementAction().isElementPresent(By.cssSelector(String.format(ADDRESS_XPATH, DIV_ADDRESS.get(keyMap))), TIME)) {
-            return getDriver().findElement(By.cssSelector(String.format(ADDRESS_XPATH, DIV_ADDRESS.get(keyMap)))).getText();
+    private String getAddressTextWithKeyMapByCss(final String keyMap) {
+        if (getWebElementAction().isElementPresent(By.cssSelector(
+                String.format(ADDRESS_XPATH, DIV_ADDRESS.get(keyMap))), time)) {
+            return getDriver().findElement(By.cssSelector(
+                    String.format(ADDRESS_XPATH, DIV_ADDRESS.get(keyMap)))).getText();
         }
         return null;
     }
@@ -185,9 +180,11 @@ public class LegalEntityPage extends BasePage {
      * @param keyMap of the map.
      * @return null if the name is not present, span text otherwise.
      */
-    private String getNamesTextWithKeyMapByXpath(String keyMap) {
-        if (getWebElementAction().isElementPresent(By.xpath(String.format(NAMES_XPATH, SPAN_NAMES.get(keyMap))), TIME)) {
-            return getDriver().findElement(By.xpath(String.format(NAMES_XPATH, SPAN_NAMES.get(keyMap)))).getText();
+    private String getNamesTextWithKeyMapByXpath(final String keyMap) {
+        if (getWebElementAction().isElementPresent(By.xpath(
+                String.format(NAMES_XPATH, SPAN_NAMES.get(keyMap))), time)) {
+            return getDriver().findElement(By.xpath(
+                    String.format(NAMES_XPATH, SPAN_NAMES.get(keyMap)))).getText();
         }
         return null;
     }

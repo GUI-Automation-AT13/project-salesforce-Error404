@@ -8,9 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.legalentity.LegalEntity;
 import salesforce.ui.pages.BasePage;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import java.util.Set;
+import static salesforce.utils.Translator.translateValue;
 
 /**
  * Interacts with the New Legal Entity elements.
@@ -22,19 +21,12 @@ public class NewLegalEntityPage extends BasePage {
     @FindBy(xpath = "//div/textarea[@class=\" textarea\"]")
     private WebElement descriptionTxtBox;
 
-    private By saveBtnXpath = By.xpath("//button[@title='"
-            + ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-            new Locale("en")).getString("button.save") + "']");
+    private By saveBtnXpath = By.xpath("//button[@title='" + translateValue("LegalEntities", "button.save") + "']");
     private By streetTxtBoxXpath = By.xpath("//div/textarea[@placeholder='"
-            + ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-            new Locale("en")).getString("input.street") + "']");
-    private static final String INTERNATIONALIZED_NAME =
-            ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-                    new Locale("en")).getString("input.name");
+            + translateValue("LegalEntities", "input.street") + "']");
+    private static final String INTERNATIONALIZED_NAME = translateValue("LegalEntities", "input.name");
     private static final String INTERNATIONALIZED_COMPANY_NAME =
-            ResourceBundle.getBundle("internationalization/i18NLegalEntities",
-                    new Locale("en")).getString("input.companyname");
-
+            translateValue("LegalEntities", "input.companyname");
     private static final String INPUT_XPATH = "//label/span[text()='%s']/../..//input";
     private static final String INPUT_ADDRESS_CSS = "input.%s";
     private static final String DROPDOWN_XPATH = "//a[@class='%s']";
@@ -67,6 +59,7 @@ public class NewLegalEntityPage extends BasePage {
     /**
      * Introduces text to web email text box.
      *
+     * @param fieldName the field name of the map.
      * @param value a String to input
      */
     public void setInputFieldWithInternationalization(final String fieldName, final String value) {
@@ -77,6 +70,7 @@ public class NewLegalEntityPage extends BasePage {
     /**
      * Introduces text to web email text box.
      *
+     * @param fieldName the field name of the map.
      * @param value a String to input
      */
     public void setInputFieldByClass(final String fieldName, final String value) {
@@ -93,7 +87,8 @@ public class NewLegalEntityPage extends BasePage {
      */
     public NewLegalEntityPage selectFromDropDown(final String fieldName, final String option) {
         webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(String.format(DROPDOWN_XPATH, fieldName))));
-        webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(String.format(DROPDOWN_OPTION_XPATH, option))));
+        webElementAction.clickOnWebElement(getDriver().findElement(
+                By.xpath(String.format(DROPDOWN_OPTION_XPATH, option))));
         return this;
     }
 
@@ -159,12 +154,9 @@ public class NewLegalEntityPage extends BasePage {
      * @param legalEntity an entity.
      * @return a legal entity page.
      */
-    public LegalEntityPage createLegalEntity(final Set<String> fields, final LegalEntity legalEntity) throws IllegalAccessException {
-        // Componer el mapa
+    public LegalEntityPage createLegalEntity(final Set<String> fields, final LegalEntity legalEntity) {
         HashMap<String, Runnable> map = buildMap(legalEntity);
-        // Llenar el formulario
         fields.forEach(field -> map.get(field).run());
         return clickSaveBtn();
     }
-
 }

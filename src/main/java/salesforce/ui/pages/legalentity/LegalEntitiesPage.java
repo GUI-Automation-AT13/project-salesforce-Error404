@@ -16,12 +16,6 @@ public class LegalEntitiesPage extends BasePage {
     @FindBy(css = "table.slds-table")
     private WebElement entitiesTable;
 
-    @FindBy(css = "//li[@class=\"oneActionsDropDown\"]//div/a")
-    private WebElement arrowMenuIcon;
-
-    @FindBy(xpath = "//div[contains(@class, 'popupTargetContainer')]//a[@title=\"Delete\"]")
-    private WebElement deleteOption;
-
     @FindBy(css = ".slds-theme--success")
     private WebElement successMessage;
 
@@ -44,17 +38,6 @@ public class LegalEntitiesPage extends BasePage {
     public NewLegalEntityPage clickOnNew() {
         getWebElementAction().clickOnWebElement(newEntityBtn);
         return new NewLegalEntityPage();
-    }
-
-    /**
-     * Gets the name of a legal entity from the table of entities.
-     *
-     * @param tableEntityName the name of the legal entity.
-     * @return a string with the name of the legal entity.
-     */
-    public String getTableEntity(final String tableEntityName) {
-        return getWebElementAction().getTextOnWebElement(getWebElementAction()
-                .getWebElementByXpathAndValue(TABLE_ENTITY, tableEntityName));
     }
 
     /**
