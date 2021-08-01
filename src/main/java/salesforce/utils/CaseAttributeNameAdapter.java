@@ -48,7 +48,6 @@ public final class CaseAttributeNameAdapter {
      * @return a String with the name
      */
     public static String getCaseAttributeName(final String key) {
-        System.out.println(key);
         if (ATTRIBUTES_NAMES.containsKey(key)) {
             return ATTRIBUTES_NAMES.get(key);
         }

@@ -53,7 +53,7 @@ public class CasesPage extends BasePage {
      */
     public CasesFormPage clickOnNew() {
         getWebElementAction().clickOnWebElement(getWebElementAction()
-                .getWebElementByXpathAndValue(buttonNewXpath, translateValue(featureName, "new")));
+                .getWebElementByXpathAndValue(buttonNewXpath, translateValue(featureName, "button.new")));
         return new CasesFormPage();
     }
 

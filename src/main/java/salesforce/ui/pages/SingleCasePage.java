@@ -119,18 +119,18 @@ public class SingleCasePage extends BasePage {
             Map<String, String> map = new HashMap<>();
             for (int i = 0; i < fieldsList.size(); i++) {
                 String text = fieldsList.get(i).getText();
-                if (valuesList.get(i).getText().contains(translateValue(featureName, "open"))
-                        && valuesList.get(i).getText().contains(translateValue(featureName, "preview"))) {
+                if (valuesList.get(i).getText().contains(translateValue(featureName, "details.open"))
+                        && valuesList.get(i).getText().contains(translateValue(featureName, "details.preview"))) {
                     if (valuesList.get(i).getText().contains(",")) {
                         String value = valuesList.get(i).getText();
                         map.put(getCaseAttributeName(changeFieldName(
                                 replaceSpecialCharacters(text))),
-                                value.substring(0, value.indexOf(translateValue(featureName, "open")) - 1)
+                                value.substring(0, value.indexOf(translateValue(featureName, "details.open")) - 1)
                                 .concat(value.substring(value.indexOf(","))));
                     } else {
                         String value = valuesList.get(i).getText();
                         map.put(getCaseAttributeName(changeFieldName(replaceSpecialCharacters(text))),
-                                value.substring(0, value.indexOf(translateValue(featureName, "open")) - 1));
+                                value.substring(0, value.indexOf(translateValue(featureName, "details.open")) - 1));
                     }
                 } else {
                     map.put(getCaseAttributeName(changeFieldName(replaceSpecialCharacters(text))),
