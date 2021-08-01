@@ -15,6 +15,7 @@ public final class EnvironmentConfig {
 
     private String login;
     private String baseUrl;
+    private String adminUrl;
     private static String username;
     private static String password;
 
@@ -39,6 +40,7 @@ public final class EnvironmentConfig {
         baseUrl = getTheBaseUrl();
         username = getTheSalesforceUsername();
         password = getTheSalesforcePassword();
+        adminUrl = getTheAdminUrl();
     }
 
     /**
@@ -57,6 +59,15 @@ public final class EnvironmentConfig {
      */
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    /**
+     * Gets the salesforce admin url.
+     *
+     * @return a String with the salesforce admin url.
+     */
+    public String getAdminUrl() {
+        return adminUrl;
     }
 
     /**

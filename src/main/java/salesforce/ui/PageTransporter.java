@@ -19,7 +19,7 @@ public class PageTransporter {
     /**
      * Creates page transporter.
      */
-    public PageTransporter() {
+    public PageTransporter() throws Exception {
     }
 
     /**
