@@ -57,7 +57,7 @@ public class Hooks {
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }
 
-    @After
+    @After(order = 1)
     public void tearDown() {
         getWebDriverManager().quitDriver();
     }

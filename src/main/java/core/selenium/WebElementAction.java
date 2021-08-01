@@ -47,7 +47,7 @@ public class WebElementAction {
      * @param webElement the element to click on
      */
     public void clickOnWebElement(final WebElement webElement) {
-        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        wait.until(ExpectedConditions.visibilityOf(webElement));
         webElement.click();
     }
 
@@ -144,6 +144,17 @@ public class WebElementAction {
         } finally {
             driver.manage().timeouts().implicitlyWait(WebDriverConfig
                     .getWebDriverConfig().getImplicitWaitTime(), TimeUnit.MILLISECONDS);
+        }
+    }
+
+    /**
+     * Clicks the checkbox elements.
+     * @param webElement checkbox.
+     * @param isPrivate set the status from private.
+     */
+    public void clickCheckBox(final WebElement webElement, final boolean isPrivate) {
+        if (!webElement.isSelected() && isPrivate) {
+            webElement.click();
         }
     }
 }
