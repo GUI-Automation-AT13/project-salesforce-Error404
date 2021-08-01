@@ -82,7 +82,7 @@ public final class EnvironmentConfig {
     public String getSalesforceVersion() {
         return salesforceVersion;
     }
-    
+
     /**
      * Gets the salesforce admin url.
      *

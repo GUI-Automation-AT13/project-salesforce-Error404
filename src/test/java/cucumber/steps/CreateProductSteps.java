@@ -1,6 +1,7 @@
 package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import core.utils.EncryptorAES;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,10 +22,12 @@ import static salesforce.config.EnvironmentConfig.getPassword;
 import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class CreateProductSteps {
+    LoginPage loginPage;
     ProductsPage productsPage;
     Product product;
     ProductPage productPage;
     Set<String> fields;
+    EncryptorAES encryptorAES;
 
     public CreateProductSteps(Product product) {
         this.product = product;
@@ -32,17 +35,14 @@ public class CreateProductSteps {
 
     @Given("^I login to salesforce as an? (.*?) user$")
     public void iLoginToSalesforceAsAnAdminUser(final String userType) {
-        //get user credentials
-        String username = getUsername();
-        String password = getPassword();
-        //login
-        LoginPage loginPage = new LoginPage();
-        loginPage.loginSuccessful(username, password);
+        encryptorAES = new EncryptorAES();
+        loginPage = new LoginPage();
+        loginPage.loginSuccessful(getUsername(), getPassword());
         HomePage homePage = new HomePage();
     }
 
     @When("^I navigate to (.*?) page$")
-    public void iNavigateToAFeaturePage(final String pageName) {
+    public void iNavigateToAFeaturePage(final String pageName) throws Exception {
         PageTransporter pageTransporter = new PageTransporter();
         pageTransporter.goToPage(pageName);
     }
