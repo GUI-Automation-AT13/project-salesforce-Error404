@@ -12,8 +12,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;
 import static core.utils.EncryptorAES.getDecryptedValue;
 
-import java.util.Locale;
-
 public final class LoadEnvironmentFile {
 
     private static String key = "error404";
