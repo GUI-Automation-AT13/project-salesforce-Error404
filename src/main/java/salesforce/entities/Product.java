@@ -62,10 +62,10 @@ public class Product {
     /**
      * Sets the attribute.
      *
-     * @param attributes to set
+     * @param newAttributes to set
      */
-    public void setAttributes(Attribute attributes) {
-        this.attributes = attributes;
+    public void setAttributes(final Attribute newAttributes) {
+        this.attributes = newAttributes;
     }
 
     /**
@@ -80,10 +80,10 @@ public class Product {
     /**
      * Sets the id.
      *
-     * @param id to set
+     * @param newId to set
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setId(final String newId) {
+        this.id = newId;
     }
 
     /**
@@ -98,10 +98,10 @@ public class Product {
     /**
      * Sets the name.
      *
-     * @param name to set
+     * @param newName to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String newName) {
+        this.name = newName;
     }
 
     /**
@@ -116,10 +116,10 @@ public class Product {
     /**
      * Sets the productCode.
      *
-     * @param productCode to set
+     * @param newProductCode to set
      */
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setProductCode(final String newProductCode) {
+        this.productCode = newProductCode;
     }
 
     /**
@@ -134,10 +134,10 @@ public class Product {
     /**
      * Sets the description.
      *
-     * @param description to set
+     * @param newDescription to set
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(final String newDescription) {
+        this.description = newDescription;
     }
 
     /**
@@ -154,7 +154,7 @@ public class Product {
      *
      * @param active to set
      */
-    public void setActive(boolean active) {
+    public void setActive(final boolean active) {
         isActive = active;
     }
 
@@ -170,10 +170,10 @@ public class Product {
     /**
      * Sets the createdDate.
      *
-     * @param createdDate to set
+     * @param newCreatedDate to set
      */
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedDate(final Date newCreatedDate) {
+        this.createdDate = newCreatedDate;
     }
 
     /**
@@ -188,10 +188,10 @@ public class Product {
     /**
      * Sets the createdById.
      *
-     * @param createdById to set
+     * @param newCreatedById to set
      */
-    public void setCreatedById(String createdById) {
-        this.createdById = createdById;
+    public void setCreatedById(final String newCreatedById) {
+        this.createdById = newCreatedById;
     }
 
     /**
@@ -206,10 +206,10 @@ public class Product {
     /**
      * Sets the lastModifiedDate.
      *
-     * @param lastModifiedDate to set
+     * @param newLastModifiedDate to set
      */
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
+    public void setLastModifiedDate(final Date newLastModifiedDate) {
+        this.lastModifiedDate = newLastModifiedDate;
     }
 
     /**
@@ -224,10 +224,10 @@ public class Product {
     /**
      * Sets the lastModifiedById.
      *
-     * @param lastModifiedById to set
+     * @param newLastModifiedById to set
      */
-    public void setLastModifiedById(String lastModifiedById) {
-        this.lastModifiedById = lastModifiedById;
+    public void setLastModifiedById(final String newLastModifiedById) {
+        this.lastModifiedById = newLastModifiedById;
     }
 
     /**
@@ -242,10 +242,10 @@ public class Product {
     /**
      * Sets the systemModStamp.
      *
-     * @param systemModStamp to set
+     * @param newSystemModStamp to set
      */
-    public void setSystemModStamp(Date systemModStamp) {
-        this.systemModStamp = systemModStamp;
+    public void setSystemModStamp(final Date newSystemModStamp) {
+        this.systemModStamp = newSystemModStamp;
     }
 
     /**
@@ -260,10 +260,10 @@ public class Product {
     /**
      * Sets the family.
      *
-     * @param family to set
+     * @param newFamily to set
      */
-    public void setFamily(String family) {
-        this.family = family;
+    public void setFamily(final String newFamily) {
+        this.family = newFamily;
     }
 
     /**
@@ -278,10 +278,10 @@ public class Product {
     /**
      * Sets the externalDataSourceId.
      *
-     * @param externalDataSourceId to set
+     * @param newExternalDataSourceId to set
      */
-    public void setExternalDataSourceId(Object externalDataSourceId) {
-        this.externalDataSourceId = externalDataSourceId;
+    public void setExternalDataSourceId(final Object newExternalDataSourceId) {
+        this.externalDataSourceId = newExternalDataSourceId;
     }
 
     /**
@@ -296,10 +296,10 @@ public class Product {
     /**
      * Sets the externalId.
      *
-     * @param externalId to set
+     * @param newExternalId to set
      */
-    public void setExternalId(Object externalId) {
-        this.externalId = externalId;
+    public void setExternalId(final Object newExternalId) {
+        this.externalId = newExternalId;
     }
 
     /**
@@ -314,10 +314,10 @@ public class Product {
     /**
      * Sets the displayUrl.
      *
-     * @param displayUrl to set
+     * @param newDisplayUrl to set
      */
-    public void setDisplayUrl(Object displayUrl) {
-        this.displayUrl = displayUrl;
+    public void setDisplayUrl(final Object newDisplayUrl) {
+        this.displayUrl = newDisplayUrl;
     }
 
     /**
@@ -332,10 +332,10 @@ public class Product {
     /**
      * Sets the quantityUnitOfMeasure.
      *
-     * @param quantityUnitOfMeasure to set
+     * @param newQuantityUnitOfMeasure to set
      */
-    public void setQuantityUnitOfMeasure(Object quantityUnitOfMeasure) {
-        this.quantityUnitOfMeasure = quantityUnitOfMeasure;
+    public void setQuantityUnitOfMeasure(final Object newQuantityUnitOfMeasure) {
+        this.quantityUnitOfMeasure = newQuantityUnitOfMeasure;
     }
 
     /**
@@ -352,7 +352,7 @@ public class Product {
      *
      * @param deleted to set
      */
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(final boolean deleted) {
         isDeleted = deleted;
     }
 
@@ -370,7 +370,7 @@ public class Product {
      *
      * @param archived to set
      */
-    public void setArchived(boolean archived) {
+    public void setArchived(final boolean archived) {
         isArchived = archived;
     }
 
@@ -386,10 +386,10 @@ public class Product {
     /**
      * Sets the lastViewedDate.
      *
-     * @param lastViewedDate to set
+     * @param newLastViewedDate to set
      */
-    public void setLastViewedDate(Date lastViewedDate) {
-        this.lastViewedDate = lastViewedDate;
+    public void setLastViewedDate(final Date newLastViewedDate) {
+        this.lastViewedDate = newLastViewedDate;
     }
 
     /**
@@ -404,10 +404,10 @@ public class Product {
     /**
      * Sets the lastReferencedDate.
      *
-     * @param lastReferencedDate to set
+     * @param newLastReferencedDate to set
      */
-    public void setLastReferencedDate(Date lastReferencedDate) {
-        this.lastReferencedDate = lastReferencedDate;
+    public void setLastReferencedDate(final Date newLastReferencedDate) {
+        this.lastReferencedDate = newLastReferencedDate;
     }
 
     /**
@@ -422,9 +422,9 @@ public class Product {
     /**
      * Sets the stockKeepingUnit.
      *
-     * @param stockKeepingUnit to set
+     * @param newStockKeepingUnit to set
      */
-    public void setStockKeepingUnit(Object stockKeepingUnit) {
-        this.stockKeepingUnit = stockKeepingUnit;
+    public void setStockKeepingUnit(final Object newStockKeepingUnit) {
+        this.stockKeepingUnit = newStockKeepingUnit;
     }
 }

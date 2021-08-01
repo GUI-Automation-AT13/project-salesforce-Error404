@@ -9,14 +9,10 @@
 package salesforce.ui.urls;
 
 public enum SalesforceUrl {
-//    CASES("Case"),
-//    LEGAL_ENTITIES("LegalEntity"),
-//    PRODUCTS("Product2"),
-//    OPPORTUNITIES("Opportunity"),
-    CASES("lightning/o/Case/list?filterName=Recent"),
-    LEGAL_ENTITIES("lightning/o/LegalEntity/list?filterName=Recent"),
-    PRODUCTS("lightning/o/Product2/list?filterName=Recent"),
-    OPPORTUNITIES("lightning/o/Opportunity/list?filterName=Recent"),
+    CASES("Case"),
+    LEGAL_ENTITIES("LegalEntity"),
+    PRODUCTS("Product2"),
+    OPPORTUNITIES("Opportunity"),
     FEATURE_URL("lightning/o/%s/list?filterName=Recent");
 
     private final String url;

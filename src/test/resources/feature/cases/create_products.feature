@@ -9,7 +9,6 @@ Feature: Create Product
     Then A successful message is displayed
     And Check product fields matches
     And Check The title matches
-    And Check The created date matches
 
   Scenario: Create a product with all fields
     Given I login to salesforce as an admin user
@@ -22,4 +21,3 @@ Feature: Create Product
     Then A successful message is displayed
     And Check product fields matches
     And Check The title matches
-    And Check The created date matches

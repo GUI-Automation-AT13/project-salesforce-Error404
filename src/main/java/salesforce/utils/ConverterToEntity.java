@@ -17,7 +17,8 @@ public class ConverterToEntity {
      * @return an entity.
      * @throws JsonProcessingException the exception thrown
      */
-    public static <T> T convertMapToEntity(Map<String, String> table, Class<T> entityClass) throws JsonProcessingException {
+    public static <T> T convertMapToEntity(final Map<String, String> table, final Class<T> entityClass)
+            throws JsonProcessingException {
         String json = new ObjectMapper().writeValueAsString(table);
         return new ObjectMapper().readValue(json, entityClass);
     }

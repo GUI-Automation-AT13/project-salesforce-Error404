@@ -9,14 +9,10 @@
 package salesforce.ui.urls;
 
 public enum SalesforceClassicUrl {
-//    CASES("500"),
-//    LEGAL_ENTITIES("0fw"),
-//    PRODUCTS("01t"),
-//    OPPORTUNITIES("006"),
-    CASES("500/o"),
-    LEGAL_ENTITIES("0fw/o"),
-    PRODUCTS("01t/o"),
-    OPPORTUNITIES("006/o"),
+    CASES("500"),
+    LEGAL_ENTITIES("0fw"),
+    PRODUCTS("01t"),
+    OPPORTUNITIES("006"),
     FEATURE_URL("%s/o");
 
     private final String url;

@@ -50,14 +50,12 @@ public class PageTransporter {
      * @param pageName a String with the page name
      */
     public void goToPage(final String pageName) {
-        if("classic".equals(salesforceVersion)) {
-            goToUrl(baseUrlClassic.concat(SalesforceClassicUrl.valueOf(pageName).getUrl()));
-//            goToUrl(baseUrlClassic.concat(String.format(SalesforceClassicUrl.FEATURE_URL.getUrl(), pageName)));
-//            goToUrl(baseUrlClassic.concat(String.format(SalesforceClassicUrl.FEATURE_URL.getUrl(), SalesforceClassicUrl.valueOf(pageName).getUrl())));
+        if ("classic".equals(salesforceVersion)) {
+            goToUrl(baseUrlClassic.concat(String.format(SalesforceClassicUrl.FEATURE_URL.getUrl(),
+                    SalesforceClassicUrl.valueOf(pageName).getUrl())));
         } else {
-            goToUrl(baseUrl.concat(SalesforceUrl.valueOf(pageName).getUrl()));
-//            goToUrl(baseUrl.concat(String.format(SalesforceUrl.FEATURE_URL.getUrl(), pageName)));
-//            goToUrl(baseUrl.concat(String.format(SalesforceUrl.FEATURE_URL.getUrl(), SalesforceUrl.valueOf(pageName).getUrl())));
+            goToUrl(baseUrl.concat(String.format(SalesforceUrl.FEATURE_URL.getUrl(),
+                    SalesforceUrl.valueOf(pageName).getUrl())));
         }
     }
 }

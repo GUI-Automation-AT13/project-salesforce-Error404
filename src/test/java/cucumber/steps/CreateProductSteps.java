@@ -14,19 +14,13 @@ import salesforce.ui.pages.product.NewProductPage;
 import salesforce.ui.pages.product.ProductPage;
 import salesforce.ui.pages.product.ProductsPage;
 import salesforce.utils.ConverterToEntity;
-import salesforce.utils.StringToDate;
-
-import java.text.SimpleDateFormat;
+import salesforce.utils.Translator;
 import java.util.Map;
 import java.util.Set;
 import static salesforce.config.EnvironmentConfig.getPassword;
 import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class CreateProductSteps {
-    private StringToDate stringToDate;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy H:mm");
-    SoftAssert softAssert = new SoftAssert();
-    String actualDate;
     ProductsPage productsPage;
     Product product;
     ProductPage productPage;
@@ -60,34 +54,28 @@ public class CreateProductSteps {
         product = ConverterToEntity.convertMapToEntity(table, Product.class);
         fields = table.keySet();
         productPage = newProductPage.createProduct(table.keySet(), product);
-
-        stringToDate = new StringToDate();
-        actualDate = dateFormat.format(stringToDate.getTodayDate());
     }
 
     @Then("A successful message is displayed")
     public void aSuccessfulMessageIsDisplayed() {
-        softAssert.assertEquals(productPage.getUserSuccessMessage(), "success\nProduct \"" + product.getName() + "\" was created.\nClose", "Message is incorrect");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(productPage.getUserSuccessMessage().contains(product.getName()), "Message is incorrect");
+        softAssert.assertAll();
     }
 
     @And("Check product fields matches")
     public void allProductFieldsMatches() {
-        softAssert.assertEquals(product.getName(), productPage.getSpanText("Product Name"), "Product name is incorrect");
-        softAssert.assertEquals(product.getProductCode(), productPage.getSpanText("Product Code"), "Product code is incorrect");
-        softAssert.assertEquals(product.getFamily(), productPage.getSpanText("Product Family"), "Product family is incorrect");
-
-//        softAssert.assertEquals(product.getDescription(), util.productPage.getSpanText("Product Description"), "Product description is incorrect");
-//        softAssert.assertEquals(product.getDescription(), util.productPage.getDescription(), "Product description is incorrect");
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals(product.getName(), productPage.getSpanText(Translator.translateValue("Products", "productName")), "Product name is incorrect");
+        softAssert.assertEquals(product.getProductCode(), productPage.getSpanText(Translator.translateValue("Products", "productCode")), "Product code is incorrect");
+        softAssert.assertEquals(product.getFamily(), productPage.getSpanText(Translator.translateValue("Products", "productFamily")), "Product family is incorrect");
+        softAssert.assertAll();
     }
 
     @And("Check The title matches")
     public void validateTheTitleMatches() {
+        SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(product.getName(), productPage.getProductTittle(), "The tittle is incorrect");
-    }
-
-    @And("Check The created date matches")
-    public void validateTheCreatedDateMatches() {
-        softAssert.assertEquals(actualDate, productPage.getCreatedByDate());
         softAssert.assertAll();
     }
 }

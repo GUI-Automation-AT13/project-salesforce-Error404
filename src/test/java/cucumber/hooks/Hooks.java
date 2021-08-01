@@ -52,7 +52,7 @@ public class Hooks {
     public void setUp() {
         requestBuilder
                 .addHeader("Authorization", token)
-                .addBaseUri(getTheBaseUrl());
+                .addBaseUri(getTheBaseUrlClassic());
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }
