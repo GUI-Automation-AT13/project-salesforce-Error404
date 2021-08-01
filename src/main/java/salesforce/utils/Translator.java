@@ -1,7 +1,6 @@
 package salesforce.utils;
 
 import java.util.ResourceBundle;
-
 import static core.utils.LoadEnvironmentFile.getLanguage;
 
 public class Translator {

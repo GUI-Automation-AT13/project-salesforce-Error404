@@ -14,9 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
-
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 
 public class WebElementAction {
@@ -64,16 +62,14 @@ public class WebElementAction {
     }
 
     /**
-     * Gets the web element with xpath and two values to replace in it.
+     * Gets the web element with xpath and a value to replace in it.
      *
-     * @param xpath the element's xpath
-     * @param firstValue the value to replace the xpath
-     * @param secondValue the value to replace the xpath
+     * @param cssLocator the element's xpath
+     * @param value the value to replace the xpath
      * @return a web element with the provided features
      */
-    public WebElement getWebElementByXpathAndValue(final String xpath, final String firstValue,
-                                                   final String secondValue) {
-        return driver.findElement(By.xpath(String.format(xpath, firstValue, secondValue)));
+    public WebElement getWebElementByCssAndValue(final String cssLocator, final String value) {
+        return driver.findElement(By.cssSelector(String.format(cssLocator, value)));
     }
 
     /**
@@ -126,6 +122,8 @@ public class WebElementAction {
         wait.until(ExpectedConditions.visibilityOf(webElement));
         return webElement.getText();
     }
+
+
 
     /**
      * Gets the attribute value on web element.

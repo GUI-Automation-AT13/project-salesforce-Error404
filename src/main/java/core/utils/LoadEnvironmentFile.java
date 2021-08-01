@@ -9,10 +9,15 @@
 package core.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import java.util.Locale;
+import static core.utils.EncryptorAES.getDecryptedValue;
 
 import java.util.Locale;
 
 public final class LoadEnvironmentFile {
+
+    private static String key = "error404";
+
     private LoadEnvironmentFile() {
     }
 
@@ -64,6 +69,15 @@ public final class LoadEnvironmentFile {
     }
 
     /**
+     * Gets the admin url from environment file.
+     *
+     * @return a String with the admin url
+     */
+    public static String getTheAdminUrl() {
+        return getDotenv().get("ADMIN_URL");
+    }
+
+    /**
      * Gets the login url from environment file.
      *
      * @return a String with the login url
@@ -78,7 +92,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce username
      */
     public static String getTheSalesforceUsername() {
-        return getDotenv().get("SALESFORCE_USERNAME");
+        return getDecryptedValue(getDotenv().get("SALESFORCE_USERNAME"), key);
     }
 
     /**
@@ -87,7 +101,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce password
      */
     public static String getTheSalesforcePassword() {
-        return getDotenv().get("SALESFORCE_PASSWORD");
+        return getDecryptedValue(getDotenv().get("SALESFORCE_PASSWORD"), key);
     }
 
     /**
@@ -117,6 +131,11 @@ public final class LoadEnvironmentFile {
         return getDotenv().get("SALESFORCE_TOKEN");
     }
 
+    /**
+     * Gets the internationalization language.
+     *
+     * @return Locale with language.
+     */
     public static Locale getLanguage() {
         return new Locale(getDotenv().get("LANGUAGE"));
     }
