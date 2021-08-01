@@ -1,6 +1,6 @@
 Feature: Create Opportunity
 
-  @DeleteOpportunity
+  @DeleteOpportunity @CreateAccount @DeleteAccount @CreateCampaign
   Scenario: create a new Opportunity with only required fields
     Given I login to Salesforce site as a developer user
     When I navigate to the "OPPORTUNITY" page
@@ -10,7 +10,7 @@ Feature: Create Opportunity
       | CloseDate        | 7/6/2021            |
       | OpportunityName  | New Opportunity     |
       | NextStep         | Dev.#23             |
-      | Account          | Opportunity Account |
+      | Account          | Punisher            |
       | Stage            | Prospecting         |
       | Type             | New Customer        |
       | Probability      | 20                  |

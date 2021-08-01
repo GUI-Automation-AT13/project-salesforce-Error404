@@ -52,7 +52,7 @@ public class Hooks {
     public void setUp() {
         requestBuilder
                 .addHeader("Authorization", token)
-                .addBaseUri(getTheAdminUrl());
+                .addBaseUri("https://jalasft2-dev-ed.my.salesforce.com/");
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }
