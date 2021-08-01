@@ -21,6 +21,7 @@ import java.util.Map;
 
 import static salesforce.config.EnvironmentConfig.getPassword;
 import static salesforce.config.EnvironmentConfig.getUsername;
+import static salesforce.utils.Translator.translateValue;
 
 public class CreateCaseSteps {
     Case newCase;
@@ -32,6 +33,7 @@ public class CreateCaseSteps {
     Map actualCaseRowValues;
     Map expectedCaseRowValues;
     SoftAssert softAssert = new SoftAssert();
+    String featureName = "Cases";
 
     public CreateCaseSteps(Case newCase) {
         this.newCase = newCase;
@@ -39,12 +41,8 @@ public class CreateCaseSteps {
 
     @Given("I login to salesforce as a(n) {string} user")
     public void iLoginToSalesforceAsAUser(final String userType) {
-        //get user credentials
-        String username = getUsername();
-        String password = getPassword();
-        //login
         LoginPage loginPage = new LoginPage();
-        loginPage.loginSuccessful(username, password);
+        loginPage.loginSuccessful(getUsername(), getPassword());
         HomePage homePage = new HomePage();
     }
 
@@ -57,12 +55,13 @@ public class CreateCaseSteps {
         newCase.setCaseOwner(casesFormPage.getCaseOwner());
         SingleCasePage singleCasePage = casesFormPage.createCase(entry.keySet(), newCase);
         actualMessage = casesFormPage.getPopUpMessage();
-        newCase.updateCase(singleCasePage.getHeadersField("Case Number"));
+        newCase.updateCase(singleCasePage.getCaseNumber());
+        newCase.setId(singleCasePage.getCaseId());
     }
 
     @Then("a success message is displayed")
     public void aSuccessIsDisplayed() {
-        String expectedRegex = "Case \"[0-9]{8}\" was created.";
+        String expectedRegex = translateValue(featureName, "popup.message.regexp");
         softAssert.assertTrue(actualMessage.matches(expectedRegex),
                 "\nactual: " + actualMessage + "\nexpected regex: " + expectedRegex);
     }
@@ -70,9 +69,10 @@ public class CreateCaseSteps {
     @When("I check on the site's headers")
     public void iCheckOnTheSiteSHeaders() throws IllegalAccessException {
         SingleCasePage singleCasePage = new SingleCasePage();
-        actualCaseHeadersValues = singleCasePage.getHeadersFields();
+        actualCaseHeadersValues = singleCasePage.getAllHeadersFields();
+        System.out.println(actualCaseHeadersValues);
         expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
-        expectedCaseHeadersValues.put("title", newCase.getClass().getSimpleName());
+        expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
     }
 
     @Then("all header's fields match to the created case")
@@ -95,7 +95,6 @@ public class CreateCaseSteps {
     @Then("the created case is displayed")
     public void theCreatedCaseIsDisplayed() throws IllegalAccessException {
         CasesPage casesPage = new CasesPage();
-        newCase.setId(casesPage.getCaseId(newCase.getCaseNumber()));
         actualCaseRowValues = casesPage.getRowFields(newCase.getCaseNumber());
         expectedCaseRowValues = newCase.createMapOnKeySetFromCase(actualCaseRowValues.keySet());
         softAssert.assertEquals(actualCaseRowValues, expectedCaseRowValues);
