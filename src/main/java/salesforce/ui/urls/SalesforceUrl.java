@@ -12,7 +12,7 @@ public enum SalesforceUrl {
     CASES("Case"),
     LEGAL_ENTITIES("LegalEntity"),
     PRODUCTS("Product2"),
-    OPPORTUNITIES("Opportunity"),
+    OPPORTUNITY("Opportunity"),
     FEATURE_URL("lightning/o/%s/list?filterName=Recent");
 
     private final String url;

@@ -12,7 +12,7 @@ public enum SalesforceClassicUrl {
     CASES("500"),
     LEGAL_ENTITIES("0fw"),
     PRODUCTS("01t"),
-    OPPORTUNITIES("006"),
+    OPPORTUNITY("006"),
     FEATURE_URL("%s/o");
 
     private final String url;
