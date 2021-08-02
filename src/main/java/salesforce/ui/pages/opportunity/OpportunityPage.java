@@ -1,6 +1,13 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.opportunity;
 
-import core.selenium.WebElementAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
@@ -9,7 +16,6 @@ import salesforce.utils.Translator;
 public class OpportunityPage extends BasePage {
     private String newXpath;
     private By btnNew;
-    private WebElementAction webElementAction;
 
     /**
      * Override method for waiting an element.
@@ -26,11 +32,11 @@ public class OpportunityPage extends BasePage {
      */
     private void clickNewBtnOpportunity() {
         getDriver().findElement(By.xpath(newXpath)).click();
-        //webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(newXpath)));
     }
 
     /**
      * Goes to the New Opportunity page.
+     *
      * @return the new Opportunity page.
      */
     public NewOpportunityPage openNewOpportunityForm() {

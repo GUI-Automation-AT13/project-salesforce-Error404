@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.opportunity;
 
 import core.selenium.WebElementAction;
@@ -7,7 +15,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Opportunity;
 import salesforce.ui.pages.BasePage;
 import salesforce.utils.Translator;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +42,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Sets the inputs fields  for the Opportunity form.
+     *
      * @param field name of the Input field.
      * @param value of the input.
      * @return The new opportunity page to set again the input.
@@ -47,6 +55,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Sets the fields for generic input dropdown when creating a new opportunity.
+     *
      * @param field the field of the dropdown.
      * @param option the option from the dropdown.
      * @return The new opportunity page to set again the input.
@@ -61,6 +70,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Sets the fields for generic search dropdown when creating a new opportunity.
+     *
      * @param field the field of the search dropdown.
      * @param option the option from the search dropdown.
      * @return The new opportunity page to set again the input.
@@ -76,6 +86,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Selects the Private checkbox for Private.
+     *
      * @param field field type.
      * @param isPrivate state of private.
      * @return NewOpportunityPage.
@@ -88,6 +99,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Sets the description in the opportunity form.
+     *
      * @param descriptionText value of the description.
      * @param field field of web element.
      */
@@ -98,6 +110,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Sets all the parameters set in the Opportunity entity.
+     *
      * @param fields the key of Map.
      * @param opportunity entity.
      */
@@ -131,7 +144,8 @@ public class NewOpportunityPage extends BasePage {
     }
 
     /**
-     * Creates a new Opportunity and goes to the details paage.
+     * Creates a new Opportunity and goes to the details page.
+     *
      * @param fields the keys of the Map.
      * @param opportunity entity of Opportunity.
      * @return created opportunity page.
@@ -144,6 +158,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Redirects to the Created Opportunity page when form is saved correctly.
+     *
      * @return Created Opportunity page.
      */
     public CreatedOpportunityPage clickSaveOpportunity() {
@@ -153,6 +168,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Saves the Opportunity created and open a new form.
+     *
      * @return New Opportunity form page.
      */
     public NewOpportunityPage clickSaveAndNewBtn() {
@@ -162,6 +178,7 @@ public class NewOpportunityPage extends BasePage {
 
     /**
      * Returns to the Opportunity page when cancel button is selected in the new form.
+     *
      * @return Opportunity page.
      */
     public OpportunityPage clickCancelBtn() {

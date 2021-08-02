@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -72,6 +80,7 @@ public class Campaign {
 
     /**
      * Gets the Id.
+     *
      * @return the Id.
      */
     public String getId() {
@@ -80,6 +89,7 @@ public class Campaign {
 
     /**
      * Sets the id.
+     *
      * @param idNew to be set.
      */
     public void setId(final String idNew) {
@@ -88,6 +98,7 @@ public class Campaign {
 
     /**
      * Gets the IsDeleted.
+     *
      * @return the IsDeleted.
      */
     public String isDeleted() {
@@ -96,6 +107,7 @@ public class Campaign {
 
     /**
      * Sets the deleted.
+     *
      * @param deletedNew to be set.
      */
     public void setDeleted(final String deletedNew) {
@@ -104,6 +116,7 @@ public class Campaign {
 
     /**
      * Gets the Name.
+     *
      * @return the Name.
      */
     public String getName() {
@@ -112,6 +125,7 @@ public class Campaign {
 
     /**
      * Sets the name.
+     *
      * @param nameNew to be set.
      */
     public void setName(final String nameNew) {
@@ -120,6 +134,7 @@ public class Campaign {
 
     /**
      * Gets the ParentId.
+     *
      * @return the ParentId.
      */
     public String getParentId() {
@@ -128,6 +143,7 @@ public class Campaign {
 
     /**
      * Sets the parentId.
+     *
      * @param parentIdNew to be set.
      */
     public void setParentId(final String parentIdNew) {
@@ -136,6 +152,7 @@ public class Campaign {
 
     /**
      * Gets the Type.
+     *
      * @return the Type.
      */
     public String getType() {
@@ -144,6 +161,7 @@ public class Campaign {
 
     /**
      * Sets the type.
+     *
      * @param typeNew to be set.
      */
     public void setType(final String typeNew) {
@@ -152,6 +170,7 @@ public class Campaign {
 
     /**
      * Gets the Status.
+     *
      * @return the Status.
      */
     public String getStatus() {
@@ -160,6 +179,7 @@ public class Campaign {
 
     /**
      * Sets the status.
+     *
      * @param statusNew to be set.
      */
     public void setStatus(final String statusNew) {
@@ -168,6 +188,7 @@ public class Campaign {
 
     /**
      * Gets the StartDate.
+     *
      * @return the StartDate.
      */
     public String getStartDate() {
@@ -176,6 +197,7 @@ public class Campaign {
 
     /**
      * Sets the startDate.
+     *
      * @param startDateNew to be set.
      */
     public void setStartDate(final String startDateNew) {
@@ -184,6 +206,7 @@ public class Campaign {
 
     /**
      * Gets the EndDate.
+     *
      * @return the EndDate.
      */
     public String getEndDate() {
@@ -192,6 +215,7 @@ public class Campaign {
 
     /**
      * Sets the endDate.
+     *
      * @param endDateNew to be set.
      */
     public void setEndDate(final String endDateNew) {
@@ -200,6 +224,7 @@ public class Campaign {
 
     /**
      * Gets the ExpectedRevenue.
+     *
      * @return the ExpectedRevenue.
      */
     public String getExpectedRevenue() {
@@ -208,6 +233,7 @@ public class Campaign {
 
     /**
      * Sets the expectedRevenue.
+     *
      * @param expectedRevenueNew to be set.
      */
     public void setExpectedRevenue(final String expectedRevenueNew) {
@@ -216,6 +242,7 @@ public class Campaign {
 
     /**
      * Gets the BudgetedCost.
+     *
      * @return the BudgetedCost.
      */
     public String getBudgetedCost() {
@@ -224,6 +251,7 @@ public class Campaign {
 
     /**
      * Sets the budgetedCost.
+     *
      * @param budgetedCostNew to be set.
      */
     public void setBudgetedCost(final String budgetedCostNew) {
@@ -232,6 +260,7 @@ public class Campaign {
 
     /**
      * Gets the ActualCost.
+     *
      * @return the ActualCost.
      */
     public String getActualCost() {
@@ -240,6 +269,7 @@ public class Campaign {
 
     /**
      * Sets the actualCost.
+     *
      * @param actualCostNew to be set.
      */
     public void setActualCost(final String actualCostNew) {
@@ -248,6 +278,7 @@ public class Campaign {
 
     /**
      * Gets the ExpectedResponse.
+     *
      * @return the ExpectedResponse.
      */
     public String getExpectedResponse() {
@@ -256,6 +287,7 @@ public class Campaign {
 
     /**
      * Sets the expectedResponse.
+     *
      * @param expectedResponseNew to be set.
      */
     public void setExpectedResponse(final String expectedResponseNew) {
@@ -264,6 +296,7 @@ public class Campaign {
 
     /**
      * Gets the NumberSent.
+     *
      * @return the NumberSent.
      */
     public String getNumberSent() {
@@ -272,6 +305,7 @@ public class Campaign {
 
     /**
      * Sets the numberSent.
+     *
      * @param numberSentNew to be set.
      */
     public void setNumberSent(final String numberSentNew) {
@@ -280,6 +314,7 @@ public class Campaign {
 
     /**
      * Gets the IsActive.
+     *
      * @return the IsActive.
      */
     public String isActive() {
@@ -288,6 +323,7 @@ public class Campaign {
 
     /**
      * Sets the active.
+     *
      * @param activeNew to be set.
      */
     public void setActive(final String activeNew) {
@@ -296,6 +332,7 @@ public class Campaign {
 
     /**
      * Gets the Description.
+     *
      * @return the Description.
      */
     public String getDescription() {
@@ -304,6 +341,7 @@ public class Campaign {
 
     /**
      * Sets the description.
+     *
      * @param descriptionNew to be set.
      */
     public void setDescription(final String descriptionNew) {
@@ -312,6 +350,7 @@ public class Campaign {
 
     /**
      * Gets the NumberOfLeads.
+     *
      * @return the NumberOfLeads.
      */
     public String getNumberOfLeads() {
@@ -320,6 +359,7 @@ public class Campaign {
 
     /**
      * Sets the numberOfLeads.
+     *
      * @param numberOfLeadsNew to be set.
      */
     public void setNumberOfLeads(final String numberOfLeadsNew) {
@@ -328,6 +368,7 @@ public class Campaign {
 
     /**
      * Gets the NumberOfConvertedLeads.
+     *
      * @return the NumberOfConvertedLeads.
      */
     public String getNumberOfConvertedLeads() {
@@ -336,6 +377,7 @@ public class Campaign {
 
     /**
      * Sets the numberOfConvertedLeads.
+     *
      * @param numberOfConvertedLeadsNew to be set.
      */
     public void setNumberOfConvertedLeads(final String numberOfConvertedLeadsNew) {
@@ -344,6 +386,7 @@ public class Campaign {
 
     /**
      * Gets the NumberOfContacts.
+     *
      * @return the NumberOfContacts.
      */
     public String getNumberOfContacts() {
@@ -352,6 +395,7 @@ public class Campaign {
 
     /**
      * Sets the numberOfContacts.
+     *
      * @param numberOfContactsNew to be set.
      */
     public void setNumberOfContacts(final String numberOfContactsNew) {
@@ -360,6 +404,7 @@ public class Campaign {
 
     /**
      * Gets the NumberOfResponses.
+     *
      * @return the NumberOfResponses.
      */
     public String getNumberOfResponses() {
@@ -368,6 +413,7 @@ public class Campaign {
 
     /**
      * Sets the numberOfResponses.
+     *
      * @param numberOfResponsesNew to be set.
      */
     public void setNumberOfResponses(final String numberOfResponsesNew) {
@@ -376,6 +422,7 @@ public class Campaign {
 
     /**
      * Gets the NumberOfOpportunities.
+     *
      * @return the NumberOfOpportunities.
      */
     public String getNumberOfOpportunities() {
@@ -384,6 +431,7 @@ public class Campaign {
 
     /**
      * Sets the numberOfOpportunities.
+     *
      * @param numberOfOpportunitiesNew to be set.
      */
     public void setNumberOfOpportunities(final String numberOfOpportunitiesNew) {
@@ -392,6 +440,7 @@ public class Campaign {
 
     /**
      * Gets the NumberOfWonOpportunities.
+     *
      * @return the NumberOfWonOpportunities.
      */
     public String getNumberOfWonOpportunities() {
@@ -400,6 +449,7 @@ public class Campaign {
 
     /**
      * Sets the numberOfWonOpportunities.
+     *
      * @param numberOfWonOpportunitiesNew to be set.
      */
     public void setNumberOfWonOpportunities(final String numberOfWonOpportunitiesNew) {
@@ -408,6 +458,7 @@ public class Campaign {
 
     /**
      * Gets the AmountAllOpportunities.
+     *
      * @return the AmountAllOpportunities.
      */
     public String getAmountAllOpportunities() {
@@ -416,6 +467,7 @@ public class Campaign {
 
     /**
      * Sets the amountAllOpportunities.
+     *
      * @param amountAllOpportunitiesNew to be set.
      */
     public void setAmountAllOpportunities(final String amountAllOpportunitiesNew) {
@@ -424,6 +476,7 @@ public class Campaign {
 
     /**
      * Gets the AmountWonOpportunities.
+     *
      * @return the AmountWonOpportunities.
      */
     public String getAmountWonOpportunities() {
@@ -432,6 +485,7 @@ public class Campaign {
 
     /**
      * Sets the amountWonOpportunities.
+     *
      * @param amountWonOpportunitiesNew to be set.
      */
     public void setAmountWonOpportunities(final String amountWonOpportunitiesNew) {
@@ -440,6 +494,7 @@ public class Campaign {
 
     /**
      * Gets the OwnerId.
+     *
      * @return the OwnerId.
      */
     public String getOwnerId() {
@@ -448,6 +503,7 @@ public class Campaign {
 
     /**
      * Sets the ownerId.
+     *
      * @param ownerIdNew to be set.
      */
     public void setOwnerId(final String ownerIdNew) {
@@ -456,6 +512,7 @@ public class Campaign {
 
     /**
      * Gets the CreatedDate.
+     *
      * @return the CreatedDate.
      */
     public String getCreatedDate() {
@@ -464,6 +521,7 @@ public class Campaign {
 
     /**
      * Sets the createdDate.
+     *
      * @param createdDateNew to be set.
      */
     public void setCreatedDate(final String createdDateNew) {
@@ -472,6 +530,7 @@ public class Campaign {
 
     /**
      * Gets the CreatedById.
+     *
      * @return the CreatedById.
      */
     public String getCreatedById() {
@@ -480,6 +539,7 @@ public class Campaign {
 
     /**
      * Sets the createdById.
+     *
      * @param createdByIdNew to be set.
      */
     public void setCreatedById(final String createdByIdNew) {
@@ -488,6 +548,7 @@ public class Campaign {
 
     /**
      * Gets the LastModifiedDate.
+     *
      * @return the LastModifiedDate.
      */
     public String getLastModifiedDate() {
@@ -496,6 +557,7 @@ public class Campaign {
 
     /**
      * Sets the lastModifiedDate.
+     *
      * @param lastModifiedDateNew to be set.
      */
     public void setLastModifiedDate(final String lastModifiedDateNew) {
@@ -504,6 +566,7 @@ public class Campaign {
 
     /**
      * Gets the LastModifiedById.
+     *
      * @return the LastModifiedById.
      */
     public String getLastModifiedById() {
@@ -512,6 +575,7 @@ public class Campaign {
 
     /**
      * Sets the lastModifiedById.
+     *
      * @param lastModifiedByIdNew to be set.
      */
     public void setLastModifiedById(final String lastModifiedByIdNew) {
@@ -520,6 +584,7 @@ public class Campaign {
 
     /**
      * Gets the SystemModstamp.
+     *
      * @return the SystemModstamp.
      */
     public String getSystemModstamp() {
@@ -528,6 +593,7 @@ public class Campaign {
 
     /**
      * Sets the systemModstamp.
+     *
      * @param systemModstampNew to be set.
      */
     public void setSystemModstamp(final String systemModstampNew) {
@@ -536,6 +602,7 @@ public class Campaign {
 
     /**
      * Gets the LastActivityDate.
+     *
      * @return the LastActivityDate.
      */
     public String getLastActivityDate() {
@@ -544,6 +611,7 @@ public class Campaign {
 
     /**
      * Sets the lastActivityDate.
+     *
      * @param lastActivityDateNew to be set.
      */
     public void setLastActivityDate(final String lastActivityDateNew) {
@@ -552,6 +620,7 @@ public class Campaign {
 
     /**
      * Gets the LastViewedDate.
+     *
      * @return the LastViewedDate.
      */
     public String getLastViewedDate() {
@@ -560,6 +629,7 @@ public class Campaign {
 
     /**
      * Sets the lastViewedDate.
+     *
      * @param lastViewedDateNew to be set.
      */
     public void setLastViewedDate(final String lastViewedDateNew) {
@@ -568,6 +638,7 @@ public class Campaign {
 
     /**
      * Gets the LastReferencedDate.
+     *
      * @return the LastReferencedDate.
      */
     public String getLastReferencedDate() {
@@ -576,6 +647,7 @@ public class Campaign {
 
     /**
      * Sets the lastReferencedDate.
+     *
      * @param lastReferencedDateNew to be set.
      */
     public void setLastReferencedDate(final String lastReferencedDateNew) {
@@ -584,6 +656,7 @@ public class Campaign {
 
     /**
      * Gets the CampaignMemberRecordTypeId.
+     *
      * @return the CampaignMemberRecordTypeId.
      */
     public String getCampaignMemberRecordTypeId() {
@@ -592,6 +665,7 @@ public class Campaign {
 
     /**
      * Sets the campaignMemberRecordTypeId.
+     *
      * @param campaignMemberRecordTypeIdNew to be set.
      */
     public void setCampaignMemberRecordTypeId(final String campaignMemberRecordTypeIdNew) {

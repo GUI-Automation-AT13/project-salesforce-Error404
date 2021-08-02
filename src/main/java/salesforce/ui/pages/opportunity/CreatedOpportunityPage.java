@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.opportunity;
 
 import core.selenium.WebElementAction;
@@ -29,8 +37,8 @@ public class CreatedOpportunityPage extends BasePage {
     private By menuBtn = By.xpath("//li[contains(@class,'slds-dropdown-trigger_click')]");
     private By deleteOption = By.xpath("//div[@role='menu']//*[@title='" + Translator.translateValue("Opportunity",
             "delete") + "']//a");
-    private By deleteBtnConfirm = By.xpath("//button[@title=' + ConfigEnvVar.getResourceBundle()."
-            + "getString(\"delete\") + \"']");
+    private By deleteBtnConfirm = By.xpath("//button[@title='"
+            + Translator.translateValue("Opportunity","delete") + "']");
     private static final String CREATED_HEADER = "//div[./p[text()='%s']]//%s";
     private static final String CREATED_DETAIL = "//div[./div[./span[contains(text(),'%s')]]]"
             + "//lightning-formatted-text";
@@ -39,7 +47,7 @@ public class CreatedOpportunityPage extends BasePage {
     private WebElementAction webElementAction = new WebElementAction();
 
     /**
-     * Waits for an specific element to load on the page.
+     * Waits for a specific element to load on the page.
      */
     @Override
     protected void waitForPageToLoad() {
@@ -48,6 +56,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Gets the alert text when an opportunity is created correctly.
+     *
      * @return the text of the alert when opportunity is created.
      */
     public String getSuccessfulAlert() {
@@ -56,6 +65,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Gets the Title of the created opportunity page.
+     *
      * @return the current text of the title header.
      */
     public String getTitleHeader() {
@@ -64,6 +74,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Gets the generic text from the header in a created opportunity page.
+     *
      * @param field name of the field to get the String.
      * @param headerType type of the element field.
      * @return the current text of the specific field.
@@ -80,6 +91,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Gets the Stage form the created Opportunity page.
+     *
      * @return A string with the current text of the Stage.
      */
     public String getCurrentStage() {
@@ -87,7 +99,7 @@ public class CreatedOpportunityPage extends BasePage {
     }
 
     /**
-     * Clicks the detail button for created Oppoprtunity.
+     * Clicks the detail button for created Opportunity.
      */
     public void clickDetails() {
         webElementAction.clickOnWebElement(getDriver().findElement(By.xpath("//a[@data-tab-value='detailTab']")));
@@ -101,6 +113,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Gets text from detail fields.
+     *
      * @param xpath the path for the field.
      * @param field name of the field.
      * @return the text from the detail field.
@@ -117,6 +130,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Gets Map with all the detail fields text.
+     *
      * @return Map with detail field text.
      */
     public Map<String, String> getDetailMap() {
@@ -141,6 +155,7 @@ public class CreatedOpportunityPage extends BasePage {
 
     /**
      * Deletes the created Opportunity in the Opportunity created page.
+     *
      * @return the opportunity page
      */
     public OpportunityPage deleteCreatedOpportunity() {

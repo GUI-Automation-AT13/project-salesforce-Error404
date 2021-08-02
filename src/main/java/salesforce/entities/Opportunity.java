@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -51,6 +59,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity name.
+     *
      * @return string of the name.
      */
     public String getOpportunityName() {
@@ -59,6 +68,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Name.
+     *
      * @param opportunityNameNew the name to set.
      */
     public void setOpportunityName(final String opportunityNameNew) {
@@ -67,6 +77,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Next Step.
+     *
      * @return string of the next step.
      */
     public String getNextStep() {
@@ -75,6 +86,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Next step.
+     *
      * @param nextStepNew the text to set.
      */
     public void setNextStep(final String nextStepNew) {
@@ -83,6 +95,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Amount.
+     *
      * @return long of the amount.
      */
     public String getAmount() {
@@ -91,6 +104,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Amount.
+     *
      * @param amountNew the amount to set.
      */
     public void setAmount(final String amountNew) {
@@ -99,6 +113,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Close date.
+     *
      * @return string of the close date.
      */
     public String getCloseDate() {
@@ -107,6 +122,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Close Date.
+     *
      * @param closeDateNew the date to set.
      */
     public void setCloseDate(final String closeDateNew) {
@@ -115,6 +131,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Stage.
+     *
      * @return string of the stage.
      */
     public String getOpportunityStage() {
@@ -123,6 +140,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Stage.
+     *
      * @param opportunityStageNew the text to set.
      */
     public void setOpportunityStage(final String opportunityStageNew) {
@@ -131,6 +149,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity type.
+     *
      * @return string of the type.
      */
     public String getTypeOption() {
@@ -139,6 +158,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Type.
+     *
      * @param typeOptionNew the text to set.
      */
     public void setTypeOption(final String typeOptionNew) {
@@ -147,6 +167,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Lead source.
+     *
      * @return string of the lead source.
      */
     public String getLeadSource() {
@@ -155,6 +176,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Lead Source.
+     *
      * @param leadSourceNew the text to set.
      */
     public void setLeadSource(final String leadSourceNew) {
@@ -163,6 +185,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Delivery option.
+     *
      * @return string of the delivery option.
      */
     public String getDeliveryOption() {
@@ -171,6 +194,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Delivery Option.
+     *
      * @param deliveryOptionNew the text to set.
      */
     public void setDeliveryOption(final String deliveryOptionNew) {
@@ -179,6 +203,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity probability.
+     *
      * @return string of the probability.
      */
     public String getProbability() {
@@ -187,6 +212,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Probability.
+     *
      * @param probabilityNew the text to set.
      */
     public void setProbability(final String probabilityNew) {
@@ -195,6 +221,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Order Number.
+     *
      * @return string of the order number.
      */
     public String getOrderNumber() {
@@ -203,6 +230,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Order Number.
+     *
      * @param orderNumberNew the text to set.
      */
     public void setOrderNumber(final String orderNumberNew) {
@@ -211,6 +239,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Current Generator.
+     *
      * @return string of the current generator.
      */
     public String getCurrentGenerator() {
@@ -219,6 +248,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Current Generator.
+     *
      * @param currentGeneratorNew the text to set.
      */
     public void setCurrentGenerator(final String currentGeneratorNew) {
@@ -227,6 +257,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Tracking Number.
+     *
      * @return string of the tracking number.
      */
     public String getTrackingNumber() {
@@ -235,6 +266,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Tracking Number.
+     *
      * @param trackingNumberNew the text to set.
      */
     public void setTrackingNumber(final String trackingNumberNew) {
@@ -243,6 +275,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Main competitor.
+     *
      * @return string of the main competitor.
      */
     public String getMainComp() {
@@ -251,6 +284,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Main Competitor.
+     *
      * @param mainCompNew the text to set.
      */
     public void setMainComp(final String mainCompNew) {
@@ -259,6 +293,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Description.
+     *
      * @return string of the description.
      */
     public String getDescription() {
@@ -267,6 +302,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Description.
+     *
      * @param descriptionNew the text to set.
      */
     public void setDescription(final String descriptionNew) {
@@ -275,6 +311,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Search Account.
+     *
      * @return string of the search account.
      */
     public String getSearchAccount() {
@@ -283,6 +320,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Account.
+     *
      * @param searchAccountNew the text to set.
      */
     public void setSearchAccount(final String searchAccountNew) {
@@ -291,6 +329,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Search Campaign.
+     *
      * @return string of the search campaign.
      */
     public String getSearchCampaign() {
@@ -299,6 +338,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Campaign.
+     *
      * @param searchCampaignNew the text to set.
      */
     public void setSearchCampaign(final String searchCampaignNew) {
@@ -307,6 +347,7 @@ public class Opportunity {
 
     /**
      * Returns the Opportunity Private.
+     *
      * @return boolean of private status.
      */
     public boolean isPrivate() {
@@ -315,6 +356,7 @@ public class Opportunity {
 
     /**
      * Sets the Opportunity Private status.
+     *
      * @param isPrivateNew the status to set.
      */
     public void setPrivate(final boolean isPrivateNew) {
@@ -339,6 +381,7 @@ public class Opportunity {
 
     /**
      * Gets the Map with the needed fields.
+     *
      * @return Map of String text.
      */
     public Map<String, String> getMapFields() {

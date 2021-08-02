@@ -160,6 +160,7 @@ public class WebElementAction {
 
     /**
      * Clicks the checkbox elements.
+     *
      * @param webElement checkbox.
      * @param isPrivate set the status from private.
      */
