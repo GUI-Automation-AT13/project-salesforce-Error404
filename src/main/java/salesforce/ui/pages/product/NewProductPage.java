@@ -14,7 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Product;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -26,11 +26,11 @@ public class NewProductPage extends BasePage {
     private WebElement saveButton;
 
     private By productDescriptionTextArea = By.xpath("//label//span[text()='"
-            + Translator.translateValue("Products", "productDescription") + "']/../../textarea");
+            + FileTranslator.translateValue("Products", "productDescription") + "']/../../textarea");
     private By productFamilyComboBox = By.xpath("//span//span[text()='"
-            + Translator.translateValue("Products", "productFamily") + "']/../..//a");
+            + FileTranslator.translateValue("Products", "productFamily") + "']/../..//a");
     private By activeCheckBox = By.xpath("//label//span[text()='"
-            + Translator.translateValue("Products", "active") + "']/../../input");
+            + FileTranslator.translateValue("Products", "active") + "']/../../input");
 
     private static final String INPUT_XPATH = "//label//span[text()='%s']/../../input";
 
@@ -99,10 +99,10 @@ public class NewProductPage extends BasePage {
     public ProductPage createProduct(final Set<String> fields, final Product product) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Name", () ->
-                setInputField(Translator.translateValue("Products", "productName"), product.getName()));
+                setInputField(FileTranslator.translateValue("Products", "productName"), product.getName()));
         strategyMap.put("IsActive", () -> clickActiveCheckBox());
         strategyMap.put("ProductCode", () ->
-                setInputField(Translator.translateValue("Products", "productCode"),
+                setInputField(FileTranslator.translateValue("Products", "productCode"),
                         product.getProductCode()));
         strategyMap.put("Family", () -> selectProductFamilyOption(product.getFamily()));
         strategyMap.put("Description", () -> setProductDescription(product.getDescription()));

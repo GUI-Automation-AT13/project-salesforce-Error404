@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,10 +35,10 @@ public class CreatedOpportunityPage extends BasePage {
     private WebElement detailBtn;
 
     private By menuBtn = By.xpath("//li[contains(@class,'slds-dropdown-trigger_click')]");
-    private By deleteOption = By.xpath("//div[@role='menu']//*[@title='" + Translator.translateValue("Opportunity",
+    private By deleteOption = By.xpath("//div[@role='menu']//*[@title='" + FileTranslator.translateValue("Opportunity",
             "delete") + "']//a");
     private By deleteBtnConfirm = By.xpath("//button[@title='"
-            + Translator.translateValue("Opportunity", "delete") + "']");
+            + FileTranslator.translateValue("Opportunity", "delete") + "']");
     private static final String CREATED_HEADER = "//div[./p[text()='%s']]//%s";
     private static final String CREATED_DETAIL = "//div[./div[./span[contains(text(),'%s')]]]"
             + "//lightning-formatted-text";
@@ -135,20 +135,21 @@ public class CreatedOpportunityPage extends BasePage {
      */
     public Map<String, String> getDetailMap() {
         Map<String, String> mapFields = new HashMap<>();
-        mapFields.put("OpportunityName", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity",
+        mapFields.put("OpportunityName", getDetailText(CREATED_DETAIL, FileTranslator.translateValue("Opportunity",
                 "opportunityName")));
-        mapFields.put("Type", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity", "type")));
-        mapFields.put("LeadSource", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity",
+        mapFields.put("Type", getDetailText(CREATED_DETAIL, FileTranslator.translateValue("Opportunity", "type")));
+        mapFields.put("LeadSource", getDetailText(CREATED_DETAIL, FileTranslator.translateValue("Opportunity",
                 "leadSource")));
-        mapFields.put("Amount", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity",
+        mapFields.put("Amount", getDetailText(CREATED_DETAIL, FileTranslator.translateValue("Opportunity",
                 "amount")));
-        mapFields.put("CloseDate", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity",
+        mapFields.put("CloseDate", getDetailText(CREATED_DETAIL, FileTranslator.translateValue("Opportunity",
                 "closeDate")));
-        mapFields.put("NextStep", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity", "nextStep")));
-        mapFields.put("Stage", getDetailText(CREATED_DETAIL, Translator.translateValue("Opportunity", "stage")));
-        mapFields.put("Probability", getDetailText(CREATED_SEARCH, Translator.translateValue("Opportunity",
+        mapFields.put("NextStep", getDetailText(CREATED_DETAIL,
+                FileTranslator.translateValue("Opportunity", "nextStep")));
+        mapFields.put("Stage", getDetailText(CREATED_DETAIL, FileTranslator.translateValue("Opportunity", "stage")));
+        mapFields.put("Probability", getDetailText(CREATED_SEARCH, FileTranslator.translateValue("Opportunity",
                 "probability")));
-        mapFields.put("Account", getDetailText(CREATED_SEARCH, Translator.translateValue("Opportunity",
+        mapFields.put("Account", getDetailText(CREATED_SEARCH, FileTranslator.translateValue("Opportunity",
                 "account")));
         return mapFields;
     }

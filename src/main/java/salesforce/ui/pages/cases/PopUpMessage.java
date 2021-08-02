@@ -6,7 +6,7 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.ui;
+package salesforce.ui.pages.cases;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

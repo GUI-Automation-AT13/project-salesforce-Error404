@@ -6,21 +6,23 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.ui.pages;
+package salesforce.ui.pages.cases;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static core.utils.StringAdapter.replaceSpecialCharacters;
 import static salesforce.utils.AdaptStringToAttribute.changeFieldName;
 import static salesforce.utils.CaseAttributeNameAdapter.getCaseAttributeName;
-import static salesforce.utils.Translator.translateValue;
+import static salesforce.utils.FileTranslator.translateValue;
 
-public class SingleCasePage extends BasePage {
+public class CasePage extends BasePage {
     private String headersSubjectXpath = "//slot[@slot='primaryField']"
             + "//div/lightning-formatted-text";
     @FindBy(xpath = "//h1/div")

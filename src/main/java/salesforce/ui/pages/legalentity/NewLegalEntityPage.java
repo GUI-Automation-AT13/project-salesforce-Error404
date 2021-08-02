@@ -17,7 +17,7 @@ import salesforce.entities.legalentity.LegalEntity;
 import salesforce.ui.pages.BasePage;
 import java.util.HashMap;
 import java.util.Set;
-import static salesforce.utils.Translator.translateValue;
+import static salesforce.utils.FileTranslator.translateValue;
 
 /**
  * Interacts with the New Legal Entity elements.
