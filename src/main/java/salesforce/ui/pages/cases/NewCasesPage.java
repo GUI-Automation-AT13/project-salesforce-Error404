@@ -6,40 +6,42 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.ui.pages;
+package salesforce.ui.pages.cases;
 
 import core.selenium.WebElementAction;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Case;
-import salesforce.ui.PopUpMessage;
+import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
 import java.util.Set;
 
-public class CasesFormPage extends BasePage {
+import static salesforce.utils.FileTranslator.translateValue;
+
+public class NewCasesPage extends BasePage {
     private WebElementAction webElementAction = new WebElementAction();
-    @FindBy(xpath = "//button[@title='Save']")
-    private WebElement saveButton;
-    @FindBy(xpath = "//abbr[@title='required']/../../div//input")
+    private String saveButtonXpath = "//button[@title='%s']";
+    @FindBy(xpath = "//abbr[@title]/../../div//input")
     private WebElement statusMenu;
-    @FindBy(xpath = "//label[contains(@class,'inputLabel')]"
-            + "/span[text()='Subject']/../../input")
-    private WebElement subjectTextBox;
+    private String subjectTextBoxXpath = "//label[contains(@class,'inputLabel')]"
+            + "/span[text()='%s']/../../input";
     private String displayedStatusOnComboBoxXpath = "//span[@title='%s']";
     private String comboBoxXpath = "//span[text()='%s']/../..//a[@class='select']";
-    private String textBoxXpath = "//span[text()='%s']/../..//input";
+    private String textBoxXpath = "//span[%s]/../..//input";
     private String textAreaXpath = "//label[contains(@class,'inputLabel')]"
-            + "/span[text()='%s']/../../textarea";
+            + "/span[%s]/../../textarea";
     private String displayedNameOnTextBoxPath = "//div[@title='%s']/../..";
     private String caseOwnerXpath = "//span[text()='%s']/../.."
             + "//span[@class='uiOutputText forceOutputLookup']";
     private String popUpMessage;
+    private String featureName = "Cases";
 
     /**
      * Creates the Cases form Page.
      */
-    public CasesFormPage() {
+    public NewCasesPage() {
         super();
     }
 
@@ -48,7 +50,7 @@ public class CasesFormPage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(saveButton));
+        getWait().until(ExpectedConditions.visibilityOf(statusMenu));
     }
 
     /**
@@ -58,7 +60,8 @@ public class CasesFormPage extends BasePage {
      */
     public void selectValueOnCaseOriginMenu(final String value) {
         webElementAction.selectOnDropdownMenu(webElementAction
-                .getWebElementByXpathAndValue(comboBoxXpath, "Case Origin"), value);
+                .getWebElementByXpathAndValue(comboBoxXpath,
+                        translateValue(featureName, "comboBox.caseOrigin")), value);
     }
 
     /**
@@ -68,7 +71,8 @@ public class CasesFormPage extends BasePage {
      */
     public void selectValueOnPriorityMenu(final String value) {
         webElementAction.selectOnDropdownMenu(webElementAction
-                .getWebElementByXpathAndValue(comboBoxXpath, "Priority"), value);
+                .getWebElementByXpathAndValue(comboBoxXpath,
+                        translateValue(featureName, "comboBox.priority")), value);
     }
 
     /**
@@ -78,7 +82,8 @@ public class CasesFormPage extends BasePage {
      */
     public void selectValueOnContacts(final String value) {
         webElementAction.selectOnAutoCompleteTextBox(webElementAction
-                        .getWebElementByXpathAndValue(textBoxXpath, "Contact Name"),
+                        .getWebElementByXpathAndValue(textBoxXpath,
+                                translateValue(featureName, "textBox.contactName")),
                 value, displayedNameOnTextBoxPath);
     }
 
@@ -89,7 +94,8 @@ public class CasesFormPage extends BasePage {
      */
     public void selectValueOnAccounts(final String value) {
         webElementAction.selectOnAutoCompleteTextBox(webElementAction
-                        .getWebElementByXpathAndValue(textBoxXpath, "Account Name"),
+                        .getWebElementByXpathAndValue(textBoxXpath,
+                                translateValue(featureName, "textBox.accountName")),
                 value, displayedNameOnTextBoxPath);
     }
 
@@ -100,7 +106,8 @@ public class CasesFormPage extends BasePage {
      */
     public void selectValueOnTypeMenu(final String value) {
         webElementAction.selectOnDropdownMenu(webElementAction
-                .getWebElementByXpathAndValue(comboBoxXpath, "Type"), value);
+                .getWebElementByXpathAndValue(comboBoxXpath,
+                        translateValue(featureName, "comboBox.type")), value);
     }
 
     /**
@@ -110,7 +117,8 @@ public class CasesFormPage extends BasePage {
      */
     public void selectValueOnCaseReasonMenu(final String value) {
         webElementAction.selectOnDropdownMenu(webElementAction
-                .getWebElementByXpathAndValue(comboBoxXpath, "Case Reason"), value);
+                .getWebElementByXpathAndValue(comboBoxXpath,
+                        translateValue(featureName, "comboBox.caseReason")), value);
     }
 
     /**
@@ -127,11 +135,13 @@ public class CasesFormPage extends BasePage {
      *
      * @return the created case page
      */
-    public SingleCasePage clickOnSaveButton() {
+    public CasePage clickOnSaveButton() {
         PopUpMessage message = new PopUpMessage();
-        webElementAction.clickOnWebElement(saveButton);
+        webElementAction.clickOnWebElement(webElementAction
+                .getWebElementByXpathAndValue(saveButtonXpath,
+                        translateValue(featureName, "button.save")));
         setPopUpMessage(message.getPopUpMessage());
-        return new SingleCasePage();
+        return new CasePage();
     }
 
     /**
@@ -141,7 +151,8 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnWebEmailTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textBoxXpath, "Web Email"), text);
+                .getWebElementByXpathAndValue(textBoxXpath,
+                        translateValue(featureName, "textBox.webEmail")), text);
     }
 
     /**
@@ -151,7 +162,8 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnWebCompanyTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textBoxXpath, "Web Company"), text);
+                .getWebElementByXpathAndValue(textBoxXpath,
+                        translateValue(featureName, "textBox.webCompany")), text);
     }
 
     /**
@@ -161,7 +173,8 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnWebNameTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textBoxXpath, "Web Name"), text);
+                .getWebElementByXpathAndValue(textBoxXpath,
+                        translateValue(featureName, "textBox.webName")), text);
     }
 
     /**
@@ -171,7 +184,8 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnWebPhoneTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textBoxXpath, "Web Phone"), text);
+                .getWebElementByXpathAndValue(textBoxXpath,
+                        translateValue(featureName, "textBox.webPhone")), text);
     }
 
     /**
@@ -211,7 +225,7 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnEngineeringReqNumberTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textBoxXpath, "Engineering Req Number"), text);
+                .getWebElementByXpathAndValue(textBoxXpath, "text()='Engineering Req Number'"), text);
     }
 
     /**
@@ -220,7 +234,9 @@ public class CasesFormPage extends BasePage {
      * @param text a String to input
      */
     public void inputTextOnSubjectTextBox(final String text) {
-        webElementAction.setTextField(subjectTextBox, text);
+        webElementAction.setTextField(webElementAction
+                .getWebElementByXpathAndValue(subjectTextBoxXpath,
+                        translateValue(featureName, "textBox.subject")), text);
     }
 
     /**
@@ -230,7 +246,8 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnDescriptionTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textAreaXpath, "Description"), text);
+                .getWebElementByXpathAndValue(textAreaXpath,
+                        translateValue(featureName, "textArea.description")), text);
     }
 
     /**
@@ -240,7 +257,8 @@ public class CasesFormPage extends BasePage {
      */
     public void inputTextOnInternalCommentsTextBox(final String text) {
         webElementAction.setTextField(webElementAction
-                .getWebElementByXpathAndValue(textAreaXpath, "Internal Comments"), text);
+                .getWebElementByXpathAndValue(textAreaXpath,
+                        translateValue(featureName, "textArea.internalComments")), text);
     }
 
     /**
@@ -268,7 +286,8 @@ public class CasesFormPage extends BasePage {
      */
     public String getCaseOwner() {
         return webElementAction.getTextOnWebElement(
-                webElementAction.getWebElementByXpathAndValue(caseOwnerXpath, "Case Owner"));
+                webElementAction.getWebElementByXpathAndValue(caseOwnerXpath,
+                        translateValue(featureName, "label.caseOwner")));
     }
 
     /**
@@ -278,8 +297,7 @@ public class CasesFormPage extends BasePage {
      * @param newCase the entity to set
      * @return the page of the created case
      */
-    public SingleCasePage createCase(final Set<String> fields, final Case newCase) {
-        //Compose map
+    public CasePage createCase(final Set<String> fields, final Case newCase) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("status", () -> selectValueOnStatusMenu(newCase.getStatus()));
         strategyMap.put("caseOrigin", () -> selectValueOnCaseOriginMenu(newCase.getCaseOrigin()));
@@ -304,7 +322,6 @@ public class CasesFormPage extends BasePage {
                 inputTextOnDescriptionTextBox(newCase.getDescription()));
         strategyMap.put("internalComments", () ->
                 inputTextOnInternalCommentsTextBox(newCase.getInternalComments()));
-        //Fill form
         fields.forEach(field -> strategyMap.get(field).run());
         return clickOnSaveButton();
     }

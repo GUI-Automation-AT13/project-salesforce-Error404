@@ -19,7 +19,7 @@ import salesforce.config.EnvironmentConfig;
 import salesforce.entities.legalentity.LegalEntity;
 
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
-import static core.utils.LoadEnvironmentFile.*;
+import static core.config.LoadEnvironmentFile.*;
 
 public class Hooks {
     private WebDriver driver;
@@ -59,7 +59,7 @@ public class Hooks {
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }
 
-    @After
+    @After(order = 1)
     public void tearDown() {
         getWebDriverManager().quitDriver();
     }

@@ -8,7 +8,6 @@ import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import salesforce.api.SalesforceApiResponse;
 import salesforce.entities.Contact;
 
 public class ContactHooks {
@@ -35,7 +34,7 @@ public class ContactHooks {
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        contact.setId(apiResponse.getBody(SalesforceApiResponse.class).getId());
+        contact.setId(apiResponse.getPath("id"));
     }
 
     @After(value = "@DeleteContact", order = 1)

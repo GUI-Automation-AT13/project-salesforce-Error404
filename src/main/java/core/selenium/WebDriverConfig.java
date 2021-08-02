@@ -8,7 +8,7 @@
 
 package core.selenium;
 
-import static core.utils.LoadEnvironmentFile.*;
+import static core.config.LoadEnvironmentFile.*;
 
 public final class WebDriverConfig {
     private String browser;

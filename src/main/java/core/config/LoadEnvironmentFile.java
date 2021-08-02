@@ -6,7 +6,7 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package core.utils;
+package core.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;
@@ -64,6 +64,15 @@ public final class LoadEnvironmentFile {
      */
     public static String getTheBaseUrl() {
         return getDotenv().get("BASE_URL");
+    }
+
+    /**
+     * Gets the base url classic from environment file.
+     *
+     * @return a String with the base url classic
+     */
+    public static String getTheBaseUrlClassic() {
+        return getDotenv().get("BASE_URL_CLASSIC");
     }
 
     /**
@@ -127,6 +136,15 @@ public final class LoadEnvironmentFile {
      */
     public static String getTheSalesforceToken() {
         return getDotenv().get("SALESFORCE_TOKEN");
+    }
+
+    /**
+     * Gets the salesforce version.
+     *
+     * @return a String with the salesforce version
+     */
+    public static String getTheSalesforceVersion() {
+        return getDotenv().get("SALESFORCE_VERSION");
     }
 
     /**

@@ -8,41 +8,40 @@ import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.restassured.RestAssured;
 import salesforce.api.SalesforceApiResponse;
-import salesforce.entities.Account;
+import salesforce.entities.Campaign;
 
-public class AccountHooks {
+public class CampaignHooks {
     private ApiRequestBuilder requestBuilder;
     private ApiResponse apiResponse;
-    private Account account;
-    final String accountName = "Punisher";
+    private Campaign campaign;
+    final String campaignName = "Opportunity Campaign";
 
-    public AccountHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, Account account) {
+    public CampaignHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, Campaign newCampaign) {
         this.requestBuilder = requestBuilder;
         this.apiResponse = apiResponse;
-        this.account = account;
+        this.campaign = newCampaign;
     }
 
-    @Before(value = "@CreateAccount")
-    public void createAnAccount() throws JsonProcessingException {
-        account.setName(accountName);
+    @Before(value = "@CreateCampaign")
+    public void createACampaign() throws JsonProcessingException {
+        campaign.setName(campaignName);
         requestBuilder
                 .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Account/")
-                .addBody(new ObjectMapper().writeValueAsString(account))
+                .addEndpoint("/services/data/v52.0/sobjects/Campaign/")
+                .addBody(new ObjectMapper().writeValueAsString(campaign))
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        account.setId(apiResponse.getPath("id"));
+        campaign.setId(apiResponse.getBody(SalesforceApiResponse.class).getId());
     }
 
-    @After(value = "@DeleteAccount", order = 0)
-    public void deleteAnAccount() {
+    @After(value = "@CreateCampaign", order = 0)
+    public void deleteACampaign() {
         requestBuilder
                 .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Account/{accountID}")
-                .addPathParams("accountID", account.getId())
+                .addEndpoint("/services/data/v52.0/sobjects/Campaign/{campaignId}")
+                .addPathParams("campaignId", campaign.getId())
                 .addMethod(ApiMethod.DELETE)
                 .build();
         ApiManager.execute(requestBuilder.build(), apiResponse);

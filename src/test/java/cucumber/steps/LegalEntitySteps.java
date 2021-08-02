@@ -37,14 +37,6 @@ public class LegalEntitySteps {
         this.legalEntity = legalEntity;
     }
 
-    @Given("^I login to Salesforce site as an admin user$")
-    public void iLoginToSalesforceSiteAsAnAdminUser() {
-        logger.info("=================== Given I login to Salesforce site ==========================");
-        LoginPage loginPage = new LoginPage();
-        loginPage.loginSuccessful(getUsername(), getPassword());
-        HomePage homePage = new HomePage();
-    }
-
     @When("^I create a new LegalEntity with fields$")
     public void iCreateAnNewLegalEntityWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new legal entity ==========================");

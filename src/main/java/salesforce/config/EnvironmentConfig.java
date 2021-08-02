@@ -8,13 +8,15 @@
 
 package salesforce.config;
 
-import static core.utils.LoadEnvironmentFile.*;
+import static core.config.LoadEnvironmentFile.*;
 
 public final class EnvironmentConfig {
     private static EnvironmentConfig environmentConfig;
 
     private String login;
     private String baseUrl;
+    private String baseUrlClassic;
+    private String salesforceVersion;
     private String adminUrl;
     private static String username;
     private static String password;
@@ -38,6 +40,8 @@ public final class EnvironmentConfig {
     private void initialize() {
         login = getTheLoginUrl();
         baseUrl = getTheBaseUrl();
+        baseUrlClassic = getTheBaseUrlClassic();
+        salesforceVersion = getTheSalesforceVersion();
         username = getTheSalesforceUsername();
         password = getTheSalesforcePassword();
         adminUrl = getTheAdminUrl();
@@ -59,6 +63,24 @@ public final class EnvironmentConfig {
      */
     public String getBaseUrl() {
         return baseUrl;
+    }
+
+    /**
+     * Gets the salesforce.base url classic.
+     *
+     * @return a String with the salesforce.base url classic
+     */
+    public String getBaseUrlClassic() {
+        return baseUrlClassic;
+    }
+
+    /**
+     * Gets the salesforce version.
+     *
+     * @return a String with the salesforce version
+     */
+    public String getSalesforceVersion() {
+        return salesforceVersion;
     }
 
     /**
