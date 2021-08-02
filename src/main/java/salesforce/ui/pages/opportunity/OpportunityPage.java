@@ -11,7 +11,7 @@ package salesforce.ui.pages.opportunity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 
 public class OpportunityPage extends BasePage {
     private String newXpath;
@@ -22,7 +22,7 @@ public class OpportunityPage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        newXpath = String.format("//a[@title='%s']", Translator.translateValue("Opportunity", "new"));
+        newXpath = String.format("//a[@title='%s']", FileTranslator.translateValue("Opportunity", "new"));
         btnNew = By.xpath(String.format(newXpath));
         getWait().until(ExpectedConditions.visibilityOfElementLocated(btnNew));
     }

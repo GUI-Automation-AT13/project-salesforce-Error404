@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Opportunity;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -124,18 +124,18 @@ public class NewOpportunityPage extends BasePage {
                 opportunity.getCurrentGenerator()));
         mapFields.put("TrackingNumber", () -> setInputField("TrackingNumber__c", opportunity.getTrackingNumber()));
         mapFields.put("MainCompetitor", () -> setInputField("MainCompetitors__c", opportunity.getMainComp()));
-        mapFields.put("Description", () -> setDescription(Translator.translateValue("Opportunity", "description"),
+        mapFields.put("Description", () -> setDescription(FileTranslator.translateValue("Opportunity", "description"),
                 opportunity.getDescription()));
-        mapFields.put("Stage", () -> setDropdown(Translator.translateValue("Opportunity", "stage"),
+        mapFields.put("Stage", () -> setDropdown(FileTranslator.translateValue("Opportunity", "stage"),
                 opportunity.getOpportunityStage()));
-        mapFields.put("Type", () -> setDropdown(Translator.translateValue("Opportunity", "type"),
+        mapFields.put("Type", () -> setDropdown(FileTranslator.translateValue("Opportunity", "type"),
                 opportunity.getTypeOption()));
-        mapFields.put("LeadSource", () -> setDropdown(Translator.translateValue("Opportunity", "leadSource"),
+        mapFields.put("LeadSource", () -> setDropdown(FileTranslator.translateValue("Opportunity", "leadSource"),
                 opportunity.getLeadSource()));
         mapFields.put("Delivery", () -> setDropdown("Delivery/Installation Status", opportunity.getDeliveryOption()));
-        mapFields.put("Account", () -> setSearchDown(Translator.translateValue("Opportunity", "accountName"),
+        mapFields.put("Account", () -> setSearchDown(FileTranslator.translateValue("Opportunity", "accountName"),
                 opportunity.getSearchAccount()));
-        mapFields.put("Campaign", () -> setSearchDown(Translator.translateValue("Opportunity", "campaignName"),
+        mapFields.put("Campaign", () -> setSearchDown(FileTranslator.translateValue("Opportunity", "campaignName"),
                 opportunity.getSearchCampaign()));
         fields.forEach(field -> mapFields.get(field).run());
     }

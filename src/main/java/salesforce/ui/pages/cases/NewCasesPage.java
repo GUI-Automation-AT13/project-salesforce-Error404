@@ -6,20 +6,21 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.ui.pages;
+package salesforce.ui.pages.cases;
 
 import core.selenium.WebElementAction;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Case;
-import salesforce.ui.PopUpMessage;
+import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
 import java.util.Set;
 
-import static salesforce.utils.Translator.translateValue;
+import static salesforce.utils.FileTranslator.translateValue;
 
-public class CasesFormPage extends BasePage {
+public class NewCasesPage extends BasePage {
     private WebElementAction webElementAction = new WebElementAction();
     private String saveButtonXpath = "//button[@title='%s']";
     @FindBy(xpath = "//abbr[@title]/../../div//input")
@@ -40,7 +41,7 @@ public class CasesFormPage extends BasePage {
     /**
      * Creates the Cases form Page.
      */
-    public CasesFormPage() {
+    public NewCasesPage() {
         super();
     }
 
@@ -134,13 +135,13 @@ public class CasesFormPage extends BasePage {
      *
      * @return the created case page
      */
-    public SingleCasePage clickOnSaveButton() {
+    public CasePage clickOnSaveButton() {
         PopUpMessage message = new PopUpMessage();
         webElementAction.clickOnWebElement(webElementAction
                 .getWebElementByXpathAndValue(saveButtonXpath,
                         translateValue(featureName, "button.save")));
         setPopUpMessage(message.getPopUpMessage());
-        return new SingleCasePage();
+        return new CasePage();
     }
 
     /**
@@ -296,7 +297,7 @@ public class CasesFormPage extends BasePage {
      * @param newCase the entity to set
      * @return the page of the created case
      */
-    public SingleCasePage createCase(final Set<String> fields, final Case newCase) {
+    public CasePage createCase(final Set<String> fields, final Case newCase) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("status", () -> selectValueOnStatusMenu(newCase.getStatus()));
         strategyMap.put("caseOrigin", () -> selectValueOnCaseOriginMenu(newCase.getCaseOrigin()));

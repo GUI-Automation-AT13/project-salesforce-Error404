@@ -17,11 +17,15 @@ import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Case;
 import salesforce.ui.pages.*;
+import salesforce.ui.pages.cases.CasePage;
+import salesforce.ui.pages.cases.CasesPage;
+import salesforce.ui.pages.cases.NewCasesPage;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import static salesforce.config.EnvironmentConfig.getPassword;
 import static salesforce.config.EnvironmentConfig.getUsername;
-import static salesforce.utils.Translator.translateValue;
+import static salesforce.utils.FileTranslator.translateValue;
 
 public class CreateCaseSteps {
     Case newCase;
@@ -40,26 +44,18 @@ public class CreateCaseSteps {
         this.newCase = newCase;
     }
 
-    @Given("I login to salesforce as the {string} user")
-    public void iLoginToSalesforceAsTheUser(final String userType) {
-        logger.info("=================== Given I login to Salesforce site ==========================");
-        LoginPage loginPage = new LoginPage();
-        loginPage.loginSuccessful(getUsername(), getPassword());
-        HomePage homePage = new HomePage();
-    }
-
     @When("I create a case with fields")
     public void iCreateACaseWith(final Map<String, String> entry)
             throws InvocationTargetException, IllegalAccessException {
         logger.info("=================== When I create a new case ==========================");
         newCase.setCaseWithMap(entry);
         CasesPage casesPage = new CasesPage();
-        CasesFormPage casesFormPage = casesPage.clickOnNew();
-        newCase.setCaseOwner(casesFormPage.getCaseOwner());
-        SingleCasePage singleCasePage = casesFormPage.createCase(entry.keySet(), newCase);
-        actualMessage = casesFormPage.getPopUpMessage();
-        newCase.updateCase(singleCasePage.getCaseNumber());
-        newCase.setId(singleCasePage.getCaseId());
+        NewCasesPage newCasesPage = casesPage.clickOnNew();
+        newCase.setCaseOwner(newCasesPage.getCaseOwner());
+        CasePage casePage = newCasesPage.createCase(entry.keySet(), newCase);
+        actualMessage = newCasesPage.getPopUpMessage();
+        newCase.updateCase(casePage.getCaseNumber());
+        newCase.setId(casePage.getCaseId());
     }
 
     @Then("a success message is displayed")
@@ -73,8 +69,8 @@ public class CreateCaseSteps {
     @When("I check on the site's headers")
     public void iCheckOnTheSiteSHeaders() throws IllegalAccessException {
         logger.info("=================== When I check on the site's headers ==========================");
-        SingleCasePage singleCasePage = new SingleCasePage();
-        actualCaseHeadersValues = singleCasePage.getAllHeadersFields();
+        CasePage casePage = new CasePage();
+        actualCaseHeadersValues = casePage.getAllHeadersFields();
         expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
         expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
     }
@@ -88,8 +84,8 @@ public class CreateCaseSteps {
     @And("I check on the site's details")
     public void iCheckOnTheSiteSDetails() throws IllegalAccessException {
         logger.info("=================== And I check on the site's details ==========================");
-        SingleCasePage singleCasePage = new SingleCasePage();
-        actualCaseDetailsValues = singleCasePage.getDetailsFields();
+        CasePage casePage = new CasePage();
+        actualCaseDetailsValues = casePage.getDetailsFields();
         expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
     }
 

@@ -6,7 +6,7 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package core.utils;
+package core.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;

@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 
 /**
  * This class returns an instance of ProductPage.
@@ -33,7 +33,7 @@ public class ProductPage extends BasePage {
 
     private By activeCheckBoxChecked = By.cssSelector("img.checked");
     private By createdByDate = By.xpath("//span[text()='"
-            + Translator.translateValue("Products", "createdBy")
+            + FileTranslator.translateValue("Products", "createdBy")
             + "']/../..//span[contains(@class,'uiOutputDateTime')]");
 
     private static final String SPAN_XPATH = "//div/span[text()='%s']/../..//span/span";

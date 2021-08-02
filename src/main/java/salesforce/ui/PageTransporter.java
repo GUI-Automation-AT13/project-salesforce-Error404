@@ -10,7 +10,7 @@ package salesforce.ui;
 
 import core.selenium.MyWebDriverManager;
 import salesforce.config.EnvironmentConfig;
-import salesforce.ui.pages.CasesPage;
+import salesforce.ui.pages.cases.CasesPage;
 import salesforce.ui.urls.SalesforceClassicUrl;
 import salesforce.ui.urls.SalesforceUrl;
 

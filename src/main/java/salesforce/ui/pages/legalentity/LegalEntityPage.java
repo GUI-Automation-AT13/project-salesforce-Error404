@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
 import java.util.HashMap;
 
-import static salesforce.utils.Translator.translateValue;
+import static salesforce.utils.FileTranslator.translateValue;
 
 /**
  * Interacts with the Legal Entities elements.

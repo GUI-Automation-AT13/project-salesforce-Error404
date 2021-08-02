@@ -6,16 +6,18 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.ui.pages;
+package salesforce.ui.pages.cases;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
 import java.util.Map;
-import static salesforce.ui.pages.SingleCasePage.INTERVAL_TIME;
-import static salesforce.utils.Translator.translateValue;
+import static salesforce.ui.pages.cases.CasePage.INTERVAL_TIME;
+import static salesforce.utils.FileTranslator.translateValue;
 
 public class CasesPage extends BasePage {
     @FindBy(xpath = "//*[@class='slds-input']")
@@ -51,10 +53,10 @@ public class CasesPage extends BasePage {
      *
      * @return the salesforce.cases form site
      */
-    public CasesFormPage clickOnNew() {
+    public NewCasesPage clickOnNew() {
         getWebElementAction().clickOnWebElement(getWebElementAction()
                 .getWebElementByXpathAndValue(buttonNewXpath, translateValue(featureName, "button.new")));
-        return new CasesFormPage();
+        return new NewCasesPage();
     }
 
     /**

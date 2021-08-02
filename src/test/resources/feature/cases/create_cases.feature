@@ -1,7 +1,8 @@
 Feature: Create Cases
+
   @DeleteCase
   Scenario: Create a case with required fields
-    Given I login to salesforce as the "admin" user
+    Given I login to salesforce as an admin user
     When I navigate to the "CASES" page
     When I create a case with fields
       | status     | Working |
@@ -16,7 +17,7 @@ Feature: Create Cases
 
   @CreateAccount @CreateContact @DeleteCase @DeleteAccount @DeleteContact
   Scenario: Create a case with all required fields
-    Given I login to salesforce as an "admin" user
+    Given I login to salesforce as an admin user
     And I navigate to the "CASES" page
     When I create a case with fields
       | status               | New             |
