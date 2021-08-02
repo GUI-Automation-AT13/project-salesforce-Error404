@@ -38,7 +38,7 @@ public class CreatedOpportunityPage extends BasePage {
     private By deleteOption = By.xpath("//div[@role='menu']//*[@title='" + Translator.translateValue("Opportunity",
             "delete") + "']//a");
     private By deleteBtnConfirm = By.xpath("//button[@title='"
-            + Translator.translateValue("Opportunity","delete") + "']");
+            + Translator.translateValue("Opportunity", "delete") + "']");
     private static final String CREATED_HEADER = "//div[./p[text()='%s']]//%s";
     private static final String CREATED_DETAIL = "//div[./div[./span[contains(text(),'%s')]]]"
             + "//lightning-formatted-text";

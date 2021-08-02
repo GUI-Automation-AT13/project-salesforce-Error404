@@ -48,7 +48,6 @@ public class NewOpportunityPage extends BasePage {
      * @return The new opportunity page to set again the input.
      */
     public NewOpportunityPage setInputField(final String field, final String value) {
-        System.out.println(XPATH_INPUT_NAME + field + value);
         webElementAction.setTextField(webElementAction.getWebElementByXpathAndValue(XPATH_INPUT_NAME, field), value);
         return this;
     }
@@ -61,7 +60,6 @@ public class NewOpportunityPage extends BasePage {
      * @return The new opportunity page to set again the input.
      */
     public NewOpportunityPage setDropdown(final String field, final String option) {
-        System.out.println(XPATH_INPUT_NAME + field + option);
         webElementAction.clickOnWebElement(webElementAction.getWebElementByXpathAndValue(XPATH_DROPDOWN, field));
         webElementAction.clickOnWebElement(webElementAction.getWebElementByXpathAndValue(XPATH_DROPDOWN_OPTION,
                 option));
@@ -76,7 +74,6 @@ public class NewOpportunityPage extends BasePage {
      * @return The new opportunity page to set again the input.
      */
     public NewOpportunityPage setSearchDown(final String field, final String option) {
-        System.out.println(XPATH_INPUT_NAME + field + option);
         getWait().until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(XPATH_DROPDOWN, field))));
         webElementAction.clickOnWebElement(webElementAction.getWebElementByXpathAndValue(XPATH_DROPDOWN, field));
         getWait().until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(XPATH_SEARCH_OPTION, option))));
