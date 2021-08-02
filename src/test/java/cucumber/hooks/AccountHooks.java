@@ -8,6 +8,7 @@ import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.restassured.RestAssured;
 import salesforce.api.SalesforceApiResponse;
 import salesforce.entities.Account;
 
@@ -33,7 +34,7 @@ public class AccountHooks {
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        account.setId(apiResponse.getBody(SalesforceApiResponse.class).getId());
+        account.setId(apiResponse.getPath("id"));
     }
 
     @After(value = "@DeleteAccount", order = 0)

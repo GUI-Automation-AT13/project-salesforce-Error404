@@ -15,10 +15,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.HashMap;
 import java.util.Map;
 import static salesforce.ui.pages.SingleCasePage.INTERVAL_TIME;
+import static salesforce.utils.Translator.translateValue;
 
 public class CasesPage extends BasePage {
-    @FindBy(css = "div[title=\"New\"]")
-    private WebElement buttonNew;
+    @FindBy(xpath = "//*[@class='slds-input']")
+    private WebElement searchTextBox;
+    private String buttonNewXpath = "//div[@title='%s']";
     private String caseNumberCellXpath = "//*[@title='%s']";
     private String subjectCellXpath = "//*[@title='%s']/../../.."
             + "//div[contains(@class,'outputLookupContainer')]";
@@ -27,6 +29,7 @@ public class CasesPage extends BasePage {
             + "//*[contains(@class,'uiOutputDateTime')]";
     private String caseOwnerAliasXpath = "//*[@title='%s']/../../.."
             + "//*[contains(@class,'uiOutputText')]";
+    private String featureName = "Cases";
 
     /**
      * Creates the Cases Page.
@@ -40,7 +43,7 @@ public class CasesPage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(buttonNew));
+        getWait().until(ExpectedConditions.visibilityOf(searchTextBox));
     }
 
     /**
@@ -49,7 +52,8 @@ public class CasesPage extends BasePage {
      * @return the salesforce.cases form site
      */
     public CasesFormPage clickOnNew() {
-        getWebElementAction().clickOnWebElement(buttonNew);
+        getWebElementAction().clickOnWebElement(getWebElementAction()
+                .getWebElementByXpathAndValue(buttonNewXpath, translateValue(featureName, "button.new")));
         return new CasesFormPage();
     }
 
@@ -116,18 +120,6 @@ public class CasesPage extends BasePage {
     public String getCaseOwnerAliasCellText(final String caseNumber) {
         return getWebElementAction().getTextOnWebElement(getWebElementAction()
                 .getWebElementByXpathAndValue(caseOwnerAliasXpath, caseNumber));
-    }
-
-    /**
-     * Gets the case id.
-     *
-     * @param caseNumber a String with the value
-     * @return the case id
-     */
-    public String getCaseId(final String caseNumber) {
-        return getWebElementAction().getAttributeFromWebElement(getWebElementAction()
-                .getWebElementByXpathAndValue(caseNumberCellXpath, caseNumber),
-                "data-recordid");
     }
 
     /**

@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 import static core.utils.LoadEnvironmentFile.getLanguage;
 
 public class Translator {
-
     private static final String I18N_FILE_PATH = "internationalization/i18N%s";
 
     /**
