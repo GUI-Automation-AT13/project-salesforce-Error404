@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static core.utils.StringAdapter.replaceSpecialCharacters;
 import static salesforce.utils.AdaptStringToAttribute.changeFieldName;
 import static salesforce.utils.CaseAttributeNameAdapter.getCaseAttributeName;

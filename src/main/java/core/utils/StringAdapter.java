@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 public class StringAdapter {
 
     /**
-     * Replace characters with accents and 'ñ' to supported characters.
+     * Replaces characters with accents and 'ñ' to supported characters.
      *
      * @param string a text to replace
      * @return a String with the characters replaced
