@@ -12,13 +12,13 @@ public class LegalEntityHooks {
     private ApiResponse apiResponse;
     private LegalEntity legalEntity;
 
-    public LegalEntityHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, LegalEntity legalEntity) {
+    public LegalEntityHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, LegalEntity legal) {
         this.requestBuilder = requestBuilder;
         this.apiResponse = apiResponse;
-        this.legalEntity = legalEntity;
+        this.legalEntity = legal;
     }
 
-    @After(value = "@DeleteLegalEntity")
+    @After(value = "@DeleteLegalEntity", order = 2)
     public void deleteALegalEntity() {
         requestBuilder
                 .clearPathParams()
