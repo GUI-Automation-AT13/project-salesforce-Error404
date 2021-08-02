@@ -38,17 +38,17 @@ public class CreateCaseSteps {
         this.newCase = newCase;
     }
 
-    @Given("I login to salesforce as a(n) {string} user")
-    public void iLoginToSalesforceAsAUser(final String userType) {
-        logger.info("=================== Given I login to Salesforce site ==========================");
-        //get user credentials
-        String username = getUsername();
-        String password = getPassword();
-        //login
-        LoginPage loginPage = new LoginPage();
-        loginPage.loginSuccessful(username, password);
-        HomePage homePage = new HomePage();
-    }
+//    @Given("I login to salesforce as a(n) {string} user")
+//    public void iLoginToSalesforceAsAUser(final String userType) {
+//        logger.info("=================== Given I login to Salesforce site ==========================");
+//        //get user credentials
+//        String username = getUsername();
+//        String password = getPassword();
+//        //login
+//        LoginPage loginPage = new LoginPage();
+//        loginPage.loginSuccessful(username, password);
+//        HomePage homePage = new HomePage();
+//    }
 
     @When("I create a case with fields")
     public void iCreateACaseWith(final Map<String, String> entry)

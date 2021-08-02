@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.product;
 
 import org.openqa.selenium.By;
@@ -39,45 +47,36 @@ public class NewProductPage extends BasePage {
      *
      * @param fieldName the name of the field
      * @param fieldValue the value to set
-     * @return this page
      */
-    public NewProductPage setInputField(final String fieldName, final String fieldValue) {
+    public void setInputField(final String fieldName, final String fieldValue) {
         getWebElementAction().setTextField(getDriver()
                 .findElement(By.xpath(String.format(INPUT_XPATH, fieldName))), fieldValue);
-        return this;
     }
 
     /**
      * Clicks on active CheckBox.
-     *
-     * @return this page
      */
-    public NewProductPage clickActiveCheckBox() {
+    public void clickActiveCheckBox() {
         getWebElementAction().clickOnWebElement(getDriver().findElement(activeCheckBox));
-        return this;
     }
 
     /**
      * Selects an option of the productFamily combo box.
      *
      * @param productFamilyOption the option to select
-     * @return this page
      */
-    public NewProductPage selectProductFamilyOption(final String productFamilyOption) {
+    public void selectProductFamilyOption(final String productFamilyOption) {
         getWebElementAction().clickOnWebElement(getDriver().findElement(productFamilyComboBox));
         getDriver().findElement(By.linkText(productFamilyOption)).click();
-        return this;
     }
 
     /**
      * Sets the productDescription.
      *
      * @param productDescription to set
-     * @return this page
      */
-    public NewProductPage setProductDescription(final String productDescription) {
+    public void setProductDescription(final String productDescription) {
         getWebElementAction().setTextField(getDriver().findElement(productDescriptionTextArea), productDescription);
-        return this;
     }
 
     /**
@@ -101,6 +100,7 @@ public class NewProductPage extends BasePage {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Name", () ->
                 setInputField(Translator.translateValue("Products", "productName"), product.getName()));
+        strategyMap.put("IsActive", () -> clickActiveCheckBox());
         strategyMap.put("ProductCode", () ->
                 setInputField(Translator.translateValue("Products", "productCode"),
                         product.getProductCode()));

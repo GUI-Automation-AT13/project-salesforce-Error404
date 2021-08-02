@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.product;
 
 import org.openqa.selenium.By;
@@ -12,21 +20,18 @@ import salesforce.utils.Translator;
  */
 public class ProductPage extends BasePage {
 
+    private static final int INTERVAL_TIME = 500;
+
     @FindBy(css = ".slds-theme--success")
     private WebElement successMessage;
 
     @FindBy(css = ".slds-page-header__title > .uiOutputText")
     private WebElement productTitle;
 
-    @FindBy(css = "img.checked")
-    private WebElement activeCheckBoxChecked;
-
-    @FindBy(css = "img.unchecked")
-    private WebElement activeCheckBoxUnchecked;
-
     @FindBy(xpath = "//div/span[text()='Product Description']/../..//span/span")
     private WebElement descriptionTextArea;
 
+    private By activeCheckBoxChecked = By.cssSelector("img.checked");
     private By createdByDate = By.xpath("//span[text()='"
             + Translator.translateValue("Products", "createdBy")
             + "']/../..//span[contains(@class,'uiOutputDateTime')]");
@@ -50,6 +55,15 @@ public class ProductPage extends BasePage {
     public String getSpanText(final String fieldName) {
         return getWebElementAction()
                 .getTextOnWebElement(getDriver().findElement(By.xpath(String.format(SPAN_XPATH, fieldName))));
+    }
+
+    /**
+     * Gets if product is active.
+     *
+     * @return true if it is active, false if not
+     */
+    public boolean isActive() {
+        return getWebElementAction().isElementPresent(activeCheckBoxChecked, INTERVAL_TIME);
     }
 
     /**
@@ -91,11 +105,11 @@ public class ProductPage extends BasePage {
     }
 
     /**
-     * Gets the product tittle.
+     * Gets the product title.
      *
-     * @return a String with the tittle.
+     * @return a String with the title.
      */
-    public String getProductTittle() {
+    public String getProductTitle() {
         return getWebElementAction().getTextOnWebElement(productTitle);
     }
 }

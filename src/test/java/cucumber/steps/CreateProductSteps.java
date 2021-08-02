@@ -6,9 +6,10 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Product;
-import salesforce.ui.PageTransporter;
 import salesforce.ui.pages.HomePage;
 import salesforce.ui.pages.LoginPage;
 import salesforce.ui.pages.product.NewProductPage;
@@ -22,6 +23,7 @@ import static salesforce.config.EnvironmentConfig.getPassword;
 import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class CreateProductSteps {
+    private Logger logger = LogManager.getLogger(getClass());
     LoginPage loginPage;
     ProductsPage productsPage;
     Product product;
@@ -35,20 +37,16 @@ public class CreateProductSteps {
 
     @Given("^I login to salesforce as an? (.*?) user$")
     public void iLoginToSalesforceAsAnAdminUser(final String userType) {
+        logger.info("=================== Given I login to Salesforce site ==========================");
         encryptorAES = new EncryptorAES();
         loginPage = new LoginPage();
         loginPage.loginSuccessful(getUsername(), getPassword());
         HomePage homePage = new HomePage();
     }
 
-    @When("^I navigate to (.*?) page$")
-    public void iNavigateToAFeaturePage(final String pageName) throws Exception {
-        PageTransporter pageTransporter = new PageTransporter();
-        pageTransporter.goToPage(pageName);
-    }
-
     @When("I create a new Product with fields")
     public void iCreateANewProductWithFields(final Map<String, String> table) throws JsonProcessingException {
+        logger.info("=================== When I create a new product ==========================");
         productsPage = new ProductsPage();
         NewProductPage newProductPage = productsPage.clickNewProductButton();
         product = ConverterToEntity.convertMapToEntity(table, Product.class);
@@ -58,6 +56,7 @@ public class CreateProductSteps {
 
     @Then("A successful message is displayed")
     public void aSuccessfulMessageIsDisplayed() {
+        logger.info("=================== Then A successful message should be displayed ==========================");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(productPage.getUserSuccessMessage().contains(product.getName()), "Message is incorrect");
         softAssert.assertAll();
@@ -65,8 +64,10 @@ public class CreateProductSteps {
 
     @And("Check product fields matches")
     public void allProductFieldsMatches() {
+        logger.info("=================== And All the given details fields should match ==========================");
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(product.getName(), productPage.getSpanText(Translator.translateValue("Products", "productName")), "Product name is incorrect");
+        softAssert.assertEquals(product.isActive(), productPage.isActive());
         softAssert.assertEquals(product.getProductCode(), productPage.getSpanText(Translator.translateValue("Products", "productCode")), "Product code is incorrect");
         softAssert.assertEquals(product.getFamily(), productPage.getSpanText(Translator.translateValue("Products", "productFamily")), "Product family is incorrect");
         softAssert.assertAll();
@@ -74,8 +75,9 @@ public class CreateProductSteps {
 
     @And("Check The title matches")
     public void validateTheTitleMatches() {
+        logger.info("=================== And The title should match ==========================");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(product.getName(), productPage.getProductTittle(), "The tittle is incorrect");
+        softAssert.assertEquals(product.getName(), productPage.getProductTitle(), "The title is incorrect");
         softAssert.assertAll();
     }
 }
