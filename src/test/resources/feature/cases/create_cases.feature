@@ -1,7 +1,7 @@
 Feature: Create Cases
   @DeleteCase
   Scenario: Create a case with required fields
-    Given I login to salesforce as an "admin" user
+    Given I login to salesforce as the "admin" user
     When I navigate to the "CASES" page
     When I create a case with fields
       | status     | Working |

@@ -40,8 +40,8 @@ public class CreateCaseSteps {
         this.newCase = newCase;
     }
 
-    @Given("I login to salesforce as a(n) {string} user")
-    public void iLoginToSalesforceAsAUser(final String userType) {
+    @Given("I login to salesforce as the {string} user")
+    public void iLoginToSalesforceAsTheUser(final String userType) {
         logger.info("=================== Given I login to Salesforce site ==========================");
         LoginPage loginPage = new LoginPage();
         loginPage.loginSuccessful(getUsername(), getPassword());
@@ -75,7 +75,6 @@ public class CreateCaseSteps {
         logger.info("=================== When I check on the site's headers ==========================");
         SingleCasePage singleCasePage = new SingleCasePage();
         actualCaseHeadersValues = singleCasePage.getAllHeadersFields();
-        System.out.println(actualCaseHeadersValues);
         expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
         expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
     }
