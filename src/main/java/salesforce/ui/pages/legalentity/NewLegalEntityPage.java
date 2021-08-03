@@ -13,7 +13,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import salesforce.entities.legalentity.LegalEntity;
+import salesforce.entities.LegalEntity;
 import salesforce.ui.pages.BasePage;
 import java.util.HashMap;
 import java.util.Set;

@@ -16,7 +16,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import salesforce.config.EnvironmentConfig;
-import salesforce.entities.legalentity.LegalEntity;
 
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 import static core.config.LoadEnvironmentFile.*;

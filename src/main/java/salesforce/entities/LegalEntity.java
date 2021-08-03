@@ -6,7 +6,7 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.entities.legalentity;
+package salesforce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -550,5 +550,21 @@ public class LegalEntity {
         Date actualDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy HH:mm");
         return dateFormat.format(actualDate);
+    }
+
+    /**
+     * Sets the values of the entity.
+     * @param legalEntity to be set.
+     */
+    public void setEntity(final LegalEntity legalEntity) {
+        name = legalEntity.getName();
+        companyName = legalEntity.getCompanyName();
+        description = legalEntity.getDescription();
+        status = legalEntity.getStatus();
+        legalEntityStreet = legalEntity.getLegalEntityStreet();
+        legalEntityCity = legalEntity.getLegalEntityCity();
+        legalEntityCountry = legalEntity.getLegalEntityCountry();
+        legalEntityState = legalEntity.getLegalEntityState();
+        legalEntityPostalCode = legalEntity.getLegalEntityPostalCode();
     }
 }

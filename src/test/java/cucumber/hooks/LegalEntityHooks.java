@@ -5,17 +5,17 @@ import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
-import salesforce.entities.legalentity.LegalEntity;
+import salesforce.entities.LegalEntity;
 
 public class LegalEntityHooks {
     private ApiRequestBuilder requestBuilder;
     private ApiResponse apiResponse;
     private LegalEntity legalEntity;
 
-    public LegalEntityHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, LegalEntity legal) {
+    public LegalEntityHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, LegalEntity legalEntity) {
         this.requestBuilder = requestBuilder;
         this.apiResponse = apiResponse;
-        this.legalEntity = legal;
+        this.legalEntity = legalEntity;
     }
 
     @After(value = "@DeleteLegalEntity", order = 2)

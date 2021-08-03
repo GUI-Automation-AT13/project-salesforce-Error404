@@ -123,8 +123,6 @@ public class WebElementAction {
         return webElement.getText();
     }
 
-
-
     /**
      * Gets the attribute value on web element.
      *

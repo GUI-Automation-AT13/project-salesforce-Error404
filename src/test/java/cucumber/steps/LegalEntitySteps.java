@@ -11,27 +11,22 @@ package cucumber.steps;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
-import salesforce.entities.legalentity.LegalEntity;
-import salesforce.ui.pages.HomePage;
-import salesforce.ui.pages.LoginPage;
+import salesforce.entities.LegalEntity;
 import salesforce.ui.pages.legalentity.LegalEntitiesPage;
 import salesforce.ui.pages.legalentity.LegalEntityPage;
 import salesforce.ui.pages.legalentity.NewLegalEntityPage;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class LegalEntitySteps {
 
-    LegalEntity legalEntity;
     private final Logger logger = LogManager.getLogger(getClass());
     SoftAssert softAssert = new SoftAssert();
+    LegalEntity legalEntity;
 
     public LegalEntitySteps(LegalEntity legalEntity) {
         this.legalEntity = legalEntity;
@@ -41,7 +36,7 @@ public class LegalEntitySteps {
     public void iCreateAnNewLegalEntityWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new legal entity ==========================");
         String json = new ObjectMapper().writeValueAsString(table);
-        legalEntity = new ObjectMapper().readValue(json, LegalEntity.class);
+        legalEntity.setEntity(new ObjectMapper().readValue(json, LegalEntity.class));
         LegalEntitiesPage legalEntitiesPage = new LegalEntitiesPage();
         NewLegalEntityPage newLegalEntityPage = legalEntitiesPage.clickOnNew();
         newLegalEntityPage.createLegalEntity(table.keySet(), legalEntity);
