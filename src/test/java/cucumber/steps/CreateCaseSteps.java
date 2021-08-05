@@ -9,22 +9,17 @@
 package cucumber.steps;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Case;
-import salesforce.ui.pages.*;
 import salesforce.ui.pages.cases.CasePage;
 import salesforce.ui.pages.cases.CasesPage;
 import salesforce.ui.pages.cases.NewCasesPage;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 import static salesforce.utils.FileTranslator.translateValue;
 
 public class CreateCaseSteps {
@@ -40,10 +35,17 @@ public class CreateCaseSteps {
     String featureName = "Cases";
     private Logger logger = LogManager.getLogger(getClass());
 
-    public CreateCaseSteps(Case newCase) {
-        this.newCase = newCase;
+    public CreateCaseSteps(final Case aNewCase) {
+        this.newCase = aNewCase;
     }
 
+    /**
+     * Creates a case with provided values.
+     *
+     * @param entry a map with the fields and values
+     * @throws InvocationTargetException when invalid target
+     * @throws IllegalAccessException when unprovided access
+     */
     @When("I create a case with fields")
     public void iCreateACaseWith(final Map<String, String> entry)
             throws InvocationTargetException, IllegalAccessException {
@@ -58,6 +60,9 @@ public class CreateCaseSteps {
         newCase.setId(casePage.getCaseId());
     }
 
+    /**
+     * Verifies that a message matches a certain regex.
+     */
     @Then("a success message is displayed")
     public void aSuccessIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
@@ -66,6 +71,11 @@ public class CreateCaseSteps {
                 "\nactual: " + actualMessage + "\nexpected regex: " + expectedRegex);
     }
 
+    /**
+     * Creates a map with the headers.
+     *
+     * @throws IllegalAccessException
+     */
     @When("I check on the site's headers")
     public void iCheckOnTheSiteSHeaders() throws IllegalAccessException {
         logger.info("=================== When I check on the site's headers ==========================");
@@ -75,12 +85,20 @@ public class CreateCaseSteps {
         expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
     }
 
+    /**
+     * Verifies that the headers match the entity.
+     */
     @Then("all header's fields match to the created case")
     public void allHeaderSFieldsMatchToTheCreatedCase() {
         logger.info("=================== Then All header's fields should match ==========================");
         softAssert.assertEquals(actualCaseHeadersValues, expectedCaseHeadersValues);
     }
 
+    /**
+     * Creates a map with the details.
+     *
+     * @throws IllegalAccessException
+     */
     @And("I check on the site's details")
     public void iCheckOnTheSiteSDetails() throws IllegalAccessException {
         logger.info("=================== And I check on the site's details ==========================");
@@ -89,12 +107,19 @@ public class CreateCaseSteps {
         expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
     }
 
+    /**
+     * Verifies that all the details match the entity.
+     */
     @Then("all detail's fields match to the created case")
     public void allDetailSFieldsMatchToTheCreatedCase() {
         logger.info("=================== Then All the given details fields should match ==========================");
         softAssert.assertEquals(actualCaseDetailsValues, expectedCaseDetailsValues);
     }
 
+    /**
+     * Verifies that the created case is displayed on the cases page.
+     * @throws IllegalAccessException
+     */
     @Then("the created case is displayed")
     public void theCreatedCaseIsDisplayed() throws IllegalAccessException {
         logger.info("=================== Then The created case should be displayed ==========================");

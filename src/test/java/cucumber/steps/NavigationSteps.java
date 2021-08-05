@@ -17,6 +17,12 @@ public class NavigationSteps {
 
     private Logger logger = LogManager.getLogger(getClass());
 
+    /**
+     * Goes to the provided web page.
+     *
+     * @param pageName an enum with the page's site.
+     * @throws Exception
+     */
     @When("I navigate to the {string} page")
     public void iNavigateToThePage(final String pageName) throws Exception {
         logger.info("=================== When I navigate to a feature page ==========================");

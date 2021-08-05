@@ -23,11 +23,12 @@ public class Hooks {
     private WebDriver driver;
     private ApiRequestBuilder requestBuilder;
     private ApiResponse tokenApiResponse;
-    String token;
+    private ApiResponse apiResponse;
+    private static String token;
 
-    public Hooks(ApiRequestBuilder requestBuilder, ApiResponse tokenApiResponse) {
-        this.requestBuilder = requestBuilder;
-        this.tokenApiResponse = tokenApiResponse;
+    public Hooks(final ApiRequestBuilder newRequestBuilder, final  ApiResponse newTokenApiResponse) {
+        this.requestBuilder = newRequestBuilder;
+        this.tokenApiResponse = newTokenApiResponse;
     }
 
     @Before(order = 0)
@@ -60,5 +61,14 @@ public class Hooks {
     @After(order = 1)
     public void tearDown() {
         getWebDriverManager().quitDriver();
+    }
+
+    /**
+     * Gets the created token.
+     *
+     * @return a String with the token
+     */
+    public static String getToken() {
+        return token;
     }
 }

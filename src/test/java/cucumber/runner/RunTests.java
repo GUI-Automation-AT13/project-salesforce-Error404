@@ -12,20 +12,39 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import static cucumber.hooks.AccountHooks.deleteAccount;
+import static cucumber.hooks.ContactHooks.deleteContact;
 
 @CucumberOptions(
-        features = {"src/test/resources/features/*"},
-        plugin = {"html:target/site/cucumber-pretty.html", "json:target/cucumber/cucumber.json"},
+        features = {"src\\test\\resources\\feature\\cases"},
+        plugin = {"html:target/site/cucumber-pretty.html", "json:target/cucumber/cucumber.json",
+                "rerun:target/failed_scenarios.txt"},
         glue = {"cucumber"}
 )
 public class RunTests extends AbstractTestNGCucumberTests {
+
+    /**
+     * Sets the previous tasks to framework's execution.
+     */
     @BeforeTest
     public void beforeExecution() {
         System.out.println("Before Execution");
     }
+
+    /**
+     * Performs the tasks after the framework's execution.
+     */
     @AfterTest
     public void afterExecution() {
         System.out.println("After Execution");
+        deleteRemainingEntities();
     }
 
+    /**
+     * Deletes the created entities to run the scenarios.
+     */
+    public void deleteRemainingEntities() {
+        deleteContact();
+        deleteAccount();
+    }
 }

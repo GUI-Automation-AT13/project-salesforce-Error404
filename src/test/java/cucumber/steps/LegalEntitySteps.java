@@ -12,20 +12,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.utils.EncryptorAES;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.legalentity.LegalEntity;
-import salesforce.ui.pages.HomePage;
-import salesforce.ui.pages.LoginPage;
 import salesforce.ui.pages.legalentity.LegalEntitiesPage;
 import salesforce.ui.pages.legalentity.LegalEntityPage;
 import salesforce.ui.pages.legalentity.NewLegalEntityPage;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 import java.util.Map;
 
 public class LegalEntitySteps {
@@ -37,10 +32,16 @@ public class LegalEntitySteps {
     LegalEntityPage legalEntityPage;
     EncryptorAES encryptorAES;
 
-    public LegalEntitySteps(LegalEntity legalEntity) {
-        this.legalEntity = legalEntity;
+    public LegalEntitySteps(final LegalEntity newLegalEntity) {
+        this.legalEntity = newLegalEntity;
     }
 
+    /**
+     * Creates a legal entity with provided values.
+     *
+     * @param table a map with the fields and values
+     * @throws JsonProcessingException when invalid json provided
+     */
     @When("^I create a new LegalEntity with fields$")
     public void iCreateAnNewLegalEntityWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new legal entity ==========================");
@@ -51,6 +52,9 @@ public class LegalEntitySteps {
         newLegalEntityPage.createLegalEntity(table.keySet(), legalEntity);
     }
 
+    /**
+     * Verifies that a success message is displayed on created legal entity.
+     */
     @Then("A successful message should be displayed")
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
@@ -61,6 +65,9 @@ public class LegalEntitySteps {
         softAssert.assertAll();
     }
 
+    /**
+     * Verifies that the legal entity headers match the entity.
+     */
     @And("The header name should match in the created legal entity page")
     public void theHeaderNameShouldMatchInTheCreatedLegalEntityPage() {
         logger.info("=================== And The header name should match ==========================");
@@ -71,6 +78,9 @@ public class LegalEntitySteps {
         softAssert.assertAll();
     }
 
+    /**
+     * Verifies that the legal entity details match the entity.
+     */
     @And("All given details fields should match in the created legal entity page")
     public void allGivenDetailsFieldsShouldMatchesInTheCreatedLegalEntityPage() {
         logger.info("=================== And All the given details fields should match ==========================");
@@ -81,12 +91,15 @@ public class LegalEntitySteps {
         softAssert.assertAll();
     }
 
+    /**
+     * Verifies that the created legal entity is displayed on legal entities page.
+     */
     @Then("The created legal entity should be displayed on the legal entities table")
     public void theCreatedLegalEntityShouldBeDisplayedOnTheLegalEntitiesTable() {
         logger.info("=================== And The created legal entity should be on table ==========================");
         SoftAssert softAssert = new SoftAssert();
-        LegalEntitiesPage legalEntitiesPage = new LegalEntitiesPage();
-        legalEntity.setId(legalEntitiesPage.getLegalEntityId(legalEntity.getName()));
+        LegalEntitiesPage newLegalEntitiesPage = new LegalEntitiesPage();
+        legalEntity.setId(newLegalEntitiesPage.getLegalEntityId(legalEntity.getName()));
         softAssert.assertAll();
     }
 

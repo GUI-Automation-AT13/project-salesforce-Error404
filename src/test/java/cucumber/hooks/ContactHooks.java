@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package cucumber.hooks;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,6 +17,8 @@ import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import salesforce.entities.Contact;
+import static core.config.LoadEnvironmentFile.getTheAdminUrl;
+import static cucumber.hooks.Hooks.getToken;
 
 public class ContactHooks {
     private ApiRequestBuilder requestBuilder;
@@ -16,14 +26,34 @@ public class ContactHooks {
     private Contact contact;
     final String contactName = "Frank";
     final String contactLastName = "Castle";
+    private static String contactId;
 
-    public ContactHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, Contact contact) {
-        this.requestBuilder = requestBuilder;
-        this.apiResponse = apiResponse;
-        this.contact = contact;
+    public ContactHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
+                        final Contact newContact) {
+        this.requestBuilder = newRequestBuilder;
+        this.apiResponse = newApiResponse;
+        this.contact = newContact;
     }
 
     @Before(value = "@CreateContact")
+    public void checkContactCreation() throws JsonProcessingException {
+        if (contactId == null) {
+            createAContact();
+        }
+    }
+
+    @Before(value = "not @CreateContact")
+    public void checkAccountDeletion() {
+        if (contactId != null) {
+            deleteAContact();
+        }
+    }
+
+    /**
+     * Creates a contact through API.
+     *
+     * @throws JsonProcessingException when invalid json provided
+     */
     public void createAContact() throws JsonProcessingException {
         contact.setFirstName(contactName);
         contact.setLastName(contactLastName);
@@ -34,7 +64,7 @@ public class ContactHooks {
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        contact.setId(apiResponse.getPath("id"));
+        contactId = apiResponse.getPath("id");
     }
 
     @After(value = "@DeleteContact", order = 1)
@@ -42,9 +72,29 @@ public class ContactHooks {
         requestBuilder
                 .clearPathParams()
                 .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
-                .addPathParams("contactID", contact.getId())
+                .addPathParams("contactID", contactId)
                 .addMethod(ApiMethod.DELETE)
                 .build();
         ApiManager.execute(requestBuilder.build(), apiResponse);
+        contactId = null;
+    }
+
+    /**
+     * Deletes a contact.
+     */
+    public static void deleteContact() {
+        if (contactId != null) {
+            ApiRequestBuilder apiRequestBuilder = new ApiRequestBuilder();
+            ApiResponse response = new ApiResponse();
+            apiRequestBuilder
+                    .addHeader("Authorization", getToken())
+                    .addBaseUri(getTheAdminUrl())
+                    .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
+                    .addPathParams("contactID", contactId)
+                    .addMethod(ApiMethod.DELETE)
+                    .build();
+            ApiManager.execute(apiRequestBuilder.build(), response);
+            contactId = null;
+        }
     }
 }
