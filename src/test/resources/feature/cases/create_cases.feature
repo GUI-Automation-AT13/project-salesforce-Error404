@@ -46,7 +46,6 @@ Feature: Create Cases
     Then all detail's fields match to the created case
     When I navigate to the "CASES" page
     Then the created case is displayed
-    @CA
     Examples:
       | status | caseOrigin |
       | New    | Phone      |
