@@ -14,9 +14,11 @@ import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import salesforce.config.EnvironmentConfig;
-
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 import static core.config.LoadEnvironmentFile.*;
 
@@ -56,6 +58,15 @@ public class Hooks {
                 .addBaseUri(getTheAdminUrl());
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
+    }
+
+    @After
+    public void takeScreenShootOnFailure(Scenario scenario) {
+        if (scenario.isFailed()) {
+            TakesScreenshot screenshot = (TakesScreenshot) getWebDriverManager().getDriver();
+            byte[] src = screenshot.getScreenshotAs(OutputType.BYTES);
+            scenario.attach(src, "image/png", "screenshoot");
+        }
     }
 
     @After(order = 1)

@@ -13,7 +13,7 @@ Feature: create legal entity
     Then The created legal entity should be displayed on the legal entities table
 
   @DeleteLegalEntity
-  Scenario: create an Legal entity with all fields.
+  Scenario Outline: create an Legal entity with all fields.
     Given I login to salesforce as an admin user
     When I navigate to the "LEGAL_ENTITIES" page
     When I create a new LegalEntity with fields
@@ -31,3 +31,11 @@ Feature: create legal entity
     And All given details fields should match in the created legal entity page
     When I navigate to the "LEGAL_ENTITIES" page
     Then The created legal entity should be displayed on the legal entities table
+    And The following information should be displayed on the table
+      | Name               | <name>         |
+      | Last Modified Date | <modifiedDate> |
+      | Last Modified By   | <modifiedBy>   |
+    Examples:
+      | name                               | modifiedDate   | modifiedBy |
+      | new entity03/8/2021 08:38          | 3/8/2021 08:38 | dsant      |
+      | new complete entity04/8/2021 22:14 | 4/8/2021 22:14 | dsant      |

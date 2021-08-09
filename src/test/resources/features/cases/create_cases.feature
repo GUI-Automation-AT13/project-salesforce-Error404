@@ -16,7 +16,7 @@ Feature: Create Cases
     Then the created case is displayed
 
   @CreateAccount @CreateContact @DeleteCase @DeleteAccount @DeleteContact
-  Scenario: Create a case with all required fields
+  Scenario Outline: Create a case with all required fields
     Given I login to salesforce as an admin user
     And I navigate to the "CASES" page
     When I create a case with fields
@@ -45,3 +45,12 @@ Feature: Create Cases
     Then all detail's fields match to the created case
     When I navigate to the "CASES" page
     Then the created case is displayed
+    And The following information should be displayed on the table
+      | Case Number      | <caseNumber>  |
+      | Subject          | <caseSubject> |
+      | Status           | <caseStatus>  |
+      | Date/Time Opened | <dateOpened>  |
+      | Case Owner Alias | <caseOwner>   |
+    Examples:
+      | caseNumber | caseSubject | caseStatus | dateOpened      | caseOwner |
+      | 00001028   | asdasda     | Working    | 30/7/2021 10:36 | dsant     |

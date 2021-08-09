@@ -1,17 +1,13 @@
 package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import core.utils.EncryptorAES;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Product;
-import salesforce.ui.pages.HomePage;
-import salesforce.ui.pages.LoginPage;
 import salesforce.ui.pages.product.NewProductPage;
 import salesforce.ui.pages.product.ProductPage;
 import salesforce.ui.pages.product.ProductsPage;
@@ -19,8 +15,6 @@ import salesforce.utils.ConverterToEntity;
 import salesforce.utils.FileTranslator;
 import java.util.Map;
 import java.util.Set;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class CreateProductSteps {
     private Logger logger = LogManager.getLogger(getClass());
@@ -68,5 +62,11 @@ public class CreateProductSteps {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(product.getName(), productPage.getProductTitle(), "The title is incorrect");
         softAssert.assertAll();
+    }
+
+    @Then("The created product should be displayed on the legal entities table")
+    public void theCreatedProductShouldBeDisplayedOnTheLegalEntitiesTable() {
+        logger.info("=================== Then The created legal entity should be on table ==========================");
+        ProductsPage productsPage = new ProductsPage();
     }
 }

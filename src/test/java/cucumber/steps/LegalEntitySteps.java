@@ -70,7 +70,6 @@ public class LegalEntitySteps {
         logger.info("=================== Then The created legal entity should be on table ==========================");
         LegalEntitiesPage legalEntitiesPage = new LegalEntitiesPage();
         legalEntity.setId(legalEntitiesPage.getLegalEntityId(legalEntity.getName()));
-        softAssert.assertAll();
     }
 
 }

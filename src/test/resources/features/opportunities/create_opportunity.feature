@@ -27,7 +27,7 @@ Feature: Create Opportunity
     And Opportunity details match with previous fields
 
   @DeleteOpportunity
-  Scenario: create a new Opportunity with only required fields
+  Scenario Outline: create a new Opportunity with only required fields
     Given I login to salesforce as an admin user
     When I navigate to the "OPPORTUNITY" page
     When I create a new Opportunity with fields
@@ -37,3 +37,14 @@ Feature: Create Opportunity
     Then Successful message appear with Opportunity name
     And All Opportunity headers match with previous fields
     And Opportunity details match with previous fields
+    When I navigate to the "OPPORTUNITY" page
+    Then The following information should be displayed on the table
+      | Opportunity Name        | <opportunityName>  |
+      | Account Name            | <accountName>      |
+      | Account site            | <accountSite>      |
+      | Stage                   | <opportunityStage> |
+      | Close Date              | <closeDate>        |
+      | Opportunity Owner Alias | <opportunityOwner> |
+    Examples:
+      | opportunityName                    | accountName | accountSite | opportunityStage | closeDate | opportunityOwner |
+      | New opportunity2021-08-03T10:20:49 | new account |             | Prospecting      | 7/7/2021  | dsant            |
