@@ -22,6 +22,7 @@ public class ChromeBrowser implements IBrowser {
     public void configOptions() {
         chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--disable-notifications");
+        chromeOptions.setHeadless(true);
     }
 
     /**
