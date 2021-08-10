@@ -6,7 +6,7 @@ Feature: Create Opportunity
     When I navigate to the "OPPORTUNITY" page
     When I create a new Opportunity with fields
       | Private          | true                        |
-      | Amount           | 123                         |
+      | Amount           | 123.24                      |
       | CloseDate        | 7/6/2021                    |
       | OpportunityName  | New Opportunity             |
       | NextStep         | Dev.#23                     |
@@ -23,8 +23,8 @@ Feature: Create Opportunity
       | TrackingNumber   | Track.#23-TSB               |
       | Description      | New Opportunity Description |
     Then Successful message appear with Opportunity name
-    And All Opportunity headers match with previous fields
-    And Opportunity details match with previous fields
+      And All Opportunity headers match with previous fields
+      And Opportunity details match with previous fields
 
   @DeleteOpportunity
   Scenario: create a new Opportunity with only required fields
@@ -35,5 +35,5 @@ Feature: Create Opportunity
       | CloseDate       | 7/7/2021        |
       | Stage           | Prospecting     |
     Then Successful message appear with Opportunity name
-    And All Opportunity headers match with previous fields
-    And Opportunity details match with previous fields
+      And All Opportunity headers match with previous fields
+      And Opportunity details match with previous fields

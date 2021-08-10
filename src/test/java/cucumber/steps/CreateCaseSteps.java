@@ -38,7 +38,7 @@ public class CreateCaseSteps {
         this.newCase = newCase;
     }
 
-    @Given("I login to salesforce as a(n) {string} user")
+    @Given("I login to salesforce as a(n) {string} users")
     public void iLoginToSalesforceAsAUser(final String userType) {
         logger.info("=================== Given I login to Salesforce site ==========================");
         //get user credentials

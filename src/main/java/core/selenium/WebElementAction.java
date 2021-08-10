@@ -20,6 +20,7 @@ import static core.selenium.MyWebDriverManager.getWebDriverManager;
 public class WebElementAction {
     private final WebDriver driver = getWebDriverManager().getDriver();
     private final WebDriverWait wait = getWebDriverManager().getWebDriverWait();
+    private final int  waitTime = 20;
 
     /**
      * Creates web element action.
@@ -122,8 +123,6 @@ public class WebElementAction {
         return webElement.getText();
     }
 
-
-
     /**
      * Gets the attribute value on web element.
      *
@@ -162,11 +161,47 @@ public class WebElementAction {
      * Clicks the checkbox elements.
      *
      * @param webElement checkbox.
-     * @param isPrivate set the status from private.
+     * @param stateOfCheckbox true to select, false to deselect.
      */
-    public void clickCheckBox(final WebElement webElement, final boolean isPrivate) {
-        if (!webElement.isSelected() && isPrivate) {
+    public void selectCheckBox(final WebElement webElement, final boolean stateOfCheckbox) {
+        if (!webElement.isSelected() && stateOfCheckbox) {
             webElement.click();
+        }
+        if (webElement.isSelected() && !stateOfCheckbox) {
+            webElement.click();
+        }
+    }
+
+    /**
+     * Gets the generic text from the header in a created opportunity page.
+     * @param xpath initial Xpath of the element.
+     * @param field name of the field to get the String.
+     * @param headerType type of the element field.
+     * @return the current text of the specific field.
+     */
+    public String getHeaderString(final String xpath, final String field, final String headerType) {
+        By byElement =  By.xpath(String.format(xpath, field, headerType));
+        if (isElementPresent(byElement, waitTime)) {
+            WebElement createdHeader = driver.findElement(byElement);
+            return createdHeader.getText();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Gets text from detail fields.
+     * @param xpath the path for the field.
+     * @param field name of the field.
+     * @return the text from the detail field.
+     */
+    public String getDetailText(final String xpath, final String field) {
+        By xpathElement = By.xpath(String.format(xpath, field));
+        if (isElementPresent(xpathElement, waitTime)) {
+            WebElement element = driver.findElement(xpathElement);
+            return element.getText();
+        } else {
+            return null;
         }
     }
 }
