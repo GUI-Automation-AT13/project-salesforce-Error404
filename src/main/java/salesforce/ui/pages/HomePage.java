@@ -13,8 +13,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
-    @FindBy(css = ".slds-icon-waffle")
+
+//    @FindBy(css = ".slds-icon-waffle")
+//    private WebElement appLauncherButton;
+
+    @FindBy(css = "[placeholder^=\"Search\"][role=\"combobox\"]")
     private WebElement appLauncherButton;
+
     /**
      * Creates the Home page.
      */
