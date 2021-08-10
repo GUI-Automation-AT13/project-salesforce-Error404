@@ -100,7 +100,6 @@ public class Product {
      * @return a name
      */
     public String getName() {
-//        return name.concat(String.valueOf(LocalDate.now()));
         return name;
     }
 

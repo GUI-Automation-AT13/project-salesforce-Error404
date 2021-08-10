@@ -63,5 +63,3 @@ jacocoTestReport {
 check.dependsOn jacocoTestReport
 
 test.finalizedBy("jacocoTestReport")
-
-//test.finalizedBy("checkstyleMain")
