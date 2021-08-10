@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 group 'org.example'
@@ -46,4 +47,21 @@ checkstyleTest {
     source = 'src/main/java'
 }
 
-test.finalizedBy("checkstyleMain")
+jacocoTestReport {
+    dependsOn test
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['core/**',
+                                        'salesforce/api/**',
+                                        'salesforce/config/**',
+                                        'salesforce/entities/**',
+                                        'salesforce/ui/**'])
+        }))
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+test.finalizedBy("jacocoTestReport")
+
+//test.finalizedBy("checkstyleMain")
