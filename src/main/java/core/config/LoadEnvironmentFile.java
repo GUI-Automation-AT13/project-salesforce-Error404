@@ -10,7 +10,6 @@ package core.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;
-import static core.utils.EncryptorAES.getDecryptedValue;
 
 public final class LoadEnvironmentFile {
 
@@ -108,7 +107,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce password
      */
     public static String getTheSalesforcePassword() {
-        return getDotenv().get("SALESFORCE_PASSWORD";
+        return getDotenv().get("SALESFORCE_PASSWORD");
     }
 
     /**
