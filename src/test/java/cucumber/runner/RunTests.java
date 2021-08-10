@@ -16,7 +16,7 @@ import static cucumber.hooks.AccountHooks.deleteAccount;
 import static cucumber.hooks.ContactHooks.deleteContact;
 
 @CucumberOptions(
-        features = {"src\\test\\resources\\feature\\"},
+        features = {"src\\test\\resources\\feature\\cases"},
         plugin = {"html:target/site/cucumber-pretty.html", "json:target/cucumber/cucumber.json",
                 "rerun:target/failed_scenarios.txt"},
         glue = {"cucumber"}

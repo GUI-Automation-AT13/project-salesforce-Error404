@@ -17,7 +17,7 @@ public class EdgeBrowser implements IBrowser {
     private EdgeOptions edgeOptions;
 
     /**
-     * xD.
+     * Configures Edge driver options.
      */
     public void configOptions() {
         edgeOptions = new EdgeOptions();

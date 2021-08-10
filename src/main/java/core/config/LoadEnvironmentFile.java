@@ -99,7 +99,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce username
      */
     public static String getTheSalesforceUsername() {
-        return getDecryptedValue(getDotenv().get("SALESFORCE_USERNAME"), key);
+        return getDotenv().get("SALESFORCE_USERNAME");
     }
 
     /**
@@ -108,7 +108,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce password
      */
     public static String getTheSalesforcePassword() {
-        return getDecryptedValue(getDotenv().get("SALESFORCE_PASSWORD"), key);
+        return getDotenv().get("SALESFORCE_PASSWORD";
     }
 
     /**
