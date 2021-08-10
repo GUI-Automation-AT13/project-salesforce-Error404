@@ -5,9 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import salesforce.entities.LegalEntity;
-
 import java.util.HashMap;
-
 import static salesforce.utils.FileTranslator.translateValue;
 
 public class NewLegalEntityLightningVersion extends NewLegalEntityPageAbstract {
@@ -98,9 +96,9 @@ public class NewLegalEntityLightningVersion extends NewLegalEntityPageAbstract {
     }
 
     /**
-     * .
+     * Click the save button.
      *
-     * @return .
+     * @return LegalEntityPageAbstract.
      */
     @Override
     protected LegalEntityPageAbstract clickSaveBtn() {
@@ -109,10 +107,10 @@ public class NewLegalEntityLightningVersion extends NewLegalEntityPageAbstract {
     }
 
     /**
-     * .
+     * Builds the map.
      *
-     * @param legalEntity .
-     * @return .
+     * @param legalEntity to obtain the values to be set.
+     * @return HashMap<String, Runnable>.
      */
     @Override
     protected HashMap<String, Runnable> buildMap(final LegalEntity legalEntity) {

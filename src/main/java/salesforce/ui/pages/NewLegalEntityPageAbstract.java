@@ -1,9 +1,6 @@
 package salesforce.ui.pages;
 
-import org.openqa.selenium.By;
 import salesforce.entities.LegalEntity;
-import salesforce.ui.pages.legalentity.LegalEntityPage;
-
 import java.util.HashMap;
 import java.util.Set;
 
@@ -17,19 +14,16 @@ public abstract class NewLegalEntityPageAbstract extends BasePage {
     protected void waitForPageToLoad() {
     }
 
-    /**
-     * .
-     * @return .
-     */
     protected abstract LegalEntityPageAbstract clickSaveBtn();
 
     protected abstract HashMap<String, Runnable> buildMap(LegalEntity legalEntity);
 
     /**
-     * .
-     * @param fields .
-     * @param legalEntity .
-     * @return .
+     * Creates the legal entity map.
+     *
+     * @param fields      Set<string> with the keys.
+     * @param legalEntity to obtain the values to be set.
+     * @return LegalEntityPageAbstract.
      */
     public LegalEntityPageAbstract createLegalEntity(final Set<String> fields, final LegalEntity legalEntity) {
         HashMap<String, Runnable> map = buildMap(legalEntity);

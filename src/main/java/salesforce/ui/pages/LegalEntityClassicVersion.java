@@ -121,9 +121,9 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
     }
 
     /**
-     * .
+     * Verify if a element is present.
      *
-     * @return .
+     * @return true if the element is present, false otherwise.
      */
     public boolean fixAddress() {
         System.out.println();
@@ -135,10 +135,10 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
     }
 
     /**
-     * .
+     * Fixes the text if it's empty.
      *
-     * @param text .
-     * @return .
+     * @param text the text to fix.
+     * @return null is the text is empty, the text otherwise.
      */
     public String fixText(final String text) {
         if (text.equals(" ")) {

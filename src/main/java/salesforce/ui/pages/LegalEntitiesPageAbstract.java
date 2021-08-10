@@ -14,15 +14,16 @@ public abstract class LegalEntitiesPageAbstract extends BasePage {
 
     protected abstract WebElement getLocator();
 
+    public abstract String getLegalEntityId(String name);
+
     /**
-     * .
-     * @return .
+     * Clicks on new button.
+     *
+     * @return a NewLegalEntityPageAbstract with the correct instance.
      */
     public NewLegalEntityPageAbstract clickOnNew() {
         WebElement locatorNewButton = getLocator();
         getWebElementAction().clickOnWebElement(locatorNewButton);
         return AppPageFactory.getNewLegalEntityPage();
     }
-
-    public abstract String getLegalEntityId(String name);
 }

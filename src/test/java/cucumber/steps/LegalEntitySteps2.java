@@ -29,8 +29,6 @@ public class LegalEntitySteps2 {
     private final Logger logger = LogManager.getLogger(getClass());
     SoftAssert softAssert = new SoftAssert();
     LegalEntity legalEntity;
-    LegalEntitiesPageAbstract legalEntitiesPageAbstract;
-    LegalEntityPageAbstract legalEntityPageAbstract;
 
     public LegalEntitySteps2(LegalEntity legalEntity) {
         this.legalEntity = legalEntity;
@@ -43,9 +41,6 @@ public class LegalEntitySteps2 {
         legalEntity.setEntity(new ObjectMapper().readValue(json, LegalEntity.class));
         NewLegalEntityPageAbstract newLegalEntityPageAbstract = AppPageFactory.getLegalEntitiesPage().clickOnNew();
         newLegalEntityPageAbstract.createLegalEntity(table.keySet(), legalEntity);
-//        LegalEntitiesPage legalEntitiesPage = new LegalEntitiesPage();
-//        NewLegalEntityPage newLegalEntityPage = legalEntitiesPage.clickOnNew();
-//        newLegalEntityPage.createLegalEntity(table.keySet(), legalEntity);
     }
 
     @Then("A successful message should be displayed")
@@ -59,7 +54,6 @@ public class LegalEntitySteps2 {
     @And("The header name should match in the created legal entity page")
     public void theHeaderNameShouldMatchInTheCreatedLegalEntityPage() {
         logger.info("=================== And The header name should match ==========================");
-//        LegalEntityPage legalEntityPage = new LegalEntityPage();
         softAssert.assertEquals(legalEntity.getName(), AppPageFactory.getLegalEntityPage().getHeaderEntityNameText(),
                 "Header name is incorrect");
     }
@@ -67,14 +61,12 @@ public class LegalEntitySteps2 {
     @And("All given details fields should match in the created legal entity page")
     public void allGivenDetailsFieldsShouldMatchesInTheCreatedLegalEntityPage() {
         logger.info("=================== And All the given details fields should match ==========================");
-//        LegalEntityPage legalEntityPage = new LegalEntityPage();
         softAssert.assertEquals(legalEntity.summaryMap(), AppPageFactory.getLegalEntityPage().entityMap(), "Fields doesn't match");
     }
 
     @Then("The created legal entity should be displayed on the legal entities table")
     public void theCreatedLegalEntityShouldBeDisplayedOnTheLegalEntitiesTable() {
         logger.info("=================== Then The created legal entity should be on table ==========================");
-//        LegalEntitiesPage legalEntitiesPage = new LegalEntitiesPage();
         legalEntity.setId(AppPageFactory.getLegalEntitiesPage().getLegalEntityId(legalEntity.getName()));
     }
 

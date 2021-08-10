@@ -14,8 +14,9 @@ public class LegalEntitiesClassicVersion extends LegalEntitiesPageAbstract {
     private final int time = 2000;
 
     /**
-     * .
-     * @return .
+     * Gets the locator of the new entity button.
+     *
+     * @return a WebElement.
      */
     @Override
     protected WebElement getLocator() {
@@ -26,9 +27,10 @@ public class LegalEntitiesClassicVersion extends LegalEntitiesPageAbstract {
     }
 
     /**
-     * .
-     * @param name .
-     * @return .
+     * Gets the legal entity id.
+     *
+     * @param name a string with the name of the entity.
+     * @return a string with the id.
      */
     @Override
     public String getLegalEntityId(final String name) {
@@ -37,6 +39,9 @@ public class LegalEntitiesClassicVersion extends LegalEntitiesPageAbstract {
                 "href");
     }
 
+    /**
+     * Closes the add window.
+     */
     private void closeWindow() {
         getWebElementAction().clickOnWebElement(getDriver().findElement(dialogWindow));
     }

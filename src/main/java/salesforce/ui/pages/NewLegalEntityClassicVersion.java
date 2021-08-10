@@ -53,81 +53,81 @@ public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
     private By saveButton = By.xpath("//div[@class='pbBottomButtons']//input[@name='save']");
 
     /**
-     * .
+     * Sets the name.
      *
-     * @param name .
+     * @param name a string with the name.
      */
     public void setInputName(final String name) {
         webElementAction.setTextField(inputName, name);
     }
 
     /**
-     * .
+     * Sets the company name.
      *
-     * @param companyName .
+     * @param companyName a string with the company name.
      */
     public void setInputCompanyName(final String companyName) {
         webElementAction.setTextField(inputCompanyName, companyName);
     }
 
     /**
-     * .
+     * Sets the street.
      *
-     * @param street .
+     * @param street a string with the street.
      */
     public void setTextareaStreet(final String street) {
         webElementAction.setTextField(textareaStreet, street);
     }
 
     /**
-     * .
+     * Sets the description.
      *
-     * @param description .
+     * @param description a string with the description.
      */
     public void setTextareaDescription(final String description) {
         webElementAction.setTextField(textareaDescription, description);
     }
 
     /**
-     * .
+     * Sets the city.
      *
-     * @param city .
+     * @param city a string with the city.
      */
     public void setInputCity(final String city) {
         webElementAction.setTextField(inputCity, city);
     }
 
     /**
-     * .
+     * Sets the address state.
      *
-     * @param state .
+     * @param state a string with the state.
      */
     public void setInputAddressState(final String state) {
         webElementAction.setTextField(inputAddressState, state);
     }
 
     /**
-     * .
+     * Sets the address postal code.
      *
-     * @param postalCode .
+     * @param postalCode a string with the postal code.
      */
     public void setInputAddressZip(final String postalCode) {
         webElementAction.setTextField(inputAddressZip, postalCode);
     }
 
     /**
-     * .
+     * Sets the address country.
      *
-     * @param country .
+     * @param country a string with the country.
      */
     public void setInputAddressCountry(final String country) {
         webElementAction.setTextField(inputAddressCountry, country);
     }
 
     /**
-     * .
+     * Select an option from status dropdown menu.
      *
-     * @param status .
+     * @param status a string with the status.
      */
     public void selectFromDropDown(final String status) {
         webElementAction.clickOnWebElement(selectStatusMenu);
@@ -135,8 +135,9 @@ public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
     }
 
     /**
-     * .
-     * @return .
+     * Clicks the save button.
+     *
+     * @return LegalEntityPageAbstract.
      */
     @Override
     protected LegalEntityPageAbstract clickSaveBtn() {
@@ -145,9 +146,10 @@ public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
     }
 
     /**
-     * .
-     * @param legalEntity .
-     * @return .
+     * Builds the map.
+     *
+     * @param legalEntity to obtain the vañues to set.
+     * @return HashMap<String, Runnable>.
      */
     @Override
     protected HashMap<String, Runnable> buildMap(final LegalEntity legalEntity) {

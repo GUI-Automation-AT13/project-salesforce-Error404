@@ -11,9 +11,9 @@ public class LegalEntitiesLightningVersion extends LegalEntitiesPageAbstract {
     private String legalEntityNumberCellXpath = "//table//*[@title='%s']";
 
     /**
-     * .
+     * Gets the locator of the new entity button.
      *
-     * @return .
+     * @return a WebElement.
      */
     @Override
     protected WebElement getLocator() {
@@ -21,10 +21,10 @@ public class LegalEntitiesLightningVersion extends LegalEntitiesPageAbstract {
     }
 
     /**
-     * .
+     * Gets the legal entity id.
      *
-     * @param name .
-     * @return .
+     * @param name a string with the name of the entity.
+     * @return a string with the id.
      */
     @Override
     public String getLegalEntityId(final String name) {
