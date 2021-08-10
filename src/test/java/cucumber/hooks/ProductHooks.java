@@ -7,6 +7,8 @@ import core.api.ApiResponse;
 import io.cucumber.java.After;
 import salesforce.entities.Product;
 
+import static core.config.LoadEnvironmentFile.getTheAdminUrl;
+
 public class ProductHooks {
     private ApiRequestBuilder requestBuilder;
     private ApiResponse apiResponse;
