@@ -23,13 +23,6 @@ public class LoginPage extends BasePage {
     private WebElement loginButton;
 
     /**
-     * Creates the login page.
-     */
-    public LoginPage() {
-        super();
-    }
-
-    /**
      * Waits for the page to load.
      */
     @Override

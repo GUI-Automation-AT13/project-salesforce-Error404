@@ -22,13 +22,6 @@ public class HomePage extends BasePage {
     private WebElement appLauncherButton;
 
     /**
-     * Creates the Home page.
-     */
-    public HomePage() {
-        super();
-    }
-
-    /**
      * Waits for the app launcher button to be available.
      */
     @Override

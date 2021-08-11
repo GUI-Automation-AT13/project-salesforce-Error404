@@ -70,6 +70,7 @@ public class CreateCaseSteps {
      */
     @And("all header's fields should match the created case")
     public void allHeaderSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
+        logger.info("=================== And All header's fields should match the created case ===================");
         CasePage casePage = new CasePage();
         newCase.updateCase(casePage.getCaseNumber());
         newCase.setId(casePage.getCaseId());
@@ -84,6 +85,7 @@ public class CreateCaseSteps {
      */
     @Then("all detail's fields should match the created case")
     public void allDetailSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
+        logger.info("=================== Then All detail's fields should match the created case ===================");
         CasePage casePage = new CasePage();
         Map actualCaseDetailsValues = casePage.getDetailsFields();
         Map expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
