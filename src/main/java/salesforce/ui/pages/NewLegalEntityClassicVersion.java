@@ -130,8 +130,12 @@ public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
      * @param status a string with the status.
      */
     public void selectFromDropDown(final String status) {
+        System.out.println(status);
         webElementAction.clickOnWebElement(selectStatusMenu);
-        webElementAction.clickOnWebElement(getDriver().findElement(By.id(String.format(MENU_OPTION_CSS, status))));
+        System.out.println(MENU_OPTION_CSS);
+        System.out.println(getDriver().findElement(By.cssSelector(String.format(MENU_OPTION_CSS, status))));
+        System.out.println(String.format(MENU_OPTION_CSS, status));
+        webElementAction.clickOnWebElement(getDriver().findElement(By.cssSelector(String.format(MENU_OPTION_CSS, status))));
     }
 
     /**

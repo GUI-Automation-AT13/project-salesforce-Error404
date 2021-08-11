@@ -25,8 +25,8 @@ Feature: create legal entity
       | LegalEntityState      | the state           |
       | LegalEntityPostalCode | 0023                |
       | LegalEntityCountry    | boolivia            |
-      | Status                | Active              |
-    Then A successful message should be displayed
+      | Status                | ACTIVE              |
+#    Then A successful message should be displayed
     And The header name should match in the created legal entity page
     And All given details fields should match in the created legal entity page
     When I navigate to the "LEGAL_ENTITIES" page
@@ -38,4 +38,4 @@ Feature: create legal entity
     Examples:
       | name                               | modifiedDate   | modifiedBy |
       | new entity03/8/2021 08:38          | 3/8/2021 08:38 | dsant      |
-      | new complete entity04/8/2021 22:14 | 4/8/2021 22:14 | dsant      |
+#      | new complete entity04/8/2021 22:14 | 4/8/2021 22:14 | dsant      |
