@@ -11,7 +11,6 @@ package salesforce.ui.pages.opportunity;
 import core.selenium.WebElementAction;
 import salesforce.ui.pages.BasePage;
 import salesforce.utils.FileTranslator;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,9 +25,7 @@ public class OpportunityDetails extends BasePage {
     private static final String CREATED_ACCOUNT_DETAIL = "//div[./div[./span[contains(text(),'%s')]]]//a/span";
 
     @Override
-    protected void waitForPageToLoad() {
-
-    }
+    protected void waitForPageToLoad() { }
 
     public OpportunityDetails() {
         clickDetails();
@@ -52,6 +49,7 @@ public class OpportunityDetails extends BasePage {
 
     /**
      * Gets the Map with all the details fields.
+     *
      * @return Map with details fields.
      */
     public Map<String, String> getDetailMap() {

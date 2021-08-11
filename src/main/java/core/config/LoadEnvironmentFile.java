@@ -10,7 +10,6 @@ package core.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import salesforce.utils.EnvironmentInitialConfig;
-
 import java.io.File;
 import java.util.Locale;
 import static core.utils.EncryptorAES.getDecryptedValue;

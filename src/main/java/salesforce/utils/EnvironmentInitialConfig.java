@@ -10,6 +10,7 @@ package salesforce.utils;
 
 import salesforce.config.EnvironmentConfig;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 public class EnvironmentInitialConfig {
@@ -24,8 +25,8 @@ public class EnvironmentInitialConfig {
             FileWriter envOutput = new FileWriter(".env");
             envOutput.write(setVariables());
             envOutput.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("File can't be created, " + e.getMessage());
         }
     }
 
@@ -46,7 +47,8 @@ public class EnvironmentInitialConfig {
                 + "EXPLICIT_WAIT_TIME=10\n"
                 + "IMPLICIT_WAIT_TIME=20\n"
                 + "BROWSER=CHROME\n"
-                + "LANGUAGE=en";
+                + "LANGUAGE=en\n"
+                + "SALESFORCE_VERSION=lightning";
         return variables;
     }
 
@@ -60,8 +62,7 @@ public class EnvironmentInitialConfig {
         String[] arrayOfField = declaredVar.toString().split("[.]");
         if (!arrayOfField[arrayOfField.length - 1].matches(".*[a-z].*")) {
             return arrayOfField[arrayOfField.length - 1];
-        } else {
-            return null;
         }
+        return null;
     }
 }

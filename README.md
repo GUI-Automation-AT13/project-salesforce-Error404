@@ -12,6 +12,7 @@ SALESFORCE_TOKEN= // token needed for the comunication with Salesforce and the p
 SALESFORCE_CLIENT_ID= // client id from salesforce
 SALESFORCE_CLIENT_SECRET= // client secret from salesforce
 BASE_URL_CLASSIC= // refers to the http domain for classic view in salesforce, ends with /
+SALESFORCE_VERSION= // refers to the layout, lightning or clasic version
 ```
 - Another environment variables that are set automatically are:
 ```dotenv

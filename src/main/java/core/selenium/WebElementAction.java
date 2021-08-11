@@ -184,6 +184,7 @@ public class WebElementAction {
 
     /**
      * Gets the generic text from the header in a created opportunity page.
+     *
      * @param xpath initial Xpath of the element.
      * @param field name of the field to get the String.
      * @param headerType type of the element field.
@@ -194,13 +195,13 @@ public class WebElementAction {
         if (isElementPresent(byElement, waitTime)) {
             WebElement createdHeader = driver.findElement(byElement);
             return createdHeader.getText();
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
      * Gets text from detail fields.
+     *
      * @param xpath the path for the field.
      * @param field name of the field.
      * @return the text from the detail field.
@@ -210,8 +211,7 @@ public class WebElementAction {
         if (isElementPresent(xpathElement, waitTime)) {
             WebElement element = driver.findElement(xpathElement);
             return element.getText();
-        } else {
-            return null;
         }
+        return null;
     }
 }

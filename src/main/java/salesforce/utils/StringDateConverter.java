@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.utils;
 
 import java.time.LocalDate;
@@ -16,6 +24,7 @@ public class StringDateConverter {
 
     /**
      * Sends the String to the method to convert.
+     *
      * @param dateString the String date to convert.
      * Param format allowed:
      * 1. TODAY | YESTERDAY | TOMORROW.
@@ -47,6 +56,7 @@ public class StringDateConverter {
 
     /**
      * Converts a String in the format "number days | month | year  ago | from now".
+     *
      * @param dateString String to convert.
      */
     private static void specificDateStringConvert(final String dateString) {
@@ -73,6 +83,7 @@ public class StringDateConverter {
      * Converts a String in Date format.
      * Accepts only date with "/" or with "-".
      * Accepts only Time starting with T.
+     *
      * @param dateString String to convert.
      */
     private static void dateStringConvert(final String dateString) {
@@ -91,6 +102,7 @@ public class StringDateConverter {
 
     /**
      * Converts a String with single word, "TODAY", "YESTERDAY", "TOMORROW".
+     *
      * @param dateString String to convert.
      */
     private static void singleWordDateConvert(final String dateString) {
@@ -104,6 +116,7 @@ public class StringDateConverter {
 
     /**
      * Validates the String, avoiding null or empty.
+     *
      * @param dateString String to validate.
      * @return true if String is valid.
      */
