@@ -1,7 +1,5 @@
 package cucumber.steps;
 
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
@@ -15,15 +13,8 @@ import java.util.List;
 
 public class SearchSteps {
     private Logger logger = LogManager.getLogger(getClass());
-    ApiRequestBuilder requestBuilder;
-    ApiResponse apiResponse;
     AppLauncherModalPage appLauncherModalPage;
     List<WebElement> list;
-
-    public SearchSteps(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse) {
-        this.requestBuilder = newRequestBuilder;
-        this.apiResponse = newApiResponse;
-    }
 
     /**
      * Opens the application's launcher modal.
