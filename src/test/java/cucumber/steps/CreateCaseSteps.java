@@ -18,25 +18,20 @@ import salesforce.entities.Case;
 import salesforce.ui.pages.cases.CasePage;
 import salesforce.ui.pages.cases.CasesPage;
 import salesforce.ui.pages.cases.NewCasesPage;
+import salesforce.ui.pages.cases.PopUpMessage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import static salesforce.utils.FileTranslator.translateValue;
 
 public class CreateCaseSteps {
-    Case newCase;
-    String actualMessage;
-    Map actualCaseDetailsValues;
-    Map expectedCaseDetailsValues;
-    Map actualCaseHeadersValues;
-    Map expectedCaseHeadersValues;
-    Map actualCaseRowValues;
-    Map expectedCaseRowValues;
-    SoftAssert softAssert = new SoftAssert();
+    private Case newCase;
+    SoftAssert softAssert;
     String featureName = "Cases";
     private Logger logger = LogManager.getLogger(getClass());
 
-    public CreateCaseSteps(final Case aNewCase) {
+    public CreateCaseSteps(final Case aNewCase, final SoftAssert newSoftAssert) {
         this.newCase = aNewCase;
+        this.softAssert = newSoftAssert;
     }
 
     /**
@@ -55,7 +50,6 @@ public class CreateCaseSteps {
         NewCasesPage newCasesPage = casesPage.clickOnNew();
         newCase.setCaseOwner(newCasesPage.getCaseOwner());
         CasePage casePage = newCasesPage.createCase(entry.keySet(), newCase);
-        actualMessage = newCasesPage.getPopUpMessage();
         newCase.updateCase(casePage.getCaseNumber());
         newCase.setId(casePage.getCaseId());
     }
@@ -63,56 +57,36 @@ public class CreateCaseSteps {
     /**
      * Verifies that a message matches a certain regex.
      */
-    @Then("a success message is displayed")
-    public void aSuccessIsDisplayed() {
+    @Then("a case created message should be displayed")
+    public void aCaseCreatedMessageShouldBeDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
+        PopUpMessage popUpMessage = new PopUpMessage();
+        String actualMessage = popUpMessage.getPopUpMessage();
         String expectedRegex = translateValue(featureName, "popup.message.regexp");
         softAssert.assertTrue(actualMessage.matches(expectedRegex),
                 "\nactual: " + actualMessage + "\nexpected regex: " + expectedRegex);
     }
 
     /**
-     * Creates a map with the headers.
-     *
-     * @throws IllegalAccessException
-     */
-    @When("I check on the site's headers")
-    public void iCheckOnTheSiteSHeaders() throws IllegalAccessException {
-        logger.info("=================== When I check on the site's headers ==========================");
-        CasePage casePage = new CasePage();
-        actualCaseHeadersValues = casePage.getAllHeadersFields();
-        expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
-        expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
-    }
-
-    /**
      * Verifies that the headers match the entity.
      */
-    @Then("all header's fields match to the created case")
-    public void allHeaderSFieldsMatchToTheCreatedCase() {
-        logger.info("=================== Then All header's fields should match ==========================");
-        softAssert.assertEquals(actualCaseHeadersValues, expectedCaseHeadersValues);
-    }
-
-    /**
-     * Creates a map with the details.
-     *
-     * @throws IllegalAccessException
-     */
-    @And("I check on the site's details")
-    public void iCheckOnTheSiteSDetails() throws IllegalAccessException {
-        logger.info("=================== And I check on the site's details ==========================");
+    @And("all header's fields should match the created case")
+    public void allHeaderSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
         CasePage casePage = new CasePage();
-        actualCaseDetailsValues = casePage.getDetailsFields();
-        expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
+        Map actualCaseHeadersValues = casePage.getAllHeadersFields();
+        Map expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
+        expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
+        softAssert.assertEquals(actualCaseHeadersValues, expectedCaseHeadersValues);
     }
 
     /**
      * Verifies that all the details match the entity.
      */
-    @Then("all detail's fields match to the created case")
-    public void allDetailSFieldsMatchToTheCreatedCase() {
-        logger.info("=================== Then All the given details fields should match ==========================");
+    @Then("all detail's fields should match the created case")
+    public void allDetailSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
+        CasePage casePage = new CasePage();
+        Map actualCaseDetailsValues = casePage.getDetailsFields();
+        Map expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
         softAssert.assertEquals(actualCaseDetailsValues, expectedCaseDetailsValues);
     }
 
@@ -124,9 +98,8 @@ public class CreateCaseSteps {
     public void theCreatedCaseIsDisplayed() throws IllegalAccessException {
         logger.info("=================== Then The created case should be displayed ==========================");
         CasesPage casesPage = new CasesPage();
-        actualCaseRowValues = casesPage.getRowFields(newCase.getCaseNumber());
-        expectedCaseRowValues = newCase.createMapOnKeySetFromCase(actualCaseRowValues.keySet());
+        Map actualCaseRowValues = casesPage.getRowFields(newCase.getCaseNumber());
+        Map expectedCaseRowValues = newCase.createMapOnKeySetFromCase(actualCaseRowValues.keySet());
         softAssert.assertEquals(actualCaseRowValues, expectedCaseRowValues);
-        softAssert.assertAll();
     }
 }

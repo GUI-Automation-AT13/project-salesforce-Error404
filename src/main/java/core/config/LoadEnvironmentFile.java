@@ -11,6 +11,8 @@ package core.config;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;
 
+import static core.utils.EncryptorAES.getDecryptedValue;
+
 public final class LoadEnvironmentFile {
 
     private static String key = "error404";
@@ -98,7 +100,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce username
      */
     public static String getTheSalesforceUsername() {
-        return getDotenv().get("SALESFORCE_USERNAME");
+        return getDecryptedValue(getDotenv().get("SALESFORCE_USERNAME"), key);
     }
 
     /**
@@ -107,7 +109,7 @@ public final class LoadEnvironmentFile {
      * @return a String with the salesforce password
      */
     public static String getTheSalesforcePassword() {
-        return getDotenv().get("SALESFORCE_PASSWORD");
+        return getDecryptedValue(getDotenv().get("SALESFORCE_PASSWORD"), key);
     }
 
     /**
