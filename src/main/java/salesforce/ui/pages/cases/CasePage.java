@@ -41,7 +41,6 @@ public class CasePage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(headersTitle));
     }
 
     /**

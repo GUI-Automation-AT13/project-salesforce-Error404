@@ -50,8 +50,6 @@ public class CreateCaseSteps {
         NewCasesPage newCasesPage = casesPage.clickOnNew();
         newCase.setCaseOwner(newCasesPage.getCaseOwner());
         CasePage casePage = newCasesPage.createCase(entry.keySet(), newCase);
-        newCase.updateCase(casePage.getCaseNumber());
-        newCase.setId(casePage.getCaseId());
     }
 
     /**
@@ -73,6 +71,8 @@ public class CreateCaseSteps {
     @And("all header's fields should match the created case")
     public void allHeaderSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
         CasePage casePage = new CasePage();
+        newCase.updateCase(casePage.getCaseNumber());
+        newCase.setId(casePage.getCaseId());
         Map actualCaseHeadersValues = casePage.getAllHeadersFields();
         Map expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
         expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));

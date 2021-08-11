@@ -16,8 +16,8 @@ import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.Before;
 import salesforce.entities.Account;
-import static core.config.LoadEnvironmentFile.getTheAdminUrl;
-import static cucumber.hooks.Hooks.getToken;
+import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static cucumber.hooks.Hooks.getCreatedToken;
 
 public class AccountHooks {
     private ApiRequestBuilder requestBuilder;
@@ -86,8 +86,8 @@ public class AccountHooks {
             ApiRequestBuilder apiRequestBuilder = new ApiRequestBuilder();
             ApiResponse response = new ApiResponse();
             apiRequestBuilder
-                    .addHeader("Authorization", getToken())
-                    .addBaseUri(getTheAdminUrl())
+                    .addHeader("Authorization", getCreatedToken())
+                    .addBaseUri(getTheBaseUrlClassic())
                     .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
                     .addPathParams("contactID", accountId)
                     .addMethod(ApiMethod.DELETE)

@@ -104,4 +104,31 @@ public final class EnvironmentConfig {
     public static String getPassword() {
         return SALESFORCE_PASSWORD;
     }
+
+    /**
+     * Gets the salesforce token.
+     *
+     * @return a String with the token
+     */
+    public static String getToken() {
+        return SALESFORCE_TOKEN;
+    }
+
+    /**
+     * Gets the salesforce client id.
+     *
+     * @return a String with the client id
+     */
+    public static String getClientId() {
+        return SALESFORCE_CLIENT_ID;
+    }
+
+    /**
+     * Gets the salesforce client secret.
+     *
+     * @return a String with the client secret
+     */
+    public static String getClientSecret() {
+        return SALESFORCE_CLIENT_SECRET;
+    }
 }
