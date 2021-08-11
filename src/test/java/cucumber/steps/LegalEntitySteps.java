@@ -31,7 +31,6 @@ import java.util.Map;
 public class LegalEntitySteps {
 
     private Logger logger = LogManager.getLogger(getClass());
-    LoginPage loginPage;
     LegalEntitiesPage legalEntitiesPage;
     NewLegalEntityPage newLegalEntityPage;
     LegalEntity legalEntity;
@@ -40,15 +39,6 @@ public class LegalEntitySteps {
 
     public LegalEntitySteps(LegalEntity legalEntity) {
         this.legalEntity = legalEntity;
-    }
-
-    @Given("^I login to Salesforce site as an admin user$")
-    public void iLoginToSalesforceSiteAsAnAdminUser() {
-        logger.info("=================== Given I login to Salesforce site ==========================");
-        encryptorAES = new EncryptorAES();
-        loginPage = new LoginPage();
-        loginPage.loginSuccessful(getUsername(), getPassword());
-        HomePage homePage = new HomePage();
     }
 
     @When("^I create a new LegalEntity with fields$")

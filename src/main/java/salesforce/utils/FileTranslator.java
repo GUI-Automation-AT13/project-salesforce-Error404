@@ -1,10 +1,9 @@
 package salesforce.utils;
 
 import java.util.ResourceBundle;
-import static core.utils.LoadEnvironmentFile.getLanguage;
+import static core.config.LoadEnvironmentFile.getLanguage;
 
-public class Translator {
-
+public class FileTranslator {
     private static final String I18N_FILE_PATH = "internationalization/i18N%s";
 
     /**

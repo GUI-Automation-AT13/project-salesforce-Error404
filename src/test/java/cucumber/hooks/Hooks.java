@@ -17,7 +17,7 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
 import salesforce.config.EnvironmentConfig;
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
-import static core.utils.LoadEnvironmentFile.*;
+import static core.config.LoadEnvironmentFile.*;
 
 public class Hooks {
     private WebDriver driver;

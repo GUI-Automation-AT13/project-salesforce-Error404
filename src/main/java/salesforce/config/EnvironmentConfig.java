@@ -8,7 +8,7 @@
 
 package salesforce.config;
 
-import static core.utils.LoadEnvironmentFile.*;
+import static core.config.LoadEnvironmentFile.*;
 
 public final class EnvironmentConfig {
     private static EnvironmentConfig environmentConfig;

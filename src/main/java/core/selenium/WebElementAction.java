@@ -58,6 +58,7 @@ public class WebElementAction {
      * @return a web element with the provided features
      */
     public WebElement getWebElementByXpathAndValue(final String xpath, final String value) {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(xpath, value))));
         return driver.findElement(By.xpath(String.format(xpath, value)));
     }
 
@@ -155,6 +156,15 @@ public class WebElementAction {
             driver.manage().timeouts().implicitlyWait(WebDriverConfig
                     .getWebDriverConfig().getImplicitWaitTime(), TimeUnit.MILLISECONDS);
         }
+    }
+
+    /**
+     * Gets the current web site's url.
+     *
+     * @return a String with the url
+     */
+    public String getSiteCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
     /**

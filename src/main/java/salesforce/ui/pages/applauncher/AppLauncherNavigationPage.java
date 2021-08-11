@@ -6,7 +6,7 @@
  * license agreement you entered into with Fundacion Jala
  */
 
-package salesforce.ui.pages.product;
+package salesforce.ui.pages.applauncher;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -16,32 +16,30 @@ import salesforce.ui.pages.BasePage;
 import salesforce.utils.FileTranslator;
 
 /**
- * This class returns an instance of ProductsPage.
+ * This class returns an instance of AppLauncherNavigationPage.
  */
-public class ProductsPage extends BasePage {
+public class AppLauncherNavigationPage extends BasePage {
+    @FindBy(xpath = "//lightning-button/button")
+    private WebElement appLauncherLink;
 
-    @FindBy(css = "a.forceActionLink")
-    private WebElement newLink;
-
-    private By newProductButton = By.xpath("//a[@title='"
-            + FileTranslator.translateValue("Products", "newProductButton") + "']");
+    private By viewAllLink = By.xpath("//button[contains(text(),'"
+            + FileTranslator.translateValue("AppLauncherSearch", "viewAllLink") + "')]");
 
     /**
      * Waits for the page to load.
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(newLink));
+        getWait().until(ExpectedConditions.visibilityOf(appLauncherLink));
     }
 
     /**
-     * Clicks on New button and opens the form to create a new product.
+     * Opens the App Launcher Modal.
      *
-     * @return a NewProductPage instance
+     * @return an AppLauncherModalPage.
      */
-    public NewProductPage clickNewProductButton() {
-        getWebElementAction().clickOnWebElement(getDriver().findElement(newProductButton));
-        return new NewProductPage();
+    public AppLauncherModalPage clickView() {
+        getWebElementAction().clickOnWebElement(getDriver().findElement(viewAllLink));
+        return new AppLauncherModalPage();
     }
-
 }

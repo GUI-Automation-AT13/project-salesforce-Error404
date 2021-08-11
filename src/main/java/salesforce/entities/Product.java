@@ -100,7 +100,7 @@ public class Product {
      * @return a name
      */
     public String getName() {
-        return name.concat(String.valueOf(LocalDate.now()));
+        return name;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Product {
      * @param newName to set
      */
     public void setName(final String newName) {
-        this.name = newName;
+        this.name = newName.concat(String.valueOf(LocalDate.now()));
     }
 
     /**
@@ -434,5 +434,18 @@ public class Product {
      */
     public void setStockKeepingUnit(final Object newStockKeepingUnit) {
         this.stockKeepingUnit = newStockKeepingUnit;
+    }
+
+    /**
+     * Sets the product with given values.
+     *
+     * @param product the product with the values to set.
+     */
+    public void setProduct(final Product product) {
+        name = product.getName();
+        isActive = product.isActive();
+        productCode = product.getProductCode();
+        family = product.getFamily();
+        description = product.getDescription();
     }
 }

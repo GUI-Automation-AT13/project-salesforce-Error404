@@ -14,7 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Product;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -22,15 +22,17 @@ import java.util.Set;
  * This class returns an instance of NewProductForm.
  */
 public class NewProductPage extends BasePage {
-    @FindBy(css = ".forceActionButton:nth-child(3) > .label")
-    private WebElement saveButton;
+    @FindBy(xpath = "//h2[contains(@class,'inlineTitle')]")
+    private WebElement formTitle;
 
     private By productDescriptionTextArea = By.xpath("//label//span[text()='"
-            + Translator.translateValue("Products", "productDescription") + "']/../../textarea");
+            + FileTranslator.translateValue("Products", "productDescription") + "']/../../textarea");
     private By productFamilyComboBox = By.xpath("//span//span[text()='"
-            + Translator.translateValue("Products", "productFamily") + "']/../..//a");
+            + FileTranslator.translateValue("Products", "productFamily") + "']/../..//a");
     private By activeCheckBox = By.xpath("//label//span[text()='"
-            + Translator.translateValue("Products", "active") + "']/../../input");
+            + FileTranslator.translateValue("Products", "active") + "']/../../input");
+    private By saveButton = By.xpath("//button[@title='"
+            + FileTranslator.translateValue("Products", "saveProduct") + "']");
 
     private static final String INPUT_XPATH = "//label//span[text()='%s']/../../input";
 
@@ -39,7 +41,7 @@ public class NewProductPage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(saveButton));
+        getWait().until(ExpectedConditions.visibilityOf(formTitle));
     }
 
     /**
@@ -85,7 +87,7 @@ public class NewProductPage extends BasePage {
      * @return a ProductPage
      */
     public ProductPage clickSaveButton() {
-        getWebElementAction().clickOnWebElement(saveButton);
+        getWebElementAction().clickOnWebElement(getDriver().findElement(saveButton));
         return new ProductPage();
     }
 
@@ -99,10 +101,10 @@ public class NewProductPage extends BasePage {
     public ProductPage createProduct(final Set<String> fields, final Product product) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Name", () ->
-                setInputField(Translator.translateValue("Products", "productName"), product.getName()));
+                setInputField(FileTranslator.translateValue("Products", "productName"), product.getName()));
         strategyMap.put("IsActive", () -> clickActiveCheckBox());
         strategyMap.put("ProductCode", () ->
-                setInputField(Translator.translateValue("Products", "productCode"),
+                setInputField(FileTranslator.translateValue("Products", "productCode"),
                         product.getProductCode()));
         strategyMap.put("Family", () -> selectProductFamilyOption(product.getFamily()));
         strategyMap.put("Description", () -> setProductDescription(product.getDescription()));

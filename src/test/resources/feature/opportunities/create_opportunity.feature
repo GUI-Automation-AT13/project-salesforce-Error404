@@ -1,8 +1,8 @@
 Feature: Create Opportunity
 
   @DeleteOpportunity @CreateAccount @DeleteAccount @CreateCampaign
-  Scenario: create a new Opportunity with all fields
-    Given I login to Salesforce site as a developer user
+  Scenario: Create a new Opportunity with all fields
+    Given I login to salesforce as an admin user
     When I navigate to the "OPPORTUNITY" page
     When I create a new Opportunity with fields
       | Private          | true                        |
@@ -28,7 +28,7 @@ Feature: Create Opportunity
 
   @DeleteOpportunity
   Scenario: create a new Opportunity with only required fields
-    Given I login to Salesforce site as a developer user
+    Given I login to salesforce as an admin user
     When I navigate to the "OPPORTUNITY" page
     When I create a new Opportunity with fields
       | OpportunityName | New opportunity |

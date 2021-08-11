@@ -1,8 +1,8 @@
 Feature: create legal entity
 
   @DeleteLegalEntity
-  Scenario: create an Legal entity with required fields.
-    Given I login to Salesforce site as an admin user
+  Scenario: Create an Legal entity with required fields.
+    Given I login to salesforce as an admin user
     When I navigate to the "LEGAL_ENTITIES" page
     When I create a new LegalEntity with fields
       | Name | new entity |
@@ -14,7 +14,7 @@ Feature: create legal entity
 
   @DeleteLegalEntity
   Scenario: create an Legal entity with all fields.
-    Given I login to Salesforce site as an admin user
+    Given I login to salesforce as an admin user
     When I navigate to the "LEGAL_ENTITIES" page
     When I create a new LegalEntity with fields
       | Name                  | new entity   |
