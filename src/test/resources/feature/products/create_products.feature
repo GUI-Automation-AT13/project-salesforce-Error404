@@ -10,6 +10,7 @@ Feature: Create Product
     And Check product fields matches
     And Check The title matches
 
+  @DeleteProduct
   Scenario: Create a product with all fields
     Given I login to salesforce as an admin user
     When I navigate to the "PRODUCTS" page

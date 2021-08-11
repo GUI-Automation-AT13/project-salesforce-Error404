@@ -10,6 +10,9 @@ package salesforce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import salesforce.utils.StringDateConverter;
+
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +24,7 @@ public class Opportunity {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String nextStep;
     @JsonProperty("Amount")
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    private String amount = "";
+    private double amount;
     @JsonProperty("CloseDate")
     private String closeDate;
     @JsonProperty("Stage")
@@ -56,6 +58,13 @@ public class Opportunity {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private boolean isPrivate;
     private Map<String, String> mapFields;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
+
+    public Opportunity() {
+        setCreatedDate(StringDateConverter.convertDate("TODAY"));
+        setUpdatedDate(this.createdDate);
+    }
 
     /**
      * Returns the Opportunity name.
@@ -72,7 +81,8 @@ public class Opportunity {
      * @param opportunityNameNew the name to set.
      */
     public void setOpportunityName(final String opportunityNameNew) {
-        this.opportunityName = opportunityNameNew.concat(LocalDateTime.now().withNano(0).toString());
+
+        this.opportunityName = opportunityNameNew.concat(StringDateConverter.convertDate("TODAY").toString());
     }
 
     /**
@@ -99,7 +109,8 @@ public class Opportunity {
      * @return long of the amount.
      */
     public String getAmount() {
-        return amount.toString();
+        DecimalFormat decimalFormat = new DecimalFormat("00.00");
+        return decimalFormat.format(amount);
     }
 
     /**
@@ -107,7 +118,7 @@ public class Opportunity {
      *
      * @param amountNew the amount to set.
      */
-    public void setAmount(final String amountNew) {
+    public void setAmount(final double amountNew) {
         this.amount = amountNew;
     }
 
@@ -377,6 +388,8 @@ public class Opportunity {
         mapFields.put("Stage", getOpportunityStage());
         mapFields.put("Probability", getProbability());
         mapFields.put("Account", getSearchAccount());
+        mapFields.put("Created", getCreatedDate().toString());
+        mapFields.put("Updated", getUpdatedDateDate().toString());
     }
 
     /**
@@ -386,5 +399,41 @@ public class Opportunity {
      */
     public Map<String, String> getMapFields() {
         return mapFields;
+    }
+
+    /**
+     * Sets the date of creation.
+     *
+     * @param newCreatedDate LocalDateTime of creation.
+     */
+    public void setCreatedDate(final LocalDateTime newCreatedDate) {
+        this.createdDate = newCreatedDate;
+    }
+
+    /**
+     * Gets the created date.
+     *
+     * @return LocalDateTime createdDate
+     */
+    public LocalDateTime getCreatedDate() {
+        return this.createdDate;
+    }
+
+    /**
+     * Sets the date of update.
+     *
+     * @param newUpdatedDate LocalDateTime of update.
+     */
+    public void setUpdatedDate(final LocalDateTime newUpdatedDate) {
+        this.updatedDate = newUpdatedDate;
+    }
+
+    /**
+     * Gets the updated date.
+     *
+     * @return LocalDateTime updatedDate
+     */
+    public LocalDateTime getUpdatedDateDate() {
+        return this.updatedDate;
     }
 }
