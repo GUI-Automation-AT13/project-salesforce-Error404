@@ -37,7 +37,7 @@ public class EnvironmentInitialConfig {
     private String setVariables() {
         String variables = "";
         Field[] declaredVariable = EnvironmentConfig.class.getDeclaredFields();
-        for(Field variable: declaredVariable) {
+        for (Field variable: declaredVariable) {
             if (getVariable(variable) != null) {
                 variables += getVariable(variable) + "=\n";
             }
@@ -58,8 +58,8 @@ public class EnvironmentInitialConfig {
      */
     private String getVariable(final Field declaredVar) {
         String[] arrayOfField = declaredVar.toString().split("[.]");
-        if(!arrayOfField[arrayOfField.length-1].matches(".*[a-z].*")) {
-            return arrayOfField[arrayOfField.length-1];
+        if (!arrayOfField[arrayOfField.length - 1].matches(".*[a-z].*")) {
+            return arrayOfField[arrayOfField.length - 1];
         } else {
             return null;
         }

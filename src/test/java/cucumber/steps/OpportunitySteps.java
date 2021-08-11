@@ -3,39 +3,28 @@ package cucumber.steps;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Opportunity;
-import salesforce.ui.pages.LoginPage;
 import salesforce.ui.pages.opportunity.CreatedOpportunityPage;
 import salesforce.ui.pages.opportunity.NewOpportunityPage;
 import salesforce.ui.pages.opportunity.OpportunityPage;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class OpportunitySteps {
 
     private Logger logger = LogManager.getLogger(getClass());
-    LoginPage loginPage = new LoginPage();
     Opportunity opportunity;
     NewOpportunityPage formOpportunity;
     CreatedOpportunityPage createdForm;
     OpportunityPage opportunityPage;
     SoftAssert softAssert = new SoftAssert();
     Set<String> fields;
-
-    @Given("I login to Salesforce site as a developer user")
-    public void iLoginToSalesforceSiteAsAnUser() {
-        logger.info("=================== Given I login to Salesforce site ==========================");
-        loginPage.loginSuccessful(getUsername(), getPassword());
-    }
 
     @When("I create a new Opportunity with fields")
     public void iCreateAFeatureWithFields(final Map<String, String> dataTable) throws IOException {

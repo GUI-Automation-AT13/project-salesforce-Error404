@@ -10,7 +10,8 @@ package salesforce.ui.pages.opportunity;
 
 import core.selenium.WebElementAction;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,22 +64,22 @@ public class OpportunityDetails extends BasePage {
     private void setDetailMap() {
         detailFields = new HashMap<>();
         detailFields.put("OpportunityName", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "opportunityName")));
+                FileTranslator.translateValue("Opportunity", "opportunityName")));
         detailFields.put("Type", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "type")));
+                FileTranslator.translateValue("Opportunity", "type")));
         detailFields.put("LeadSource", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "leadSource")));
+                FileTranslator.translateValue("Opportunity", "leadSource")));
         detailFields.put("Amount", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "amount")));
+                FileTranslator.translateValue("Opportunity", "amount")));
         detailFields.put("CloseDate", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "closeDate")));
+                FileTranslator.translateValue("Opportunity", "closeDate")));
         detailFields.put("NextStep", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "nextStep")));
+                FileTranslator.translateValue("Opportunity", "nextStep")));
         detailFields.put("Stage", webElementAction.getDetailText(CREATED_DETAIL,
-                Translator.translateValue("Opportunity", "stage")));
+                FileTranslator.translateValue("Opportunity", "stage")));
         detailFields.put("Probability", webElementAction.getDetailText(CREATED_SEARCH,
-                Translator.translateValue("Opportunity", "probability")));
+                FileTranslator.translateValue("Opportunity", "probability")));
         detailFields.put("Account", webElementAction.getDetailText(CREATED_ACCOUNT_DETAIL,
-                Translator.translateValue("Opportunity", "account")));
+                FileTranslator.translateValue("Opportunity", "account")));
     }
 }

@@ -14,9 +14,9 @@ public final class EnvironmentConfig {
     private static EnvironmentConfig environmentConfig;
 
     private String loginUrl;
-    private String BASE_URL;
-    private String BASE_URL_CLASSIC;
     private String salesforceVersion;
+    private static String BASE_URL;
+    private static String BASE_URL_CLASSIC;
     private static String SALESFORCE_USERNAME;
     private static String SALESFORCE_PASSWORD;
     private static String SALESFORCE_TOKEN;

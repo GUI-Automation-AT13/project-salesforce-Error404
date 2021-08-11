@@ -14,7 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.ui.pages.BasePage;
-import salesforce.utils.Translator;
+import salesforce.utils.FileTranslator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,10 +37,10 @@ public class CreatedOpportunityPage extends BasePage {
 
     private By menuBtn = By.xpath("//li[contains(@class,'slds-dropdown-trigger_click')]");
     private By deleteOption = By.xpath("//div[@role='menu']//*[@title='"
-            + Translator.translateValue("Opportunity", "delete")
+            + FileTranslator.translateValue("Opportunity", "delete")
             + "']//a");
     private By deleteBtnConfirm = By.xpath("//button[@title='"
-            + Translator.translateValue("Opportunity", "delete") + "']");
+            + FileTranslator.translateValue("Opportunity", "delete") + "']");
     private static final String CREATED_HEADER = "//div[./p[text()='%s']]//%s";
 
     public CreatedOpportunityPage() {
@@ -78,11 +78,11 @@ public class CreatedOpportunityPage extends BasePage {
         headersFields = new HashMap<>();
         headersFields.put("OpportunityName", getTitleHeader());
         headersFields.put("Account", webElementAction.getHeaderString(CREATED_HEADER,
-                Translator.translateValue("Opportunity", "accountName"), "a/span"));
+                FileTranslator.translateValue("Opportunity", "accountName"), "a/span"));
         headersFields.put("CloseDate", webElementAction.getHeaderString(CREATED_HEADER,
-                Translator.translateValue("Opportunity", "closeDate"), "lightning-formatted-text"));
+                FileTranslator.translateValue("Opportunity", "closeDate"), "lightning-formatted-text"));
         headersFields.put("Amount", webElementAction.getHeaderString(CREATED_HEADER,
-                Translator.translateValue("Opportunity", "amount"), "lightning-formatted-text"));
+                FileTranslator.translateValue("Opportunity", "amount"), "lightning-formatted-text"));
         headersFields.put("Stage", getCurrentStage());
     }
 
