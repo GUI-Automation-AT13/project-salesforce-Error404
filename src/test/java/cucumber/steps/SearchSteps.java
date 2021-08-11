@@ -20,11 +20,14 @@ public class SearchSteps {
     AppLauncherModalPage appLauncherModalPage;
     List<WebElement> list;
 
-    public SearchSteps(ApiRequestBuilder requestBuilder, ApiResponse apiResponse) {
-        this.requestBuilder = requestBuilder;
-        this.apiResponse = apiResponse;
+    public SearchSteps(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse) {
+        this.requestBuilder = newRequestBuilder;
+        this.apiResponse = newApiResponse;
     }
 
+    /**
+     * Opens the application's launcher modal.
+     */
     @When("I open the App Launcher modal")
     public void openAppLauncherModal() {
         logger.info("=================== When I open the App Launcher modal ==========================");
@@ -33,15 +36,27 @@ public class SearchSteps {
         appLauncherModalPage = appLauncherNavigationPage.clickView();
     }
 
+    /**
+     * Introduces text to the search box.
+     *
+     * @param textToSearch a String with the text
+     */
     @When("^I enter (.*) into the search box$")
-    public void enterTextIntoSearchBox(String textToSearch) {
+    public void enterTextIntoSearchBox(final String textToSearch) {
         logger.info("=================== When I enter a text into the search box ==========================");
         appLauncherModalPage.setSearchTextBox(textToSearch);
     }
 
+    /**
+     * Validates that provided text matches the obtained results.
+     *
+     * @param type a String with the result type
+     * @param textSearched a String with the text
+     */
     @Then("^(Apps|Items) related to (.*) are shown on its section$")
-    public void resultAppsMatch(String type, String textSearched) {
-        logger.info("=================== Then Apps and Items related to the searched text are shown on its section ==========================");
+    public void resultAppsMatch(final String type, final String textSearched) {
+        logger.info("================ Then Apps and Items related to ============================");
+        logger.info("===========the searched text are shown on its section ======================");
         SoftAssert softAssert = new SoftAssert();
         list = appLauncherModalPage.getResult(type);
         softAssert.assertTrue(appLauncherModalPage.containsText(textSearched, list, type));
