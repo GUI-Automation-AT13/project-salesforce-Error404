@@ -8,7 +8,9 @@
 
 package salesforce.utils;
 
+import salesforce.config.EnvironmentConfig;
 import java.io.FileWriter;
+import java.lang.reflect.Field;
 
 public class EnvironmentInitialConfig {
 
@@ -34,9 +36,11 @@ public class EnvironmentInitialConfig {
      */
     private String setVariables() {
         String variables = "";
-        EnvironmentFieldsEnum[] baseEnum = EnvironmentFieldsEnum.class.getEnumConstants();
-        for (EnvironmentFieldsEnum envVar: baseEnum) {
-            variables += envVar + "=\n";
+        Field[] declaredVariable = EnvironmentConfig.class.getDeclaredFields();
+        for(Field variable: declaredVariable) {
+            if (getVariable(variable) != null) {
+                variables += getVariable(variable) + "=\n";
+            }
         }
         variables += "LOGIN_URL=https://login.salesforce.com/\n"
                 + "EXPLICIT_WAIT_TIME=10\n"
@@ -46,35 +50,18 @@ public class EnvironmentInitialConfig {
         return variables;
     }
 
-    /*public static void main(String[] args) {
-        Field[] fields = LoadEnvironmentFile.class.getFields();
-        Field[] declared = LoadEnvironmentFile.class.getDeclaredFields();
-        System.out.println("Printing");
-        System.out.println(fields.length);
-        for (int i = 0; i< fields.length; i++) {
-            System.out.println(fields[i]);
-        }
-        System.out.println("Printing");
-        for (int i = 0; i< declared.length; i++) {
-            System.out.println(declared[i]);
-        }
-    }*/
-
-    /*public static void main(String[] args) {
-        String content = "BASE_URL=\nUSER=";
-        try {
-            FileWriter output = new FileWriter(".env");
-            output.write(content);
-            output.close();
-        } catch(Exception e) {
-            e.getStackTrace();
+    /**
+     * Gets a variable from the field of a specific class.
+     *
+     * @param declaredVar the field of a class.
+     * @return declared variable as String.
+     */
+    private String getVariable(final Field declaredVar) {
+        String[] arrayOfField = declaredVar.toString().split("[.]");
+        if(!arrayOfField[arrayOfField.length-1].matches(".*[a-z].*")) {
+            return arrayOfField[arrayOfField.length-1];
+        } else {
+            return null;
         }
     }
-
-    public static void main(String[] args) {
-        EnvironmentFieldsEnum[] baseEnum = EnvironmentFieldsEnum.class.getEnumConstants();
-        for(int i = 0; i<baseEnum.length; i++) {
-            System.out.println(baseEnum[i]);
-        }
-    }*/
 }
