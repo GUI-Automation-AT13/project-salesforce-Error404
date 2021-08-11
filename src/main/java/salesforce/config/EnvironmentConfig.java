@@ -13,8 +13,8 @@ import static core.config.LoadEnvironmentFile.*;
 public final class EnvironmentConfig {
     private static EnvironmentConfig environmentConfig;
 
-    private String loginUrl;
-    private String salesforceVersion;
+    private static String LOGIN_URL;
+    private static String SALESFORCE_VERSION;
     private static String BASE_URL;
     private static String BASE_URL_CLASSIC;
     private static String SALESFORCE_USERNAME;
@@ -40,10 +40,10 @@ public final class EnvironmentConfig {
     }
 
     private void initialize() {
-        loginUrl = getTheLoginUrl();
+        LOGIN_URL = getTheLoginUrl();
         BASE_URL = getTheBaseUrl();
         BASE_URL_CLASSIC = getTheBaseUrlClassic();
-        salesforceVersion = getTheSalesforceVersion();
+        SALESFORCE_VERSION = getTheSalesforceVersion();
         SALESFORCE_USERNAME = getTheSalesforceUsername();
         SALESFORCE_PASSWORD = getTheSalesforcePassword();
         SALESFORCE_TOKEN = getTheSalesforceToken();
@@ -57,7 +57,7 @@ public final class EnvironmentConfig {
      * @return a String with the login url
      */
     public String getLogin() {
-        return loginUrl;
+        return LOGIN_URL;
     }
 
     /**
@@ -84,7 +84,7 @@ public final class EnvironmentConfig {
      * @return a String with the salesforce version
      */
     public String getSalesforceVersion() {
-        return salesforceVersion;
+        return SALESFORCE_VERSION;
     }
 
     /**

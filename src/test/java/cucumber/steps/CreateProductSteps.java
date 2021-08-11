@@ -3,7 +3,6 @@ package cucumber.steps;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
-import core.utils.EncryptorAES;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
