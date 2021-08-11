@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 group 'org.example'
@@ -92,3 +93,19 @@ task executeFeatures(type: Test) {
     scanForTestClasses = false
     testLogging.showStandardStreams = true
 }
+jacocoTestReport {
+    dependsOn test
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['core/**',
+                                        'salesforce/api/**',
+                                        'salesforce/config/**',
+                                        'salesforce/entities/**',
+                                        'salesforce/ui/**'])
+        }))
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+test.finalizedBy("jacocoTestReport")

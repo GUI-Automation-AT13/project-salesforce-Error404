@@ -20,8 +20,6 @@ import salesforce.utils.FileTranslator;
  */
 public class ProductPage extends BasePage {
 
-    private static final int INTERVAL_TIME = 500;
-
     @FindBy(css = ".slds-theme--success")
     private WebElement successMessage;
 
@@ -31,10 +29,11 @@ public class ProductPage extends BasePage {
     @FindBy(xpath = "//div/span[text()='Product Description']/../..//span/span")
     private WebElement descriptionTextArea;
 
-    private By activeCheckBoxChecked = By.cssSelector("img.checked");
     private By createdByDate = By.xpath("//span[text()='"
             + FileTranslator.translateValue("Products", "createdBy")
             + "']/../..//span[contains(@class,'uiOutputDateTime')]");
+    private By activeCheckBoxChecked = By.xpath("//span[text()='"
+            + FileTranslator.translateValue("Products", "active") + "']/../..//img");
 
     private static final String SPAN_XPATH = "//div/span[text()='%s']/../..//span/span";
 
@@ -63,7 +62,8 @@ public class ProductPage extends BasePage {
      * @return true if it is active, false if not
      */
     public boolean isActive() {
-        return getWebElementAction().isElementPresent(activeCheckBoxChecked, INTERVAL_TIME);
+        WebElement checkbox = getDriver().findElement(activeCheckBoxChecked);
+        return  checkbox.getAttribute("alt").contains("True");
     }
 
     /**
@@ -73,17 +73,6 @@ public class ProductPage extends BasePage {
      */
     public String getDescription() {
         return getWebElementAction().getTextOnWebElement(descriptionTextArea);
-    }
-
-    /**
-     * Verifies if an element is empty.
-     *
-     * @param fieldName the name of the field.
-     * @return True if the element is empty, false otherwise.
-     */
-    public Boolean isEmpty(final String fieldName) {
-        return getWebElementAction()
-                .getTextOnWebElement(getDriver().findElement(By.xpath(String.format(SPAN_XPATH, fieldName)))).isEmpty();
     }
 
     /**
@@ -111,5 +100,17 @@ public class ProductPage extends BasePage {
      */
     public String getProductTitle() {
         return getWebElementAction().getTextOnWebElement(productTitle);
+    }
+
+    /**
+     * Gets the product's id.
+     *
+     * @return a string with the value
+     */
+    public String getProductId() {
+        String url = getWebElementAction().getSiteCurrentUrl();
+        String preIdString = "Product2/";
+        String posIdString = "/view";
+        return url.substring(url.indexOf(preIdString) + preIdString.length(), url.indexOf(posIdString));
     }
 }

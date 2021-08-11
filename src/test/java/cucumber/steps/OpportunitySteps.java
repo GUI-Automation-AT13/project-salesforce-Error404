@@ -1,24 +1,20 @@
 package cucumber.steps;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.cucumber.java.After;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Opportunity;
-import salesforce.ui.pages.LoginPage;
 import salesforce.ui.pages.opportunity.CreatedOpportunityPage;
 import salesforce.ui.pages.opportunity.NewOpportunityPage;
 import salesforce.ui.pages.opportunity.OpportunityPage;
-import salesforce.utils.FileTranslator;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 
 public class OpportunitySteps {
 
@@ -35,7 +31,7 @@ public class OpportunitySteps {
         logger.info("=================== When I create a new Opportunity with fields ==========================");
         opportunity = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(dataTable), Opportunity.class);
         opportunity.setOpportunityDetailField();
-        opportunityPage  = new OpportunityPage();
+        OpportunityPage opportunityPage = new OpportunityPage();
         formOpportunity = opportunityPage.openNewOpportunityForm();
         fields = dataTable.keySet();
         createdForm = formOpportunity.createNewOpportunity(fields, opportunity);
@@ -50,16 +46,25 @@ public class OpportunitySteps {
     @Then("All Opportunity headers match with previous fields")
     public void headersMatchWithPreviousFields() {
         logger.info("=================== Then opportunity headers match with previous fields ==========================");
-        softAssert.assertEquals(createdForm.getTitleHeader(), opportunity.getOpportunityName());
-        softAssert.assertEquals(createdForm.getHeaderString(FileTranslator.translateValue("Opportunity", "accountName"), "span[@class='slds-assistive-text']"), "Open " + opportunity.getSearchAccount() + " Preview");
-        softAssert.assertEquals(createdForm.getHeaderString(FileTranslator.translateValue("Opportunity", "closeDate"), "lightning-formatted-text"), opportunity.getCloseDate());
-        softAssert.assertEquals(createdForm.getCurrentStage(), opportunity.getOpportunityStage());
+        for(String field: fields) {
+            if( createdForm.getHeadersFields().containsKey(field)) {
+                softAssert.assertEquals(createdForm.getHeadersFields().get(field), opportunity.getMapFields().get(field));
+            }
+        }
     }
 
     @And("Opportunity details match with previous fields")
     public void detailsMatchWithPreviousFields() {
         logger.info("=================== And details match with previous fields ==========================");
-        createdForm.clickDetails();
-        softAssert.assertTrue(opportunity.getMapFields().equals(createdForm.getDetailMap()));
+        for(String field: fields) {
+            if(createdForm.opportunityDetails.getDetailMap().containsKey(field)) {
+                softAssert.assertEquals(createdForm.opportunityDetails.getDetailMap().get(field), opportunity.getMapFields().get(field));
+            }
+        }
+    }
+
+    @After
+    public void cleanOpportunity() {
+        softAssert.assertAll();
     }
 }

@@ -1,6 +1,9 @@
 package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import core.api.ApiRequestBuilder;
+import core.api.ApiResponse;
+import core.utils.EncryptorAES;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -22,8 +25,12 @@ public class CreateProductSteps {
     Product product;
     ProductPage productPage;
     Set<String> fields;
+    ApiRequestBuilder requestBuilder;
+    ApiResponse apiResponse;
 
-    public CreateProductSteps(Product product) {
+    public CreateProductSteps(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, Product product) {
+        this.requestBuilder = requestBuilder;
+        this.apiResponse = apiResponse;
         this.product = product;
     }
 
@@ -32,9 +39,10 @@ public class CreateProductSteps {
         logger.info("=================== When I create a new product ==========================");
         productsPage = new ProductsPage();
         NewProductPage newProductPage = productsPage.clickNewProductButton();
-        product = ConverterToEntity.convertMapToEntity(table, Product.class);
+        product.setProduct(ConverterToEntity.convertMapToEntity(table, Product.class));
         fields = table.keySet();
         productPage = newProductPage.createProduct(table.keySet(), product);
+        product.setId(productPage.getProductId());
     }
 
     @Then("A successful message is displayed")
