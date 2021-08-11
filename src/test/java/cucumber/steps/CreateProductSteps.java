@@ -9,6 +9,8 @@
 package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import core.api.ApiRequestBuilder;
+import core.api.ApiResponse;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -30,8 +32,13 @@ public class CreateProductSteps {
     Product product;
     ProductPage productPage;
     Set<String> fields;
+    ApiRequestBuilder requestBuilder;
+    ApiResponse apiResponse;
 
-    public CreateProductSteps(final Product newProduct) {
+    public CreateProductSteps(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
+                              final Product newProduct) {
+        this.requestBuilder = newRequestBuilder;
+        this.apiResponse = newApiResponse;
         this.product = newProduct;
     }
 
@@ -46,9 +53,10 @@ public class CreateProductSteps {
         logger.info("=================== When I create a new product ==========================");
         productsPage = new ProductsPage();
         NewProductPage newProductPage = productsPage.clickNewProductButton();
-        product = ConverterToEntity.convertMapToEntity(table, Product.class);
+        product.setProduct(ConverterToEntity.convertMapToEntity(table, Product.class));
         fields = table.keySet();
         productPage = newProductPage.createProduct(table.keySet(), product);
+        product.setId(productPage.getProductId());
     }
 
     /**

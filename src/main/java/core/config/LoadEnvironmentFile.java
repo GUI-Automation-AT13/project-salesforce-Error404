@@ -9,6 +9,8 @@
 package core.config;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import salesforce.utils.EnvironmentInitialConfig;
+import java.io.File;
 import java.util.Locale;
 
 import static core.utils.EncryptorAES.getDecryptedValue;
@@ -17,10 +19,17 @@ public final class LoadEnvironmentFile {
 
     private static String key = "error404";
 
-    private LoadEnvironmentFile() {
-    }
+    public LoadEnvironmentFile() { }
 
-    private static final Dotenv DOTENV = Dotenv.configure().load();
+    /**
+     * Checks if env file exists.
+     *
+     * @return true if the env file already exists.
+     */
+    private static boolean envFileExists() {
+        File envFile = new File(".env");
+        return envFile.exists();
+    }
 
     /**
      * Gets the Dotenv.
@@ -28,7 +37,11 @@ public final class LoadEnvironmentFile {
      * @return the Dotenv
      */
     public static Dotenv getDotenv() {
-        return DOTENV;
+        if (!envFileExists()) {
+            EnvironmentInitialConfig initialEnvFile = new EnvironmentInitialConfig();
+            initialEnvFile.createEnvFile();
+        }
+        return Dotenv.configure().load();
     }
 
     /**
@@ -74,15 +87,6 @@ public final class LoadEnvironmentFile {
      */
     public static String getTheBaseUrlClassic() {
         return getDotenv().get("BASE_URL_CLASSIC");
-    }
-
-    /**
-     * Gets the admin url from environment file.
-     *
-     * @return a String with the admin url
-     */
-    public static String getTheAdminUrl() {
-        return getDotenv().get("ADMIN_URL");
     }
 
     /**

@@ -22,8 +22,8 @@ import java.util.Set;
  * This class returns an instance of NewProductForm.
  */
 public class NewProductPage extends BasePage {
-    @FindBy(css = ".forceActionButton:nth-child(3) > .label")
-    private WebElement saveButton;
+    @FindBy(xpath = "//h2[contains(@class,'inlineTitle')]")
+    private WebElement formTitle;
 
     private By productDescriptionTextArea = By.xpath("//label//span[text()='"
             + FileTranslator.translateValue("Products", "productDescription") + "']/../../textarea");
@@ -31,6 +31,8 @@ public class NewProductPage extends BasePage {
             + FileTranslator.translateValue("Products", "productFamily") + "']/../..//a");
     private By activeCheckBox = By.xpath("//label//span[text()='"
             + FileTranslator.translateValue("Products", "active") + "']/../../input");
+    private By saveButton = By.xpath("//button[@title='"
+            + FileTranslator.translateValue("Products", "saveProduct") + "']");
 
     private static final String INPUT_XPATH = "//label//span[text()='%s']/../../input";
 
@@ -39,7 +41,7 @@ public class NewProductPage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(saveButton));
+        getWait().until(ExpectedConditions.visibilityOf(formTitle));
     }
 
     /**
@@ -85,7 +87,7 @@ public class NewProductPage extends BasePage {
      * @return a ProductPage
      */
     public ProductPage clickSaveButton() {
-        getWebElementAction().clickOnWebElement(saveButton);
+        getWebElementAction().clickOnWebElement(getDriver().findElement(saveButton));
         return new ProductPage();
     }
 

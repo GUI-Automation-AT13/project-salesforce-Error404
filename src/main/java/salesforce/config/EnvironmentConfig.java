@@ -13,13 +13,15 @@ import static core.config.LoadEnvironmentFile.*;
 public final class EnvironmentConfig {
     private static EnvironmentConfig environmentConfig;
 
-    private String login;
-    private String baseUrl;
-    private String baseUrlClassic;
+    private String loginUrl;
     private String salesforceVersion;
-    private String adminUrl;
-    private static String username;
-    private static String password;
+    private static String BASE_URL;
+    private static String BASE_URL_CLASSIC;
+    private static String SALESFORCE_USERNAME;
+    private static String SALESFORCE_PASSWORD;
+    private static String SALESFORCE_TOKEN;
+    private static String SALESFORCE_CLIENT_ID;
+    private static String SALESFORCE_CLIENT_SECRET;
 
     private EnvironmentConfig() {
         initialize();
@@ -38,13 +40,15 @@ public final class EnvironmentConfig {
     }
 
     private void initialize() {
-        login = getTheLoginUrl();
-        baseUrl = getTheBaseUrl();
-        baseUrlClassic = getTheBaseUrlClassic();
+        loginUrl = getTheLoginUrl();
+        BASE_URL = getTheBaseUrl();
+        BASE_URL_CLASSIC = getTheBaseUrlClassic();
         salesforceVersion = getTheSalesforceVersion();
-        username = getTheSalesforceUsername();
-        password = getTheSalesforcePassword();
-        adminUrl = getTheAdminUrl();
+        SALESFORCE_USERNAME = getTheSalesforceUsername();
+        SALESFORCE_PASSWORD = getTheSalesforcePassword();
+        SALESFORCE_TOKEN = getTheSalesforceToken();
+        SALESFORCE_CLIENT_ID = getTheSalesforceClientId();
+        SALESFORCE_CLIENT_SECRET = getTheSalesforceClientSecret();
     }
 
     /**
@@ -53,7 +57,7 @@ public final class EnvironmentConfig {
      * @return a String with the login url
      */
     public String getLogin() {
-        return login;
+        return loginUrl;
     }
 
     /**
@@ -62,7 +66,7 @@ public final class EnvironmentConfig {
      * @return a String with the salesforce.base url
      */
     public String getBaseUrl() {
-        return baseUrl;
+        return BASE_URL;
     }
 
     /**
@@ -71,7 +75,7 @@ public final class EnvironmentConfig {
      * @return a String with the salesforce.base url classic
      */
     public String getBaseUrlClassic() {
-        return baseUrlClassic;
+        return BASE_URL_CLASSIC;
     }
 
     /**
@@ -84,21 +88,12 @@ public final class EnvironmentConfig {
     }
 
     /**
-     * Gets the salesforce admin url.
-     *
-     * @return a String with the salesforce admin url.
-     */
-    public String getAdminUrl() {
-        return adminUrl;
-    }
-
-    /**
      * Gets the salesforce username.
      *
      * @return a String with the username
      */
     public static String getUsername() {
-        return username;
+        return SALESFORCE_USERNAME;
     }
 
     /**
@@ -107,6 +102,6 @@ public final class EnvironmentConfig {
      * @return a String with the password
      */
     public static String getPassword() {
-        return password;
+        return SALESFORCE_PASSWORD;
     }
 }
