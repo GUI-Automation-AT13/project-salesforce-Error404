@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package cucumber.steps;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,10 +30,15 @@ public class OpportunitySteps {
     Opportunity opportunity;
     NewOpportunityPage formOpportunity;
     CreatedOpportunityPage createdForm;
-    OpportunityPage opportunityPage;
     SoftAssert softAssert = new SoftAssert();
     Set<String> fields;
 
+    /**
+     * Creates an opportunity with provided values.
+     *
+     * @param dataTable a map with the fields and values
+     * @throws IOException
+     */
     @When("I create a new Opportunity with fields")
     public void iCreateAFeatureWithFields(final Map<String, String> dataTable) throws IOException {
         logger.info("=================== When I create a new Opportunity with fields ==========================");
@@ -37,28 +50,39 @@ public class OpportunitySteps {
         createdForm = formOpportunity.createNewOpportunity(fields, opportunity);
     }
 
+    /**
+     * Verifies that a success message is displayed.
+     */
     @Then("Successful message appear with Opportunity name")
     public void successfulMessageAppearAndMatches() {
         logger.info("=================== Then a successful message appear ==========================");
         softAssert.assertEquals(createdForm.getSuccessfulAlert(), "\"" + opportunity.getOpportunityName() + "\"");
     }
 
+    /**
+     * Verifies that the opportunities headers match the entity.
+     */
     @Then("All Opportunity headers match with previous fields")
     public void headersMatchWithPreviousFields() {
-        logger.info("=================== Then opportunity headers match with previous fields ==========================");
-        for(String field: fields) {
-            if( createdForm.getHeadersFields().containsKey(field)) {
-                softAssert.assertEquals(createdForm.getHeadersFields().get(field), opportunity.getMapFields().get(field));
+        logger.info("=================== Then opportunity headers match with previous fields ========================");
+        for (String field : fields) {
+            if (createdForm.getHeadersFields().containsKey(field)) {
+                softAssert.assertEquals(createdForm.getHeadersFields().get(field),
+                        opportunity.getMapFields().get(field));
             }
         }
     }
 
+    /**
+     * Verifies that the opportunity details match the entity.
+     */
     @And("Opportunity details match with previous fields")
     public void detailsMatchWithPreviousFields() {
         logger.info("=================== And details match with previous fields ==========================");
-        for(String field: fields) {
-            if(createdForm.opportunityDetails.getDetailMap().containsKey(field)) {
-                softAssert.assertEquals(createdForm.opportunityDetails.getDetailMap().get(field), opportunity.getMapFields().get(field));
+        for (String field : fields) {
+            if (createdForm.opportunityDetails.getDetailMap().containsKey(field)) {
+                softAssert.assertEquals(createdForm.opportunityDetails.getDetailMap().get(field),
+                        opportunity.getMapFields().get(field));
             }
         }
     }

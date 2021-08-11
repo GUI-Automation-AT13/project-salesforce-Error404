@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package cucumber.hooks;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,9 +25,10 @@ public class CampaignHooks {
     private Campaign campaign;
     final String campaignName = "Opportunity Campaign";
 
-    public CampaignHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, Campaign newCampaign) {
-        this.requestBuilder = requestBuilder;
-        this.apiResponse = apiResponse;
+    public CampaignHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
+                         final Campaign newCampaign) {
+        this.requestBuilder = newRequestBuilder;
+        this.apiResponse = newApiResponse;
         this.campaign = newCampaign;
     }
 

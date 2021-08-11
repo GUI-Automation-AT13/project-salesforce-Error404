@@ -9,41 +9,38 @@
 package cucumber.steps;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Case;
-import salesforce.ui.pages.*;
 import salesforce.ui.pages.cases.CasePage;
 import salesforce.ui.pages.cases.CasesPage;
 import salesforce.ui.pages.cases.NewCasesPage;
-
+import salesforce.ui.pages.cases.PopUpMessage;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-import static salesforce.config.EnvironmentConfig.getPassword;
-import static salesforce.config.EnvironmentConfig.getUsername;
 import static salesforce.utils.FileTranslator.translateValue;
 
 public class CreateCaseSteps {
-    Case newCase;
-    String actualMessage;
-    Map actualCaseDetailsValues;
-    Map expectedCaseDetailsValues;
-    Map actualCaseHeadersValues;
-    Map expectedCaseHeadersValues;
-    Map actualCaseRowValues;
-    Map expectedCaseRowValues;
-    SoftAssert softAssert = new SoftAssert();
+    private Case newCase;
+    SoftAssert softAssert;
     String featureName = "Cases";
     private Logger logger = LogManager.getLogger(getClass());
 
-    public CreateCaseSteps(Case newCase) {
-        this.newCase = newCase;
+    public CreateCaseSteps(final Case aNewCase, final SoftAssert newSoftAssert) {
+        this.newCase = aNewCase;
+        this.softAssert = newSoftAssert;
     }
 
+    /**
+     * Creates a case with provided values.
+     *
+     * @param entry a map with the fields and values
+     * @throws InvocationTargetException when invalid target
+     * @throws IllegalAccessException when unprovided access
+     */
     @When("I create a case with fields")
     public void iCreateACaseWith(final Map<String, String> entry)
             throws InvocationTargetException, IllegalAccessException {
@@ -53,55 +50,58 @@ public class CreateCaseSteps {
         NewCasesPage newCasesPage = casesPage.clickOnNew();
         newCase.setCaseOwner(newCasesPage.getCaseOwner());
         CasePage casePage = newCasesPage.createCase(entry.keySet(), newCase);
-        actualMessage = newCasesPage.getPopUpMessage();
-        newCase.updateCase(casePage.getCaseNumber());
-        newCase.setId(casePage.getCaseId());
     }
 
-    @Then("a success message is displayed")
-    public void aSuccessIsDisplayed() {
+    /**
+     * Verifies that a message matches a certain regex.
+     */
+    @Then("a case created message should be displayed")
+    public void aCaseCreatedMessageShouldBeDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
+        PopUpMessage popUpMessage = new PopUpMessage();
+        String actualMessage = popUpMessage.getPopUpMessage();
         String expectedRegex = translateValue(featureName, "popup.message.regexp");
         softAssert.assertTrue(actualMessage.matches(expectedRegex),
                 "\nactual: " + actualMessage + "\nexpected regex: " + expectedRegex);
     }
 
-    @When("I check on the site's headers")
-    public void iCheckOnTheSiteSHeaders() throws IllegalAccessException {
-        logger.info("=================== When I check on the site's headers ==========================");
+    /**
+     * Verifies that the headers match the entity.
+     */
+    @And("all header's fields should match the created case")
+    public void allHeaderSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
+        logger.info("=================== And All header's fields should match the created case ===================");
         CasePage casePage = new CasePage();
-        actualCaseHeadersValues = casePage.getAllHeadersFields();
-        expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
+        newCase.updateCase(casePage.getCaseNumber());
+        newCase.setId(casePage.getCaseId());
+        Map actualCaseHeadersValues = casePage.getAllHeadersFields();
+        Map expectedCaseHeadersValues = newCase.createMapOnKeySetFromCase(actualCaseHeadersValues.keySet());
         expectedCaseHeadersValues.put("title", translateValue(featureName, "title.case"));
-    }
-
-    @Then("all header's fields match to the created case")
-    public void allHeaderSFieldsMatchToTheCreatedCase() {
-        logger.info("=================== Then All header's fields should match ==========================");
         softAssert.assertEquals(actualCaseHeadersValues, expectedCaseHeadersValues);
     }
 
-    @And("I check on the site's details")
-    public void iCheckOnTheSiteSDetails() throws IllegalAccessException {
-        logger.info("=================== And I check on the site's details ==========================");
+    /**
+     * Verifies that all the details match the entity.
+     */
+    @Then("all detail's fields should match the created case")
+    public void allDetailSFieldsShouldMatchTheCreatedCase() throws IllegalAccessException {
+        logger.info("=================== Then All detail's fields should match the created case ===================");
         CasePage casePage = new CasePage();
-        actualCaseDetailsValues = casePage.getDetailsFields();
-        expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
-    }
-
-    @Then("all detail's fields match to the created case")
-    public void allDetailSFieldsMatchToTheCreatedCase() {
-        logger.info("=================== Then All the given details fields should match ==========================");
+        Map actualCaseDetailsValues = casePage.getDetailsFields();
+        Map expectedCaseDetailsValues = newCase.createMapOnKeySetFromCase(actualCaseDetailsValues.keySet());
         softAssert.assertEquals(actualCaseDetailsValues, expectedCaseDetailsValues);
     }
 
+    /**
+     * Verifies that the created case is displayed on the cases page.
+     * @throws IllegalAccessException
+     */
     @Then("the created case is displayed")
     public void theCreatedCaseIsDisplayed() throws IllegalAccessException {
         logger.info("=================== Then The created case should be displayed ==========================");
         CasesPage casesPage = new CasesPage();
-        actualCaseRowValues = casesPage.getRowFields(newCase.getCaseNumber());
-        expectedCaseRowValues = newCase.createMapOnKeySetFromCase(actualCaseRowValues.keySet());
+        Map actualCaseRowValues = casesPage.getRowFields(newCase.getCaseNumber());
+        Map expectedCaseRowValues = newCase.createMapOnKeySetFromCase(actualCaseRowValues.keySet());
         softAssert.assertEquals(actualCaseRowValues, expectedCaseRowValues);
-        softAssert.assertAll();
     }
 }

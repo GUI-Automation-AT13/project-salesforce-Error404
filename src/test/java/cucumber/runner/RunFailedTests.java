@@ -16,12 +16,11 @@ import static cucumber.hooks.AccountHooks.deleteAccount;
 import static cucumber.hooks.ContactHooks.deleteContact;
 
 @CucumberOptions(
-        features = {"src\\test\\resources\\feature\\"},
-        plugin = {"html:target/site/cucumber-pretty.html", "json:target/cucumber/cucumber.json",
-                "rerun:target/failed_scenarios.txt"},
+        features = {"@target/failed_scenarios.txt"},
+        plugin = {"html:target/site/cucumber-pretty-rerun.html", "json:target/cucumber/cucumber_rerun.json"},
         glue = {"cucumber"}
 )
-public class RunTests extends AbstractTestNGCucumberTests {
+public class RunFailedTests extends AbstractTestNGCucumberTests {
 
     /**
      * Sets the previous tasks to framework's execution.
