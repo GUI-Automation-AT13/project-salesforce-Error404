@@ -82,7 +82,7 @@ public class NewOpportunityPage extends BasePage {
     }
 
     /**
-     * Selects the Private checkbox for Private.
+     * Selects a checkbox.
      *
      * @param field field type.
      * @param isPrivate state of private.
@@ -90,7 +90,7 @@ public class NewOpportunityPage extends BasePage {
      */
     public NewOpportunityPage selectCheckbox(final String field, final boolean isPrivate) {
         WebElement element = getDriver().findElement(By.xpath(String.format(XPATH_CHECKBOX, field)));
-        webElementAction.clickCheckBox(element, isPrivate);
+        webElementAction.selectCheckBox(element, isPrivate);
         return this;
     }
 
@@ -149,16 +149,6 @@ public class NewOpportunityPage extends BasePage {
      */
     public CreatedOpportunityPage createNewOpportunity(final Set<String> fields, final Opportunity opportunity) {
         setOpportunityFormFields(fields, opportunity);
-        webElementAction.clickOnWebElement(saveBtn);
-        return new CreatedOpportunityPage();
-    }
-
-    /**
-     * Redirects to the Created Opportunity page when form is saved correctly.
-     *
-     * @return Created Opportunity page.
-     */
-    public CreatedOpportunityPage clickSaveOpportunity() {
         webElementAction.clickOnWebElement(saveBtn);
         return new CreatedOpportunityPage();
     }

@@ -50,7 +50,7 @@ public class PageTransporter {
      * @param pageName a String with the page name
      */
     public void goToPage(final String pageName) {
-        if ("classic".equals(salesforceVersion)) {
+        if (salesforceVersion.equals("classic")) {
             goToUrl(baseUrlClassic.concat(String.format(SalesforceClassicUrl.FEATURE_URL.getUrl(),
                     SalesforceClassicUrl.valueOf(pageName).getUrl())));
         } else {
