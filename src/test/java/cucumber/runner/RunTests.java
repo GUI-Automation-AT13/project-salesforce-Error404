@@ -20,7 +20,8 @@ import static cucumber.hooks.ContactHooks.deleteContact;
         glue = {"cucumber"},
         features = {"src\\test\\resources\\feature\\"},
         plugin = {"html:target/site/cucumber-pretty.html", "json:target/cucumber/cucumber.json",
-                "rerun:target/failed_scenarios.txt", "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
+                "rerun:target/failed_scenarios.txt",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         monochrome = true
 )
 public class RunTests extends AbstractTestNGCucumberTests {

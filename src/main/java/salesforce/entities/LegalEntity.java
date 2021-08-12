@@ -10,6 +10,7 @@ package salesforce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -554,6 +555,7 @@ public class LegalEntity {
 
     /**
      * Sets the values of the entity.
+     *
      * @param legalEntity to be set.
      */
     public void setEntity(final LegalEntity legalEntity) {

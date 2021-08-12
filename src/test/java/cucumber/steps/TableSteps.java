@@ -12,6 +12,10 @@ import java.util.Map;
 public class TableSteps {
     private Logger logger = LogManager.getLogger(getClass());
 
+    /**
+     * Verifies the information given in the table.
+     * @param mapData
+     */
     @Then("The following information should be displayed on the table")
     public void theFollowingInformationShouldBeDisplayedOnTheTable(final DataTable mapData) {
         logger.info("=================== Then The created feature should be on table ==========================");

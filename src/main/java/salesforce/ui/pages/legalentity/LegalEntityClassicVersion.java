@@ -1,9 +1,16 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.legalentity;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -63,7 +70,7 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
     /**
      * There is no message in the lightning skin.
      *
-     * @return .
+     * @return an empty message.
      */
     @Override
     public String getSuccessMessage() {
@@ -117,7 +124,6 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
         if (fixAddress()) {
             if (!getDriver().findElement(addressId).getText().isEmpty()) {
                 theAddress = getDriver().findElement(addressId).getText();
-                System.out.println("entro al if ray =>  " + theAddress);
                 separatedAddress.addAll(Arrays.asList(theAddress.split("\n")));
             } else {
                 separatedAddress.add(null);
@@ -125,8 +131,6 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
                 separatedAddress.add(null);
             }
         }
-        System.out.println(separatedAddress);
-        System.out.println(theAddress);
         return separatedAddress;
     }
 
@@ -138,7 +142,6 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
     public boolean fixAddress() {
         System.out.println();
         if (getWebElementAction().isElementPresent(addressId, time)) {
-            System.out.println("elemento presente");
             return true;
         }
         return false;

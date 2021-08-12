@@ -63,7 +63,7 @@ public class Hooks {
     }
 
     @After
-    public void takeScreenShootOnFailure(Scenario scenario) {
+    public void takeScreenShootOnFailure(final Scenario scenario) {
         if (scenario.isFailed()) {
             TakesScreenshot screenshot = (TakesScreenshot) getWebDriverManager().getDriver();
             byte[] src = screenshot.getScreenshotAs(OutputType.BYTES);
