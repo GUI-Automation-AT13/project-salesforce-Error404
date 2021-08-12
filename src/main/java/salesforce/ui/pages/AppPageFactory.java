@@ -1,5 +1,7 @@
 package salesforce.ui.pages;
 
+import salesforce.ui.pages.legalentity.*;
+
 import static core.config.LoadEnvironmentFile.getTheSalesforceVersion;
 
 public class AppPageFactory {

@@ -1,4 +1,6 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
+
+import salesforce.ui.pages.BasePage;
 
 import java.util.HashMap;
 
@@ -11,4 +13,6 @@ public abstract class LegalEntityPageAbstract extends BasePage {
     public abstract HashMap<String, String> entityMap();
 
     public abstract String getHeaderEntityNameText();
+
+    public abstract String getSuccessMessage();
 }

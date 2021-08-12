@@ -136,11 +136,9 @@ public class NewCasesPage extends BasePage {
      * @return the created case page
      */
     public CasePage clickOnSaveButton() {
-        PopUpMessage message = new PopUpMessage();
         webElementAction.clickOnWebElement(webElementAction
                 .getWebElementByXpathAndValue(saveButtonXpath,
                         translateValue(featureName, "button.save")));
-        setPopUpMessage(message.getPopUpMessage());
         return new CasePage();
     }
 

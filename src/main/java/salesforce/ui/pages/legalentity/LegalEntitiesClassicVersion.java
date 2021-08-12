@@ -1,4 +1,4 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

@@ -1,4 +1,4 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -58,6 +58,16 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
     @Override
     public String getHeaderEntityNameText() {
         return fixText(getWebElementAction().getTextOnWebElement(headerName));
+    }
+
+    /**
+     * There is no message in the lightning skin.
+     *
+     * @return .
+     */
+    @Override
+    public String getSuccessMessage() {
+        return "";
     }
 
     /**

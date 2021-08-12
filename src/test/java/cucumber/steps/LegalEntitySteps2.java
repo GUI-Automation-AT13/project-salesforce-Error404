@@ -13,21 +13,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.LegalEntity;
 import salesforce.ui.pages.AppPageFactory;
-import salesforce.ui.pages.LegalEntitiesPageAbstract;
-import salesforce.ui.pages.LegalEntityPageAbstract;
-import salesforce.ui.pages.NewLegalEntityPageAbstract;
-import salesforce.ui.pages.legalentity.LegalEntityPage;
-import java.util.Map;
+import salesforce.ui.pages.legalentity.LegalEntityPageAbstract;
+import salesforce.ui.pages.legalentity.NewLegalEntityPageAbstract;
+import static salesforce.config.EnvironmentConfig.getSalesforceVersion;
 
 public class LegalEntitySteps2 {
 
     private final Logger logger = LogManager.getLogger(getClass());
     SoftAssert softAssert = new SoftAssert();
+    private String lightningSkin = "lightning";
     LegalEntity legalEntity;
 
     public LegalEntitySteps2(LegalEntity legalEntity) {
@@ -46,9 +46,11 @@ public class LegalEntitySteps2 {
     @Then("A successful message should be displayed")
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
-        LegalEntityPage legalEntityPage  = new LegalEntityPage();
-        boolean message = legalEntityPage.getUserSuccessMessage().contains(legalEntity.getName());
-        softAssert.assertTrue(message, "Message is incorrect");
+        if (getSalesforceVersion().equals(lightningSkin)) {
+            LegalEntityPageAbstract legalEntityPageAbstract = AppPageFactory.getLegalEntityPage();
+            boolean message = legalEntityPageAbstract.getSuccessMessage().contains(legalEntity.getName());
+            softAssert.assertTrue(message, "Message is incorrect");
+        }
     }
 
     @And("The header name should match in the created legal entity page")

@@ -21,28 +21,30 @@ import org.openqa.selenium.WebDriver;
 import salesforce.config.EnvironmentConfig;
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 import static core.config.LoadEnvironmentFile.*;
+import static salesforce.config.EnvironmentConfig.*;
 
 public class Hooks {
     private WebDriver driver;
     private ApiRequestBuilder requestBuilder;
     private ApiResponse tokenApiResponse;
-    String token;
+    private static String token;
 
-    public Hooks(ApiRequestBuilder requestBuilder, ApiResponse tokenApiResponse) {
-        this.requestBuilder = requestBuilder;
-        this.tokenApiResponse = tokenApiResponse;
+    public Hooks(final ApiRequestBuilder newRequestBuilder, final  ApiResponse newTokenApiResponse) {
+        this.requestBuilder = newRequestBuilder;
+        this.tokenApiResponse = newTokenApiResponse;
     }
 
     @Before(order = 0)
     public void generateToken() {
+        EnvironmentConfig.getEnvironmentConfig();
         requestBuilder
                 .addBaseUri(getTheLoginUrl())
                 .addEndpoint("/services/oauth2/token")
                 .addQueryParams("grant_type", "password")
-                .addQueryParams("client_id", getTheSalesforceClientId())
-                .addQueryParams("client_secret", getTheSalesforceClientSecret())
-                .addQueryParams("username", getTheSalesforceUsername())
-                .addQueryParams("password", getTheSalesforcePassword().concat(getTheSalesforceToken()))
+                .addQueryParams("client_id", getClientId())
+                .addQueryParams("client_secret", getClientSecret())
+                .addQueryParams("username", getUsername())
+                .addQueryParams("password", getPassword().concat(getToken()))
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .addMethod(ApiMethod.POST);
@@ -55,7 +57,7 @@ public class Hooks {
     public void setUp() {
         requestBuilder
                 .addHeader("Authorization", token)
-                .addBaseUri(getTheBaseUrl());
+                .addBaseUri(getTheBaseUrlClassic());
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }
@@ -72,5 +74,14 @@ public class Hooks {
     @After(order = 1)
     public void tearDown() {
         getWebDriverManager().quitDriver();
+    }
+
+    /**
+     * Gets the created token.
+     *
+     * @return a String with the token
+     */
+    public static String getCreatedToken() {
+        return token;
     }
 }

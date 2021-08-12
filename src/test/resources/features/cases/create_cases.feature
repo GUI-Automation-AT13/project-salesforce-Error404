@@ -1,22 +1,7 @@
 Feature: Create Cases
 
-  @DeleteCase
-  Scenario: Create a case with required fields
-    Given I login to salesforce as an admin user
-    When I navigate to the "CASES" page
-    When I create a case with fields
-      | status     | Working |
-      | caseOrigin | Phone   |
-    Then a success message is displayed
-    When I check on the site's headers
-    Then all header's fields match to the created case
-    And I check on the site's details
-    Then all detail's fields match to the created case
-    When I navigate to the "CASES" page
-    Then the created case is displayed
-
-  @CreateAccount @CreateContact @DeleteCase @DeleteAccount @DeleteContact
-  Scenario Outline: Create a case with all required fields
+  @CreateAccount @CreateContact @DeleteCase @DeleteContact
+  Scenario: Create a case with all required fields
     Given I login to salesforce as an admin user
     And I navigate to the "CASES" page
     When I create a case with fields
@@ -38,11 +23,47 @@ Feature: Create Cases
       | subject              | The subject     |
       | description          | The description |
       | internalComments     | The comments    |
-    Then a success message is displayed
-    When I check on the site's headers
-    Then all header's fields match to the created case
-    And I check on the site's details
-    Then all detail's fields match to the created case
+    Then a case created message should be displayed
+    And all header's fields should match the created case
+    Then all detail's fields should match the created case
+    When I navigate to the "CASES" page
+    Then the created case is displayed
+
+  @DeleteCase @CreateAccount
+  Scenario Outline: Create a case with caseOrigin and status
+    Given I login to salesforce as an admin user
+    When I navigate to the "CASES" page
+    When I create a case with fields
+      | status      | <status>     |
+      | caseOrigin  | <caseOrigin> |
+      | accountName | Punisher     |
+    Then a case created message should be displayed
+    And all header's fields should match the created case
+    Then all detail's fields should match the created case
+    When I navigate to the "CASES" page
+    Then the created case is displayed
+    Examples:
+      | status    | caseOrigin |
+      | New       | Phone      |
+      | New       | Email      |
+      | New       | Web        |
+      | Working   | Phone      |
+      | Working   | Email      |
+      | Working   | Web        |
+      | Escalated | Phone      |
+      | Escalated | Email      |
+      | Escalated | Web        |
+
+  @DeleteCase
+ Scenario Outline: Create a case with required fields
+    Given I login to salesforce as an admin user
+    When I navigate to the "CASES" page
+    When I create a case with fields
+      | status     | Working |
+      | caseOrigin | Phone   |
+    Then a case created message should be displayed
+    And all header's fields should match the created case
+    Then all detail's fields should match the created case
     When I navigate to the "CASES" page
     Then the created case is displayed
     And The following information should be displayed on the table

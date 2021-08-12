@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginPage extends BasePage {
+
     @FindBy(id = "username")
     private WebElement usernameTextBox;
 
@@ -21,13 +22,6 @@ public class LoginPage extends BasePage {
 
     @FindBy(id = "Login")
     private WebElement loginButton;
-
-    /**
-     * Creates the login page.
-     */
-    public LoginPage() {
-        super();
-    }
 
     /**
      * Waits for the page to load.

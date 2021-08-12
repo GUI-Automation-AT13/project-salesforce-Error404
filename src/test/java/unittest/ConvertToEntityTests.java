@@ -13,8 +13,8 @@ public class ConvertToEntityTests {
     @Test
     public void convertsMapToProductEntity() throws JsonProcessingException {
         ConverterToEntity converterToEntity = new ConverterToEntity();
-        Map<String, String> table = new HashMap<String,String>();
-        table.put("Name","product to test");
+        Map<String, String> table = new HashMap<String, String>();
+        table.put("Name", "product to test");
         Product expectedProduct = new Product();
         Product actualProduct = converterToEntity.convertMapToEntity(table, Product.class);
         Assert.assertEquals(actualProduct.getClass(), expectedProduct.getClass());

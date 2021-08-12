@@ -11,8 +11,18 @@ package core.selenium.browsers;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 public class EdgeBrowser implements IBrowser {
+    private EdgeOptions edgeOptions;
+
+    /**
+     * Configures Edge driver options.
+     */
+    public void configOptions() {
+        edgeOptions = new EdgeOptions();
+        edgeOptions.setCapability("w3c", false);
+    }
 
     /**
      * Gets the browser's driver.
@@ -22,6 +32,7 @@ public class EdgeBrowser implements IBrowser {
     @Override
     public WebDriver getDriver() {
         WebDriverManager.edgedriver().setup();
-        return new EdgeDriver();
+        configOptions();
+        return new EdgeDriver(edgeOptions);
     }
 }

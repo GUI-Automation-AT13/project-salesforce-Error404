@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,12 +35,19 @@ public class CreateProductSteps {
     ApiRequestBuilder requestBuilder;
     ApiResponse apiResponse;
 
-    public CreateProductSteps(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, Product product) {
-        this.requestBuilder = requestBuilder;
-        this.apiResponse = apiResponse;
-        this.product = product;
+    public CreateProductSteps(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
+                              final Product newProduct) {
+        this.requestBuilder = newRequestBuilder;
+        this.apiResponse = newApiResponse;
+        this.product = newProduct;
     }
 
+    /**
+     * Creates a product with provided values.
+     *
+     * @param table with the fields and values
+     * @throws JsonProcessingException when invalid json provided
+     */
     @When("I create a new Product with fields")
     public void iCreateANewProductWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new product ==========================");
@@ -44,6 +59,9 @@ public class CreateProductSteps {
         product.setId(productPage.getProductId());
     }
 
+    /**
+     * Verifies that a success message is displayed after creating a product.
+     */
     @Then("A successful message is displayed")
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
@@ -52,17 +70,26 @@ public class CreateProductSteps {
         softAssert.assertAll();
     }
 
+    /**
+     * Verifies that the product details match the entity.
+     */
     @And("Check product fields matches")
     public void allProductFieldsMatches() {
         logger.info("=================== And All the given details fields should match ==========================");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(product.getName(), productPage.getSpanText(FileTranslator.translateValue("Products", "productName")), "Product name is incorrect");
+        softAssert.assertEquals(product.getName(), productPage.getSpanText(FileTranslator
+                .translateValue("Products", "productName")), "Product name is incorrect");
         softAssert.assertEquals(product.isActive(), productPage.isActive());
-        softAssert.assertEquals(product.getProductCode(), productPage.getSpanText(FileTranslator.translateValue("Products", "productCode")), "Product code is incorrect");
-        softAssert.assertEquals(product.getFamily(), productPage.getSpanText(FileTranslator.translateValue("Products", "productFamily")), "Product family is incorrect");
+        softAssert.assertEquals(product.getProductCode(), productPage.getSpanText(FileTranslator
+                .translateValue("Products", "productCode")), "Product code is incorrect");
+        softAssert.assertEquals(product.getFamily(), productPage.getSpanText(FileTranslator
+                .translateValue("Products", "productFamily")), "Product family is incorrect");
         softAssert.assertAll();
     }
 
+    /**
+     * Verifies that the product title matches the entity.
+     */
     @And("Check The title matches")
     public void validateTheTitleMatches() {
         logger.info("=================== And The title should match ==========================");

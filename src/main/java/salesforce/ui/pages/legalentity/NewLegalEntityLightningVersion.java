@@ -1,10 +1,12 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import core.selenium.WebElementAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import salesforce.entities.LegalEntity;
+import salesforce.ui.pages.AppPageFactory;
+
 import java.util.HashMap;
 import static salesforce.utils.FileTranslator.translateValue;
 
@@ -74,7 +76,7 @@ public class NewLegalEntityLightningVersion extends NewLegalEntityPageAbstract {
     public void selectFromDropDown(final String fieldName, final String option) {
         webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(String.format(DROPDOWN_XPATH, fieldName))));
         webElementAction.clickOnWebElement(getDriver().findElement(
-                By.xpath(String.format(DROPDOWN_OPTION_XPATH, option))));
+                By.xpath(String.format(DROPDOWN_OPTION_XPATH, translateValue("LegalEntities", "option.status")))));
     }
 
     /**

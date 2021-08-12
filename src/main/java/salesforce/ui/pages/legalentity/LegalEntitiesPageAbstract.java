@@ -1,6 +1,8 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import org.openqa.selenium.WebElement;
+import salesforce.ui.pages.AppPageFactory;
+import salesforce.ui.pages.BasePage;
 
 public abstract class LegalEntitiesPageAbstract extends BasePage {
 

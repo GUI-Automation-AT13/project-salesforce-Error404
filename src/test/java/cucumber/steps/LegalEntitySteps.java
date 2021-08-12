@@ -18,7 +18,7 @@
 //import org.apache.log4j.Logger;
 //import org.testng.asserts.SoftAssert;
 //import salesforce.entities.LegalEntity;
-//import salesforce.ui.pages.LegalEntitiesPageAbstract;
+//import salesforce.ui.pages.legalentity.LegalEntitiesPageAbstract;
 //import salesforce.ui.pages.legalentity.LegalEntitiesPage;
 //import salesforce.ui.pages.legalentity.LegalEntityPage;
 //import salesforce.ui.pages.legalentity.NewLegalEntityPage;

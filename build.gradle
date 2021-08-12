@@ -35,21 +35,21 @@ test {
     scanForTestClasses = false
     testLogging.showStandardStreams = true
     useTestNG()
+    scanForTestClasses = false
 }
 
 checkstyle {
     toolVersion '8.44'
     configFile file('config/checkstyle/checkstyle.xml')
-    checkstyleMain.source = "src/main/"
-    checkstyleMain.excludes = ["**/src/test/**"]
+    checkstyleMain.source = "src/"
 }
 
 checkstyleMain {
-    source = 'src/main/java'
+    source = 'src/'
 }
 
 checkstyleTest {
-    source = 'src/main/java'
+    source = 'src/'
 }
 
 test.finalizedBy("checkstyleMain")

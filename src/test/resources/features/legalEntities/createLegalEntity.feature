@@ -6,7 +6,7 @@ Feature: create legal entity
     When I navigate to the "LEGAL_ENTITIES" page
     When I create a new LegalEntity with fields
       | Name | new entity |
-#    Then A successful message should be displayed
+    Then A successful message should be displayed
     And The header name should match in the created legal entity page
     And All given details fields should match in the created legal entity page
     When I navigate to the "LEGAL_ENTITIES" page
@@ -25,8 +25,8 @@ Feature: create legal entity
       | LegalEntityState      | the state           |
       | LegalEntityPostalCode | 0023                |
       | LegalEntityCountry    | boolivia            |
-      | Status                | ACTIVE              |
-#    Then A successful message should be displayed
+      | Status                | Active              |
+    Then A successful message should be displayed
     And The header name should match in the created legal entity page
     And All given details fields should match in the created legal entity page
     When I navigate to the "LEGAL_ENTITIES" page

@@ -1,6 +1,8 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import salesforce.entities.LegalEntity;
+import salesforce.ui.pages.BasePage;
+
 import java.util.HashMap;
 import java.util.Set;
 

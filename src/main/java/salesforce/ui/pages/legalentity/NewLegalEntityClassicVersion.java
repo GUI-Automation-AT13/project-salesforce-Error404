@@ -1,11 +1,15 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import core.selenium.WebElementAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import salesforce.entities.LegalEntity;
+import salesforce.ui.pages.AppPageFactory;
+
 import java.util.HashMap;
+
+import static salesforce.utils.FileTranslator.translateValue;
 
 public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
 
@@ -41,7 +45,7 @@ public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
     @FindBy(id = "Status")
     private WebElement selectStatusMenu;
 
-    private static final String MENU_OPTION_CSS = "option[value='%s']";
+    private static final String MENU_OPTION_XPATH = "//option[text()='%s']";
     private static final HashMap<String, String> OPTION_STATUS_MENU = new HashMap<>();
 
     static {
@@ -130,12 +134,9 @@ public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
      * @param status a string with the status.
      */
     public void selectFromDropDown(final String status) {
-        System.out.println(status);
         webElementAction.clickOnWebElement(selectStatusMenu);
-        System.out.println(MENU_OPTION_CSS);
-        System.out.println(getDriver().findElement(By.cssSelector(String.format(MENU_OPTION_CSS, status))));
-        System.out.println(String.format(MENU_OPTION_CSS, status));
-        webElementAction.clickOnWebElement(getDriver().findElement(By.cssSelector(String.format(MENU_OPTION_CSS, status))));
+        webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(
+                String.format(MENU_OPTION_XPATH, translateValue("LegalEntities", "option.status")))));
     }
 
     /**

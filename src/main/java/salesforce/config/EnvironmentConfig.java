@@ -11,8 +11,8 @@ package salesforce.config;
 import static core.config.LoadEnvironmentFile.*;
 
 public final class EnvironmentConfig {
-    private static EnvironmentConfig environmentConfig;
 
+    private static EnvironmentConfig environmentConfig;
     private static String LOGIN_URL;
     private static String SALESFORCE_VERSION;
     private static String BASE_URL;
@@ -83,7 +83,7 @@ public final class EnvironmentConfig {
      *
      * @return a String with the salesforce version
      */
-    public String getSalesforceVersion() {
+    public static String getSalesforceVersion() {
         return SALESFORCE_VERSION;
     }
 
@@ -103,5 +103,32 @@ public final class EnvironmentConfig {
      */
     public static String getPassword() {
         return SALESFORCE_PASSWORD;
+    }
+
+    /**
+     * Gets the salesforce token.
+     *
+     * @return a String with the token
+     */
+    public static String getToken() {
+        return SALESFORCE_TOKEN;
+    }
+
+    /**
+     * Gets the salesforce client id.
+     *
+     * @return a String with the client id
+     */
+    public static String getClientId() {
+        return SALESFORCE_CLIENT_ID;
+    }
+
+    /**
+     * Gets the salesforce client secret.
+     *
+     * @return a String with the client secret
+     */
+    public static String getClientSecret() {
+        return SALESFORCE_CLIENT_SECRET;
     }
 }

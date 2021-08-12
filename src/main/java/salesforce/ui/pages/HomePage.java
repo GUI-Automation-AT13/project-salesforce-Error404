@@ -18,19 +18,8 @@ import salesforce.ui.pages.applauncher.AppLauncherNavigationPage;
  */
 public class HomePage extends BasePage {
 
-//    @FindBy(css = ".slds-icon-waffle")
-//    @FindBy(xpath = "//button[contains(@data-aura-class,' salesforceIdentityAppLauncherHeader')]")
-//    private WebElement appLauncherButton;
-
     @FindBy(css = "[placeholder^=\"Search\"][role=\"combobox\"]")
     private WebElement appLauncherButton;
-
-    /**
-     * Creates the Home page.
-     */
-    public HomePage() {
-        super();
-    }
 
     /**
      * Waits for the app launcher button to be available.

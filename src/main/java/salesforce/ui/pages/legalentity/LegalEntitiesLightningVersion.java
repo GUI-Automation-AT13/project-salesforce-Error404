@@ -1,4 +1,4 @@
-package salesforce.ui.pages;
+package salesforce.ui.pages.legalentity;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

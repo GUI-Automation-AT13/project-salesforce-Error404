@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package cucumber.hooks;
 
 import core.api.ApiManager;
@@ -12,10 +20,11 @@ public class LegalEntityHooks {
     private ApiResponse apiResponse;
     private LegalEntity legalEntity;
 
-    public LegalEntityHooks(ApiRequestBuilder requestBuilder, ApiResponse apiResponse, LegalEntity legalEntity) {
-        this.requestBuilder = requestBuilder;
-        this.apiResponse = apiResponse;
-        this.legalEntity = legalEntity;
+    public LegalEntityHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
+                            final LegalEntity newLegalEntity) {
+        this.requestBuilder = newRequestBuilder;
+        this.apiResponse = newApiResponse;
+        this.legalEntity = newLegalEntity;
     }
 
     @After(value = "@DeleteLegalEntity", order = 2)
