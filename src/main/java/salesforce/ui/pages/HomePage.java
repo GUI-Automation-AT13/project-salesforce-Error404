@@ -18,7 +18,7 @@ import salesforce.ui.pages.applauncher.AppLauncherNavigationPage;
  */
 public class HomePage extends BasePage {
 
-    @FindBy(xpath = "//button[contains(@data-aura-class,' salesforceIdentityAppLauncherHeader')]")
+    @FindBy(css = "[placeholder^=\"Search\"][role=\"combobox\"]")
     private WebElement appLauncherButton;
 
     /**

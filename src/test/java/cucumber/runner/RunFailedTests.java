@@ -16,9 +16,10 @@ import static cucumber.hooks.AccountHooks.deleteAccount;
 import static cucumber.hooks.ContactHooks.deleteContact;
 
 @CucumberOptions(
+        glue = {"cucumber"},
         features = {"@target/failed_scenarios.txt"},
-        plugin = {"html:target/site/cucumber-pretty-rerun.html", "json:target/cucumber/cucumber_rerun.json"},
-        glue = {"cucumber"}
+        plugin = {"html:target/site/cucumber-pretty-rerun.html", "json:target/cucumber/cucumber_rerun.json",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
 public class RunFailedTests extends AbstractTestNGCucumberTests {
 

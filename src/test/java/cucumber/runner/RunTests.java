@@ -12,14 +12,17 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import salesforce.utils.Reports;
 import static cucumber.hooks.AccountHooks.deleteAccount;
 import static cucumber.hooks.ContactHooks.deleteContact;
 
 @CucumberOptions(
+        glue = {"cucumber"},
         features = {"src\\test\\resources\\feature\\"},
         plugin = {"html:target/site/cucumber-pretty.html", "json:target/cucumber/cucumber.json",
-                "rerun:target/failed_scenarios.txt"},
-        glue = {"cucumber"}
+                "rerun:target/failed_scenarios.txt",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
+        monochrome = true
 )
 public class RunTests extends AbstractTestNGCucumberTests {
 
@@ -36,7 +39,7 @@ public class RunTests extends AbstractTestNGCucumberTests {
      */
     @AfterTest
     public void afterExecution() {
-        System.out.println("After Execution");
+        Reports.generateJVMReport();
         deleteRemainingEntities();
     }
 

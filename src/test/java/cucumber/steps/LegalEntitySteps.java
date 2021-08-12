@@ -10,27 +10,25 @@ package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.utils.EncryptorAES;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
-import salesforce.entities.legalentity.LegalEntity;
-import salesforce.ui.pages.legalentity.LegalEntitiesPage;
-import salesforce.ui.pages.legalentity.LegalEntityPage;
-import salesforce.ui.pages.legalentity.NewLegalEntityPage;
-import java.util.Map;
+import salesforce.entities.LegalEntity;
+import salesforce.ui.pages.AppPageFactory;
+import salesforce.ui.pages.legalentity.LegalEntityPageAbstract;
+import salesforce.ui.pages.legalentity.NewLegalEntityPageAbstract;
+import static salesforce.config.EnvironmentConfig.getSalesforceVersion;
 
 public class LegalEntitySteps {
 
-    private Logger logger = LogManager.getLogger(getClass());
-    LegalEntitiesPage legalEntitiesPage;
-    NewLegalEntityPage newLegalEntityPage;
+    private final Logger logger = LogManager.getLogger(getClass());
+    SoftAssert softAssert = new SoftAssert();
+    private String lightningSkin = "lightning";
     LegalEntity legalEntity;
-    LegalEntityPage legalEntityPage;
-    EncryptorAES encryptorAES;
 
     public LegalEntitySteps(final LegalEntity newLegalEntity) {
         this.legalEntity = newLegalEntity;
@@ -46,10 +44,9 @@ public class LegalEntitySteps {
     public void iCreateAnNewLegalEntityWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new legal entity ==========================");
         String json = new ObjectMapper().writeValueAsString(table);
-        legalEntity = new ObjectMapper().readValue(json, LegalEntity.class);
-        legalEntitiesPage = new LegalEntitiesPage();
-        newLegalEntityPage = legalEntitiesPage.clickOnNew();
-        newLegalEntityPage.createLegalEntity(table.keySet(), legalEntity);
+        legalEntity.setEntity(new ObjectMapper().readValue(json, LegalEntity.class));
+        NewLegalEntityPageAbstract newLegalEntityPageAbstract = AppPageFactory.getLegalEntitiesPage().clickOnNew();
+        newLegalEntityPageAbstract.createLegalEntity(table.keySet(), legalEntity);
     }
 
     /**
@@ -58,11 +55,11 @@ public class LegalEntitySteps {
     @Then("A successful message should be displayed")
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
-        SoftAssert softAssert = new SoftAssert();
-        legalEntityPage  = new LegalEntityPage();
-        boolean message = legalEntityPage.getUserSuccessMessage().contains(legalEntity.getName());
-        softAssert.assertTrue(message, "Message is incorrect");
-        softAssert.assertAll();
+        if (getSalesforceVersion().equals(lightningSkin)) {
+            LegalEntityPageAbstract legalEntityPageAbstract = AppPageFactory.getLegalEntityPage();
+            boolean message = legalEntityPageAbstract.getSuccessMessage().contains(legalEntity.getName());
+            softAssert.assertTrue(message, "Message is incorrect");
+        }
     }
 
     /**
@@ -71,11 +68,8 @@ public class LegalEntitySteps {
     @And("The header name should match in the created legal entity page")
     public void theHeaderNameShouldMatchInTheCreatedLegalEntityPage() {
         logger.info("=================== And The header name should match ==========================");
-        SoftAssert softAssert = new SoftAssert();
-        legalEntityPage = new LegalEntityPage();
-        softAssert.assertEquals(legalEntity.getName(), legalEntityPage.getHeaderEntityNameText(),
+        softAssert.assertEquals(legalEntity.getName(), AppPageFactory.getLegalEntityPage().getHeaderEntityNameText(),
                 "Header name is incorrect");
-        softAssert.assertAll();
     }
 
     /**
@@ -84,11 +78,8 @@ public class LegalEntitySteps {
     @And("All given details fields should match in the created legal entity page")
     public void allGivenDetailsFieldsShouldMatchesInTheCreatedLegalEntityPage() {
         logger.info("=================== And All the given details fields should match ==========================");
-        SoftAssert softAssert = new SoftAssert();
-        legalEntityPage = new LegalEntityPage();
-        softAssert.assertEquals(legalEntity.summaryMap(), legalEntityPage.entityMap(),
+        softAssert.assertEquals(legalEntity.summaryMap(), AppPageFactory.getLegalEntityPage().entityMap(),
                 "Fields doesn't match");
-        softAssert.assertAll();
     }
 
     /**
@@ -96,11 +87,8 @@ public class LegalEntitySteps {
      */
     @Then("The created legal entity should be displayed on the legal entities table")
     public void theCreatedLegalEntityShouldBeDisplayedOnTheLegalEntitiesTable() {
-        logger.info("=================== And The created legal entity should be on table ==========================");
-        SoftAssert softAssert = new SoftAssert();
-        LegalEntitiesPage newLegalEntitiesPage = new LegalEntitiesPage();
-        legalEntity.setId(newLegalEntitiesPage.getLegalEntityId(legalEntity.getName()));
-        softAssert.assertAll();
+        logger.info("=================== Then The created legal entity should be on table ==========================");
+        legalEntity.setId(AppPageFactory.getLegalEntitiesPage().getLegalEntityId(legalEntity.getName()));
     }
 
 }

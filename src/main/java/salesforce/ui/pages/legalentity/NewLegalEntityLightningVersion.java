@@ -12,17 +12,12 @@ import core.selenium.WebElementAction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import salesforce.entities.legalentity.LegalEntity;
-import salesforce.ui.pages.BasePage;
+import salesforce.entities.LegalEntity;
+import salesforce.ui.pages.AppPageFactory;
 import java.util.HashMap;
-import java.util.Set;
 import static salesforce.utils.FileTranslator.translateValue;
 
-/**
- * Interacts with the New Legal Entity elements.
- */
-public class NewLegalEntityPage extends BasePage {
+public class NewLegalEntityLightningVersion extends NewLegalEntityPageAbstract {
 
     private WebElementAction webElementAction = new WebElementAction();
 
@@ -56,19 +51,12 @@ public class NewLegalEntityPage extends BasePage {
         INPUT_ADDRESS_NAMES.put("Country", "country");
     }
 
-    /**
-     * Waits for the visibility of a web element.
-     */
-    @Override
-    protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(descriptionTxtBox));
-    }
 
     /**
      * Introduces text to web email text box.
      *
      * @param fieldName the field name of the map.
-     * @param value a String to input
+     * @param value     a String to input
      */
     public void setInputFieldWithInternationalization(final String fieldName, final String value) {
         webElementAction.setTextField(webElementAction
@@ -79,7 +67,7 @@ public class NewLegalEntityPage extends BasePage {
      * Introduces text to web email text box.
      *
      * @param fieldName the field name of the map.
-     * @param value a String to input
+     * @param value     a String to input
      */
     public void setInputFieldByClass(final String fieldName, final String value) {
         webElementAction.setTextField(webElementAction
@@ -95,7 +83,7 @@ public class NewLegalEntityPage extends BasePage {
     public void selectFromDropDown(final String fieldName, final String option) {
         webElementAction.clickOnWebElement(getDriver().findElement(By.xpath(String.format(DROPDOWN_XPATH, fieldName))));
         webElementAction.clickOnWebElement(getDriver().findElement(
-                By.xpath(String.format(DROPDOWN_OPTION_XPATH, option))));
+                By.xpath(String.format(DROPDOWN_OPTION_XPATH, translateValue("LegalEntities", "option.status")))));
     }
 
     /**
@@ -117,22 +105,24 @@ public class NewLegalEntityPage extends BasePage {
     }
 
     /**
-     * Clicks the save button.
+     * Click the save button.
      *
-     * @return A LegalEntityPage.
+     * @return LegalEntityPageAbstract.
      */
-    public LegalEntityPage clickSaveBtn() {
+    @Override
+    protected LegalEntityPageAbstract clickSaveBtn() {
         webElementAction.clickOnWebElement(getDriver().findElement(saveBtnXpath));
-        return new LegalEntityPage();
+        return AppPageFactory.getLegalEntityPage();
     }
 
     /**
-     * Builds the legal entity map with given fields.
+     * Builds the map.
      *
-     * @param legalEntity with given fields.
-     * @return the built map.
+     * @param legalEntity to obtain the values to be set.
+     * @return HashMap<String, Runnable>.
      */
-    private HashMap<String, Runnable> buildMap(final LegalEntity legalEntity) {
+    @Override
+    protected HashMap<String, Runnable> buildMap(final LegalEntity legalEntity) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Name", () -> setInputFieldWithInternationalization("Name", legalEntity.getName()));
         strategyMap.put("CompanyName", () -> setInputFieldWithInternationalization("CompanyName",
@@ -149,16 +139,5 @@ public class NewLegalEntityPage extends BasePage {
         return strategyMap;
     }
 
-    /**
-     * Creates a new legal entity.
-     *
-     * @param fields      key values from entity map.
-     * @param legalEntity an entity.
-     * @return a legal entity page.
-     */
-    public LegalEntityPage createLegalEntity(final Set<String> fields, final LegalEntity legalEntity) {
-        HashMap<String, Runnable> map = buildMap(legalEntity);
-        fields.forEach(field -> map.get(field).run());
-        return clickSaveBtn();
-    }
+
 }

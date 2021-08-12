@@ -12,15 +12,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import salesforce.ui.pages.BasePage;
 import java.util.HashMap;
-
 import static salesforce.utils.FileTranslator.translateValue;
 
-/**
- * Interacts with the Legal Entities elements.
- */
-public class LegalEntityPage extends BasePage {
+public class LegalEntityLightningVersion extends LegalEntityPageAbstract {
 
     @FindBy(css = ".slds-theme--success")
     private WebElement successMessage;
@@ -56,10 +51,6 @@ public class LegalEntityPage extends BasePage {
         DIV_ADDRESS.put("Country", "3");
     }
 
-    public LegalEntityPage() {
-        super();
-    }
-
     /**
      * Waits for the visibility of a web element.
      */
@@ -69,11 +60,30 @@ public class LegalEntityPage extends BasePage {
     }
 
     /**
+     * Builds a map from the ui.
+     *
+     * @return HashMap<String, String> with the entity map
+     */
+    @Override
+    public HashMap<String, String> entityMap() {
+        HashMap<String, String> entityMap = new HashMap<>();
+        entityMap.put("Name", getSpanFixedText(getNamesText("Name")));
+        entityMap.put("CompanyName", getSpanFixedText(getNamesText("CompanyName")));
+        entityMap.put("LegalEntityStreet", getAddressNamesText("Street"));
+        entityMap.put("Address", getAddressNamesText("CityStatePostalCode"));
+        entityMap.put("Country", getAddressNamesText("Country"));
+        entityMap.put("Description", getSpanFixedText(getDescriptionText()));
+        entityMap.put("Status", getSpanFixedText(getStatusText()));
+        return entityMap;
+    }
+
+    /**
      * Gets the success message.
      *
      * @return a String with the message.
      */
-    public String getUserSuccessMessage() {
+    @Override
+    public String getSuccessMessage() {
         return getWebElementAction().getTextOnWebElement(successMessage);
     }
 
@@ -82,6 +92,7 @@ public class LegalEntityPage extends BasePage {
      *
      * @return a string with the entity name text.
      */
+    @Override
     public String getHeaderEntityNameText() {
         return getSpanText(headerEntityName);
     }
@@ -122,23 +133,6 @@ public class LegalEntityPage extends BasePage {
      */
     public String getAddressNamesText(final String fieldName) {
         return getAddressTextWithKeyMapByCss(fieldName);
-    }
-
-    /**
-     * Builds a map from the ui.
-     *
-     * @return HashMap<String, String> with the entity map
-     */
-    public HashMap<String, String> entityMap() {
-        HashMap<String, String> entityMap = new HashMap<>();
-        entityMap.put("Name", getSpanFixedText(getNamesText("Name")));
-        entityMap.put("CompanyName", getSpanFixedText(getNamesText("CompanyName")));
-        entityMap.put("LegalEntityStreet", getAddressNamesText("Street"));
-        entityMap.put("Address", getAddressNamesText("CityStatePostalCode"));
-        entityMap.put("Country", getAddressNamesText("Country"));
-        entityMap.put("Description", getSpanFixedText(getDescriptionText()));
-        entityMap.put("Status", getSpanFixedText(getStatusText()));
-        return entityMap;
     }
 
     /**
@@ -196,5 +190,4 @@ public class LegalEntityPage extends BasePage {
         }
         return null;
     }
-
 }

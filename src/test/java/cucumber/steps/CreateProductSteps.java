@@ -66,7 +66,8 @@ public class CreateProductSteps {
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(productPage.getUserSuccessMessage().contains(product.getName()), "Message is incorrect");
+        softAssert.assertTrue(productPage.getUserSuccessMessage().contains(product.getName()),
+                "Message is incorrect");
         softAssert.assertAll();
     }
 
@@ -96,5 +97,13 @@ public class CreateProductSteps {
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(product.getName(), productPage.getProductTitle(), "The title is incorrect");
         softAssert.assertAll();
+    }
+
+    /**
+     * Verifies the information from table matches the created product.
+     */
+    @Then("The created product should be displayed on the legal entities table")
+    public void theCreatedProductShouldBeDisplayedOnTheLegalEntitiesTable() {
+        logger.info("=================== Then The created legal entity should be on table ==========================");
     }
 }

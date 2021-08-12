@@ -19,6 +19,7 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.4'
+    implementation 'net.masterthought:cucumber-reporting:5.5.3'
     implementation 'org.slf4j:slf4j-simple:1.7.30'
     implementation 'org.slf4j:slf4j-api:1.7.30'
     implementation 'log4j:log4j:1.2.17'
@@ -26,9 +27,13 @@ dependencies {
     testCompile 'io.cucumber:cucumber-java:6.10.4'
     testCompile 'io.cucumber:cucumber-testng:6.10.4'
     testCompile 'io.cucumber:cucumber-picocontainer:6.10.4'
+    compile 'tech.grasshopper:extentreports-cucumber6-adapter:2.8.2'
 }
 
 test {
+    ignoreFailures = true
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
     useTestNG()
     scanForTestClasses = false
 }
@@ -47,6 +52,47 @@ checkstyleTest {
     source = 'src/'
 }
 
+test.finalizedBy("checkstyleMain")
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumberCli() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:build/cucumber/cucumber-report.html',
+                    '--plugin', 'json:build/cucumber/cucumber.json',
+                    '--plugin', 'rerun:build/cucumber/rerun.txt',
+                    '--glue', 'cucumber',
+                    'src/test/resources/features']
+            ignoreExitValue = true
+        }
+    }
+}
+
+task executeFeatures(type: Test) {
+    useTestNG()
+    options {
+        useDefaultListeners = false
+        jvmArgs = ['-Dcucumber.glue=cucumber']
+        jvmArgs = ['-Dcucumber.features=src/test/resources/features/']
+        jvmArgs = ['-Dcucumber.plugin=pretty,' + 'html:build/cucumber/cucumber-report.html,' +
+                           'json:build/cucumber/cucumber.json,' +
+                           'r' +
+                           'erun:build/cucumber/rerun.txt']
+    }
+    ignoreFailures = true
+    scanForTestClasses = false
+    testLogging.showStandardStreams = true
+}
 jacocoTestReport {
     dependsOn test
     afterEvaluate {
