@@ -17,7 +17,7 @@ public enum SalesforceUrl {
     private final String url;
 
     SalesforceUrl(final String enumUrl) {
-        this.url = String.format(FeatureUrl.FEATURE_URL_LIGHTNING.getUrl(),enumUrl);
+        this.url = String.format(FeatureUrl.FEATURE_URL_LIGHTNING.getUrl(), enumUrl);
     }
 
     /**

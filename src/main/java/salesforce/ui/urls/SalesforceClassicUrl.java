@@ -17,7 +17,7 @@ public enum SalesforceClassicUrl {
     private final String url;
 
     SalesforceClassicUrl(final String enumUrl) {
-        this.url = String.format(FeatureUrl.FEATURE_URL_CLASSIC.getUrl(),enumUrl);
+        this.url = String.format(FeatureUrl.FEATURE_URL_CLASSIC.getUrl(), enumUrl);
     }
 
     /**
