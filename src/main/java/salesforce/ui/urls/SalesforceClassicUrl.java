@@ -12,13 +12,12 @@ public enum SalesforceClassicUrl {
     CASES("500"),
     LEGAL_ENTITIES("0fw"),
     PRODUCTS("01t"),
-    OPPORTUNITY("006"),
-    FEATURE_URL("%s/o");
+    OPPORTUNITY("006");
 
     private final String url;
 
     SalesforceClassicUrl(final String enumUrl) {
-        this.url = enumUrl;
+        this.url = String.format(FeatureUrl.FEATURE_URL_CLASSIC.getUrl(),enumUrl);
     }
 
     /**
