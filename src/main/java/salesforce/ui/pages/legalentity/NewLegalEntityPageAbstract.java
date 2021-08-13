@@ -23,7 +23,7 @@ public abstract class NewLegalEntityPageAbstract extends BasePage {
     protected void waitForPageToLoad() {
     }
 
-    protected abstract LegalEntityPageAbstract clickSaveBtn();
+    protected abstract LegalEntityPageAbstract clickSaveBtn() throws InterruptedException;
 
     protected abstract HashMap<String, Runnable> buildMap(LegalEntity legalEntity);
 
@@ -34,7 +34,7 @@ public abstract class NewLegalEntityPageAbstract extends BasePage {
      * @param legalEntity to obtain the values to be set.
      * @return LegalEntityPageAbstract.
      */
-    public LegalEntityPageAbstract createLegalEntity(final Set<String> fields, final LegalEntity legalEntity) {
+    public LegalEntityPageAbstract createLegalEntity(final Set<String> fields, final LegalEntity legalEntity) throws InterruptedException {
         HashMap<String, Runnable> map = buildMap(legalEntity);
         fields.forEach(field -> map.get(field).run());
         return clickSaveBtn();

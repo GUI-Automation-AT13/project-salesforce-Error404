@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
+public class LegalEntityClassicSkin extends LegalEntityPageAbstract {
 
     @FindBy(id = "Name_ileinner")
     private WebElement name;
@@ -141,10 +141,7 @@ public class LegalEntityClassicVersion extends LegalEntityPageAbstract {
      */
     public boolean fixAddress() {
         System.out.println();
-        if (getWebElementAction().isElementPresent(addressId, time)) {
-            return true;
-        }
-        return false;
+        return getWebElementAction().isElementPresent(addressId, time);
     }
 
     /**
