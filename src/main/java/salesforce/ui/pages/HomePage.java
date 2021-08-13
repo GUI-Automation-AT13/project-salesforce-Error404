@@ -19,6 +19,9 @@ import salesforce.ui.pages.applauncher.AppLauncherNavigationPage;
 public class HomePage extends BasePage {
 
     @FindBy(css = "[placeholder^=\"Search\"][role=\"combobox\"]")
+    private WebElement searchBar;
+
+    @FindBy(xpath = "//button[contains(@data-aura-class,' salesforceIdentityAppLauncherHeader')]")
     private WebElement appLauncherButton;
 
     /**
@@ -26,7 +29,7 @@ public class HomePage extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(appLauncherButton));
+        getWait().until(ExpectedConditions.visibilityOf(searchBar));
     }
 
     /**
