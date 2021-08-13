@@ -46,7 +46,6 @@ public class CreateProductSteps {
         product.setProduct(ConverterToEntity.convertMapToEntity(table, Product.class));
         NewProductPageAbstract newProductPageAbstract = AppPageFactory.getProductsPage().clickNewProductButton();
         productPageAbstract = newProductPageAbstract.createProduct(table.keySet(), product);
-        System.out.println(product.getId());
     }
 
     /**

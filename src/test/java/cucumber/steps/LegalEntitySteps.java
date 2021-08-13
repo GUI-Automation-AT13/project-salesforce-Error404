@@ -41,7 +41,7 @@ public class LegalEntitySteps {
      * @throws JsonProcessingException when invalid json provided
      */
     @When("^I create a new LegalEntity with fields$")
-    public void iCreateAnNewLegalEntityWithFields(final Map<String, String> table) throws JsonProcessingException, InterruptedException {
+    public void iCreateAnNewLegalEntityWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new legal entity ==========================");
         String json = new ObjectMapper().writeValueAsString(table);
         legalEntity.setEntity(new ObjectMapper().readValue(json, LegalEntity.class));
