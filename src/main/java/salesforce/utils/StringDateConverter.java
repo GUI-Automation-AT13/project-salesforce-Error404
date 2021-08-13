@@ -11,12 +11,14 @@ package salesforce.utils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class StringDateConverter {
 
     private static LocalDateTime date;
-    private static final String SIMPLE_DATE_FORMAT = "\\d{4}(-|/)(0[1-9]|1[012])(-|/)(0[1-9]|[12][0-9]|[3][01])";
+    private static final String SIMPLE_DATE_FORMAT = "\\d{4}(-|/)(0[1-9]|1[012])(-|/)(0[1-9]|[12][0-9]|[3][01])"; //Y/M/D
+    private static final String SIMPLE_DATE_FORMATTED = "(0[1-9]|[12][0-9]|[3][01])(-|/)(0[1-9]|1[012])(-|/)\\d{4}"; // D/M/Y
     private static final String SIMPLE_TIME_FORMAT = "T\\d{2}:\\d{2}:\\d{2}";
     private static final String SINGLE_WORD_FORMAT = "[ADEORSMWYT]+";
     private static final String ENUM_FORMAT = "[\\d]+\\s((day|days)|(month|months)|(year|years)|(seconds|second)"
@@ -37,8 +39,10 @@ public class StringDateConverter {
     public static LocalDateTime convertDate(final String dateString) {
         if (validateNullEmpty(dateString)) {
             try  {
-                if (dateString.matches(SIMPLE_DATE_FORMAT) || dateString.matches(SIMPLE_TIME_FORMAT)
-                        || dateString.matches(SIMPLE_DATE_FORMAT.concat(SIMPLE_TIME_FORMAT))) {
+                if (dateString.matches(SIMPLE_DATE_FORMAT)
+                        || dateString.matches(SIMPLE_TIME_FORMAT)
+                        || dateString.matches(SIMPLE_DATE_FORMAT.concat(SIMPLE_TIME_FORMAT))
+                        || dateString.matches(SIMPLE_DATE_FORMATTED)) {
                     dateStringConvert(dateString);
                 } else if (dateString.matches(SINGLE_WORD_FORMAT)) {
                     singleWordDateConvert(dateString);
@@ -92,7 +96,12 @@ public class StringDateConverter {
             stringDateImproved = stringDateImproved.replace("/", "-");
         }
         if (!stringDateImproved.contains("T") || !stringDateImproved.contains(":")) {
-            date = LocalDate.parse(stringDateImproved).atTime(LocalTime.now());
+            if (stringDateImproved.matches(SIMPLE_DATE_FORMATTED)) {
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                date = LocalDate.parse(stringDateImproved, dateTimeFormatter).atTime(LocalTime.now());
+            } else {
+                date = LocalDate.parse(stringDateImproved).atTime(LocalTime.now());
+            }
         } else if (!stringDateImproved.contains("-")) {
             date = LocalTime.parse(stringDateImproved).atDate(LocalDate.now());
         } else {

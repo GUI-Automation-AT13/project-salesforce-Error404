@@ -33,6 +33,10 @@ public class OpportunitySteps {
     SoftAssert softAssert = new SoftAssert();
     Set<String> fields;
 
+    public OpportunitySteps(final Opportunity newOpportunity) {
+        this.opportunity = newOpportunity;
+    }
+
     /**
      * Creates an opportunity with provided values.
      *
@@ -42,7 +46,8 @@ public class OpportunitySteps {
     @When("I create a new Opportunity with fields")
     public void iCreateAFeatureWithFields(final Map<String, String> dataTable) throws IOException {
         logger.info("=================== When I create a new Opportunity with fields ==========================");
-        opportunity = new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(dataTable), Opportunity.class);
+        String json = new ObjectMapper().writeValueAsString(dataTable);
+        opportunity.setOpportunityObject(new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(dataTable), Opportunity.class));
         opportunity.setOpportunityDetailField();
         OpportunityPage opportunityPage = new OpportunityPage();
         formOpportunity = opportunityPage.openNewOpportunityForm();
@@ -71,6 +76,16 @@ public class OpportunitySteps {
                         opportunity.getMapFields().get(field));
             }
         }
+    }
+
+    /**
+     * Verifies that date of creation match with current date.
+     */
+    @And("Created date of Opportunity should match with current date")
+    public void createdDateMatchWithCurrentDate() {
+        System.out.println("Entity " + opportunity.getCreatedDate());
+        System.out.println("Salesforce "+ createdForm.getCreatedDate());
+        softAssert.assertEquals(opportunity.getCreatedDate(), createdForm.getCreatedDate());
     }
 
     /**

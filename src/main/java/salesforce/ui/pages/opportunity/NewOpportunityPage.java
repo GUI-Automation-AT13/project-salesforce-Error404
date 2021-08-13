@@ -116,7 +116,7 @@ public class NewOpportunityPage extends BasePage {
         mapFields.put("Private", () -> selectCheckbox("IsPrivate", opportunity.isPrivate()));
         mapFields.put("Amount", () -> setInputField("Amount", opportunity.getAmount().toString()));
         mapFields.put("OpportunityName", () -> setInputField("Name", opportunity.getOpportunityName()));
-        mapFields.put("CloseDate", () -> setInputField("CloseDate", opportunity.getCloseDate()));
+        mapFields.put("CloseDate", () -> setInputField("CloseDate", opportunity.getFormattedCloseDate()));
         mapFields.put("NextStep", () -> setInputField("NextStep", opportunity.getNextStep()));
         mapFields.put("Probability", () -> setInputField("Probability", opportunity.getProbability()));
         mapFields.put("OrderNumber", () -> setInputField("OrderNumber__c", opportunity.getOrderNumber()));

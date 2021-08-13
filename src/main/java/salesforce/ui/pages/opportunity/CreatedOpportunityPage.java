@@ -101,4 +101,16 @@ public class CreatedOpportunityPage extends BasePage {
     public String getCurrentStage() {
         return webElementAction.getTextOnWebElement(createdOpportunityStage);
     }
+
+    /**
+     * Gets the text of created opportunity in salesforce.
+     *
+     * @return String with date of created opportunity.
+     */
+    public String getCreatedDate() {
+        WebElement element = getDriver().findElement(By.cssSelector(".forceRelatedListSingleContainer .uiOutputDateTime"));
+        System.out.println(getWebElementAction().getTextOnWebElement(element));
+        return getWebElementAction().getTextOnWebElement(element);
+
+    }
 }

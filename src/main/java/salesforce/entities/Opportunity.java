@@ -11,9 +11,9 @@ package salesforce.entities;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import salesforce.utils.StringDateConverter;
-
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,7 +62,7 @@ public class Opportunity {
     private LocalDateTime updatedDate;
 
     public Opportunity() {
-        setCreatedDate(StringDateConverter.convertDate("TODAY"));
+        setCreatedDate("TODAY");
         setUpdatedDate(this.createdDate);
     }
 
@@ -132,12 +132,22 @@ public class Opportunity {
     }
 
     /**
+     * Returns the Opportunity Close date formatted to M/d/YYYY
+     *
+     * @return string of the close date.
+     */
+    public String getFormattedCloseDate() {
+        LocalDateTime formatCloseDate = LocalDateTime.parse(closeDate);
+        return formatCloseDate.format(DateTimeFormatter.ofPattern("M/d/YYYY"));
+    }
+
+    /**
      * Sets the Opportunity Close Date.
      *
      * @param closeDateNew the date to set.
      */
     public void setCloseDate(final String closeDateNew) {
-        this.closeDate = closeDateNew;
+        this.closeDate = StringDateConverter.convertDate(closeDateNew).toString();
     }
 
     /**
@@ -383,13 +393,13 @@ public class Opportunity {
         mapFields.put("Type", getTypeOption());
         mapFields.put("LeadSource", getLeadSource());
         mapFields.put("Amount", getAmount());
-        mapFields.put("CloseDate", getCloseDate());
+        mapFields.put("CloseDate", getFormattedCloseDate());
         mapFields.put("NextStep", getNextStep());
         mapFields.put("Stage", getOpportunityStage());
         mapFields.put("Probability", getProbability());
         mapFields.put("Account", getSearchAccount());
-        mapFields.put("Created", getCreatedDate().toString());
-        mapFields.put("Updated", getUpdatedDateDate().toString());
+        mapFields.put("Created", getCreatedDate());
+        mapFields.put("Updated", getUpdatedDateDate());
     }
 
     /**
@@ -406,8 +416,8 @@ public class Opportunity {
      *
      * @param newCreatedDate LocalDateTime of creation.
      */
-    public void setCreatedDate(final LocalDateTime newCreatedDate) {
-        this.createdDate = newCreatedDate;
+    private void setCreatedDate(final String newCreatedDate) {
+        this.createdDate = StringDateConverter.convertDate(newCreatedDate);
     }
 
     /**
@@ -415,8 +425,9 @@ public class Opportunity {
      *
      * @return LocalDateTime createdDate
      */
-    public LocalDateTime getCreatedDate() {
-        return this.createdDate;
+    public String getCreatedDate() {
+        String formattedDate = createdDate.format(DateTimeFormatter.ofPattern("M/d/YYYY, h:mm a"));
+        return formattedDate.toUpperCase().replaceAll("[.] |[.]", "");
     }
 
     /**
@@ -424,7 +435,7 @@ public class Opportunity {
      *
      * @param newUpdatedDate LocalDateTime of update.
      */
-    public void setUpdatedDate(final LocalDateTime newUpdatedDate) {
+    private void setUpdatedDate(final LocalDateTime newUpdatedDate) {
         this.updatedDate = newUpdatedDate;
     }
 
@@ -433,7 +444,32 @@ public class Opportunity {
      *
      * @return LocalDateTime updatedDate
      */
-    public LocalDateTime getUpdatedDateDate() {
-        return this.updatedDate;
+    public String getUpdatedDateDate() {
+        return this.updatedDate.format(DateTimeFormatter.ofPattern("mm/dd/yy, hh:mm a"));
+    }
+
+    /**
+     * Sets the values of the opportunity.
+     *
+     * @param opportunity to be set.
+     */
+    public void setOpportunityObject(final Opportunity opportunity) {
+        this.setOpportunityName(opportunity.getOpportunityName());
+        this.setNextStep(opportunity.getNextStep());
+        //amount = Double.parseDouble(opportunity.getAmount());
+        this.setCloseDate(opportunity.getCloseDate());
+        opportunityStage = opportunity.getOpportunityStage();
+        typeOption = opportunity.getTypeOption();
+        leadSource = opportunity.getLeadSource();
+        deliveryOption = opportunity.getDeliveryOption();
+        probability = opportunity.getProbability();
+        orderNumber = opportunity.getOrderNumber();
+        currentGenerator = opportunity.getCurrentGenerator();
+        trackingNumber = opportunity.getTrackingNumber();
+        mainComp = opportunity.getMainComp();
+        description = opportunity.getDescription();
+        searchAccount = opportunity.getSearchAccount();
+        searchCampaign = opportunity.getSearchCampaign();
+        isPrivate = opportunity.isPrivate();
     }
 }

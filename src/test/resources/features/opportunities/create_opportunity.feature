@@ -48,3 +48,16 @@ Feature: Create Opportunity
     Examples:
       | opportunityName                    | accountName | accountSite | opportunityStage | closeDate | opportunityOwner |
       | New opportunity2021-08-03T10:20:49 | new account |             | Prospecting      | 7/7/2021  | dsant            |
+
+  @DeleteOpportunity
+  Scenario: create a new Opportunity with Close date 2 months from now
+    Given I login to salesforce as an admin user
+    When I navigate to the "OPPORTUNITY" page
+    When I create a new Opportunity with fields
+      | OpportunityName | New opportunity   |
+      | CloseDate       | 5 months from now |
+      | Stage           | Prospecting       |
+    Then Successful message appear with Opportunity name
+    And All Opportunity headers match with previous fields
+    And Created date of Opportunity should match with current date
+    And Opportunity details match with previous fields
