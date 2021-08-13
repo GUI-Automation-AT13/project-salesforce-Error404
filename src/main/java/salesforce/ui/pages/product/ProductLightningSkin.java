@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.product;
 
 import org.openqa.selenium.By;
@@ -53,7 +61,7 @@ public class ProductLightningSkin extends ProductPageAbstract {
      * @return the description
      */
     public String getDescription() {
-            return getWebElementAction().getTextOnWebElement(getDriver().findElement(descriptionTextArea));
+        return getWebElementAction().getTextOnWebElement(getDriver().findElement(descriptionTextArea));
     }
 
     /**
@@ -95,11 +103,6 @@ public class ProductLightningSkin extends ProductPageAbstract {
         String url = getWebElementAction().getSiteCurrentUrl();
         String preIdString = "Product2/";
         String posIdString = "/view";
-        System.out.println(url.length());
-        System.out.println("url   " + url);
-        System.out.println(url.indexOf(preIdString));
-        System.out.println(preIdString.length());
-        System.out.println(url.indexOf(posIdString));
         return url.substring(url.indexOf(preIdString) + preIdString.length(), url.indexOf(posIdString));
     }
 

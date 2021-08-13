@@ -28,7 +28,6 @@ public abstract class ProductsPageAbstract extends BasePage {
      */
     @Override
     protected void waitForPageToLoad() {
-//        getWait().until(ExpectedConditions.visibilityOf(newLink));
     }
 
     protected abstract By getLocator();

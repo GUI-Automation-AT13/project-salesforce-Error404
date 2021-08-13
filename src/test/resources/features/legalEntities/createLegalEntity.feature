@@ -24,7 +24,7 @@ Feature: create legal entity
       | LegalEntityCity       | new city            |
       | LegalEntityState      | the state           |
       | LegalEntityPostalCode | 0023                |
-      | LegalEntityCountry    | boolivia            |
+      | LegalEntityCountry    | bolivia             |
       | Status                | Active              |
     Then A successful message should be displayed
     And The header name should match in the created legal entity page
@@ -36,6 +36,6 @@ Feature: create legal entity
       | Last Modified Date | <modifiedDate> |
       | Last Modified By   | <modifiedBy>   |
     Examples:
-      | name                               | modifiedDate   | modifiedBy |
-      | new entity03/8/2021 08:38          | 3/8/2021 08:38 | dsant      |
+      | name                      | modifiedDate   | modifiedBy |
+      | new entity03/8/2021 08:38 | 3/8/2021 08:38 | dsant      |
 #      | new complete entity04/8/2021 22:14 | 4/8/2021 22:14 | dsant      |

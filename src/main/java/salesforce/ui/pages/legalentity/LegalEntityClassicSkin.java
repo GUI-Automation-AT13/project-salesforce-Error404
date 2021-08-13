@@ -140,7 +140,6 @@ public class LegalEntityClassicSkin extends LegalEntityPageAbstract {
      * @return true if the element is present, false otherwise.
      */
     public boolean fixAddress() {
-        System.out.println();
         return getWebElementAction().isElementPresent(addressId, time);
     }
 

@@ -1,3 +1,11 @@
+/**
+ * Copyright (c) 2021 Fundacion Jala.
+ * This software is the confidential and proprietary information of Fundacion Jala
+ * ("Confidential Information"). You shall not disclose such Confidential
+ * Information and shall use it only in accordance with the terms of the
+ * license agreement you entered into with Fundacion Jala
+ */
+
 package salesforce.ui.pages.product;
 
 import org.openqa.selenium.WebElement;
@@ -120,7 +128,7 @@ public class ProductClassicSkin extends ProductPageAbstract {
      * Fixes the text if it's empty.
      *
      * @param text the text to fix.
-     * @return null is the text is empty, the text otherwise.
+     * @return "" if the text is empty, otherwise the text.
      */
     public String fixText(final String text) {
         if (text.equals(" ")) {

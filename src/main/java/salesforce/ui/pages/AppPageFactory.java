@@ -10,6 +10,7 @@ package salesforce.ui.pages;
 
 import salesforce.ui.pages.legalentity.*;
 import salesforce.ui.pages.product.*;
+
 import static core.config.LoadEnvironmentFile.getTheSalesforceVersion;
 
 public class AppPageFactory {
@@ -22,7 +23,7 @@ public class AppPageFactory {
      * @return the correct legal entities page instance.
      */
     public static LegalEntitiesPageAbstract getLegalEntitiesPage() {
-        if ("classic".equals(skin)) {
+        if (skin.equals("classic")) {
             return new LegalEntitiesClassicSkin();
         }
         return new LegalEntitiesLightningSkin();
@@ -34,7 +35,7 @@ public class AppPageFactory {
      * @return the correct new legal entities page instance.
      */
     public static NewLegalEntityPageAbstract getNewLegalEntityPage() {
-        if ("classic".equals(skin)) {
+        if (skin.equals("classic")) {
             return new NewLegalEntityClassicSkin();
         }
         return new NewLegalEntityLightningSkin();
@@ -46,7 +47,7 @@ public class AppPageFactory {
      * @return the correct legal entity page instance.
      */
     public static LegalEntityPageAbstract getLegalEntityPage() {
-        if ("classic".equals(skin)) {
+        if (skin.equals("classic")) {
             return new LegalEntityClassicSkin();
         }
         return new LegalEntityLightningSkin();
@@ -58,7 +59,7 @@ public class AppPageFactory {
      * @return the correct products page instance.
      */
     public static ProductsPageAbstract getProductsPage() {
-        if ("classic".equals(skin)) {
+        if (skin.equals("classic")) {
             return new ProductsClassicSkin();
         }
         return new ProductsLightningSkin();
@@ -70,7 +71,7 @@ public class AppPageFactory {
      * @return the correct legal entity page instance.
      */
     public static NewProductPageAbstract getNewProductPage() {
-        if ("classic".equals(skin)) {
+        if (skin.equals("classic")) {
             return new NewProductClassicSkin();
         }
         return new NewProductLightningSkin();
@@ -82,7 +83,7 @@ public class AppPageFactory {
      * @return the correct product page instance.
      */
     public static ProductPageAbstract getProductPage() {
-        if ("classic".equals(skin)) {
+        if (skin.equals("classic")) {
             return new ProductClassicSkin();
         }
         return new ProductLightningSkin();
