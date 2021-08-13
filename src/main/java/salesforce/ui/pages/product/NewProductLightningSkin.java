@@ -11,17 +11,13 @@ package salesforce.ui.pages.product;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import salesforce.entities.Product;
-import salesforce.ui.pages.BasePage;
+import salesforce.ui.pages.AppPageFactory;
 import salesforce.utils.FileTranslator;
 import java.util.HashMap;
-import java.util.Set;
 
-/**
- * This class returns an instance of NewProductForm.
- */
-public class NewProductPage extends BasePage {
+public class NewProductLightningSkin extends NewProductPageAbstract {
+
     @FindBy(xpath = "//h2[contains(@class,'inlineTitle')]")
     private WebElement formTitle;
 
@@ -35,14 +31,6 @@ public class NewProductPage extends BasePage {
             + FileTranslator.translateValue("Products", "saveProduct") + "']");
 
     private static final String INPUT_XPATH = "//label//span[text()='%s']/../../input";
-
-    /**
-     * Waits for the page to load.
-     */
-    @Override
-    protected void waitForPageToLoad() {
-        getWait().until(ExpectedConditions.visibilityOf(formTitle));
-    }
 
     /**
      * Sets input fields.
@@ -82,23 +70,24 @@ public class NewProductPage extends BasePage {
     }
 
     /**
-     * Clicks on Save button.
+     * Click the save button.
      *
-     * @return a ProductPage
+     * @return ProductPageAbstract.
      */
-    public ProductPage clickSaveButton() {
+    @Override
+    protected ProductPageAbstract clickSaveBtn() {
         getWebElementAction().clickOnWebElement(getDriver().findElement(saveButton));
-        return new ProductPage();
+        return AppPageFactory.getProductPage();
     }
 
     /**
-     * Creates a Product.
+     * Builds the map.
      *
-     * @param fields fields to get
-     * @param product class entity
-     * @return a ProductPage
+     * @param product to obtain the values to be set.
+     * @return HashMap<String, Runnable>.
      */
-    public ProductPage createProduct(final Set<String> fields, final Product product) {
+    @Override
+    protected HashMap<String, Runnable> buildMap(final Product product) {
         HashMap<String, Runnable> strategyMap = new HashMap<>();
         strategyMap.put("Name", () ->
                 setInputField(FileTranslator.translateValue("Products", "productName"), product.getName()));
@@ -108,7 +97,6 @@ public class NewProductPage extends BasePage {
                         product.getProductCode()));
         strategyMap.put("Family", () -> selectProductFamilyOption(product.getFamily()));
         strategyMap.put("Description", () -> setProductDescription(product.getDescription()));
-        fields.forEach(field -> strategyMap.get(field).run());
-        return clickSaveButton();
+        return strategyMap;
     }
 }

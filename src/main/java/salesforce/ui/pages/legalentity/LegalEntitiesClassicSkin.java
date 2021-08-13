@@ -12,7 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LegalEntitiesClassicVersion extends LegalEntitiesPageAbstract {
+public class LegalEntitiesClassicSkin extends LegalEntitiesPageAbstract {
 
     @FindBy(xpath = "//input[@name='new']")
     private WebElement newEntityBtn;

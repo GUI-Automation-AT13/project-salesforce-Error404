@@ -9,12 +9,13 @@
 package salesforce.ui.pages;
 
 import salesforce.ui.pages.legalentity.*;
+import salesforce.ui.pages.product.*;
 
 import static core.config.LoadEnvironmentFile.getTheSalesforceVersion;
 
 public class AppPageFactory {
 
-    private static String version = getTheSalesforceVersion();
+    private static String skin = getTheSalesforceVersion();
 
     /**
      * Gets the legal entities page.
@@ -22,10 +23,10 @@ public class AppPageFactory {
      * @return the correct legal entities page instance.
      */
     public static LegalEntitiesPageAbstract getLegalEntitiesPage() {
-        if ("classic".equals(version)) {
-            return new LegalEntitiesClassicVersion();
+        if (skin.equals("classic")) {
+            return new LegalEntitiesClassicSkin();
         }
-        return new LegalEntitiesLightningVersion();
+        return new LegalEntitiesLightningSkin();
     }
 
     /**
@@ -34,10 +35,10 @@ public class AppPageFactory {
      * @return the correct new legal entities page instance.
      */
     public static NewLegalEntityPageAbstract getNewLegalEntityPage() {
-        if ("classic".equals(version)) {
-            return new NewLegalEntityClassicVersion();
+        if (skin.equals("classic")) {
+            return new NewLegalEntityClassicSkin();
         }
-        return new NewLegalEntityLightningVersion();
+        return new NewLegalEntityLightningSkin();
     }
 
     /**
@@ -46,10 +47,46 @@ public class AppPageFactory {
      * @return the correct legal entity page instance.
      */
     public static LegalEntityPageAbstract getLegalEntityPage() {
-        if ("classic".equals(version)) {
-            return new LegalEntityClassicVersion();
+        if (skin.equals("classic")) {
+            return new LegalEntityClassicSkin();
         }
-        return new LegalEntityLightningVersion();
+        return new LegalEntityLightningSkin();
+    }
+
+    /**
+     * Gets the products page.
+     *
+     * @return the correct products page instance.
+     */
+    public static ProductsPageAbstract getProductsPage() {
+        if (skin.equals("classic")) {
+            return new ProductsClassicSkin();
+        }
+        return new ProductsLightningSkin();
+    }
+
+    /**
+     * Gets the legal entity page.
+     *
+     * @return the correct legal entity page instance.
+     */
+    public static NewProductPageAbstract getNewProductPage() {
+        if (skin.equals("classic")) {
+            return new NewProductClassicSkin();
+        }
+        return new NewProductLightningSkin();
+    }
+
+    /**
+     * Gets the product page.
+     *
+     * @return the correct product page instance.
+     */
+    public static ProductPageAbstract getProductPage() {
+        if (skin.equals("classic")) {
+            return new ProductClassicSkin();
+        }
+        return new ProductLightningSkin();
     }
 
 }

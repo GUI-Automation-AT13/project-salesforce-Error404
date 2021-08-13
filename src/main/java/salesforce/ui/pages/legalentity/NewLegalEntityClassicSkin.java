@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 import static salesforce.utils.FileTranslator.translateValue;
 
-public class NewLegalEntityClassicVersion extends NewLegalEntityPageAbstract {
+public class NewLegalEntityClassicSkin extends NewLegalEntityPageAbstract {
 
     private WebElementAction webElementAction = new WebElementAction();
 

@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.HashMap;
 import static salesforce.utils.FileTranslator.translateValue;
 
-public class LegalEntityLightningVersion extends LegalEntityPageAbstract {
+public class LegalEntityLightningSkin extends LegalEntityPageAbstract {
 
     @FindBy(css = ".slds-theme--success")
     private WebElement successMessage;
@@ -27,12 +27,13 @@ public class LegalEntityLightningVersion extends LegalEntityPageAbstract {
     private WebElement description;
 
     private static final String INTERNATIONALIZED_NAME = translateValue("LegalEntities", "input.name");
-    private static final String INTERNATIONALIZED_COMPANY_NAME =
-            translateValue("LegalEntities", "input.companyname");
-    private By statusSpanXpath = By.xpath("//span[text()='"
-            + translateValue("LegalEntities", "span.status") + "']/../..//div//span/*");
+    private static final String INTERNATIONALIZED_COMPANY_NAME = translateValue("LegalEntities", "input.companyname");
+
     private By descriptionCss = By.cssSelector("span.uiOutputTextArea");
     private By headerEntityName = By.xpath("//h1//div//span[@class=\"uiOutputText\"]");
+    private By statusSpanXpath = By.xpath("//span[text()='" + translateValue("LegalEntities", "span.status")
+            + "']/../..//div//span/*");
+
     private final int time = 2000;
     private static final String NAMES_XPATH = "//span[text()='%s']/../..//div//span[@class=\"uiOutputText\"]";
     private static final String ADDRESS_XPATH = "a.forceOutputAddress div:nth-child(%s)";

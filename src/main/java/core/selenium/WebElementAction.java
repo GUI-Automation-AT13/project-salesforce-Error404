@@ -58,7 +58,7 @@ public class WebElementAction {
      * @return a web element with the provided features
      */
     public WebElement getWebElementByXpathAndValue(final String xpath, final String value) {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format(xpath, value))));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format(xpath, value))));
         return driver.findElement(By.xpath(String.format(xpath, value)));
     }
 

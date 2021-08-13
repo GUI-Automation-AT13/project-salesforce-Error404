@@ -17,7 +17,7 @@ import salesforce.ui.pages.AppPageFactory;
 import java.util.HashMap;
 import static salesforce.utils.FileTranslator.translateValue;
 
-public class NewLegalEntityLightningVersion extends NewLegalEntityPageAbstract {
+public class NewLegalEntityLightningSkin extends NewLegalEntityPageAbstract {
 
     private WebElementAction webElementAction = new WebElementAction();
 

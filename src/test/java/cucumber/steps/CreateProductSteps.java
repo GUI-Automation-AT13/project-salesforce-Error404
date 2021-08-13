@@ -9,8 +9,6 @@
 package cucumber.steps;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,27 +16,21 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.asserts.SoftAssert;
 import salesforce.entities.Product;
-import salesforce.ui.pages.product.NewProductPage;
-import salesforce.ui.pages.product.ProductPage;
-import salesforce.ui.pages.product.ProductsPage;
+import salesforce.ui.pages.AppPageFactory;
+import salesforce.ui.pages.product.NewProductPageAbstract;
+import salesforce.ui.pages.product.ProductPageAbstract;
 import salesforce.utils.ConverterToEntity;
-import salesforce.utils.FileTranslator;
 import java.util.Map;
-import java.util.Set;
+import static salesforce.config.EnvironmentConfig.getSalesforceVersion;
 
 public class CreateProductSteps {
-    private Logger logger = LogManager.getLogger(getClass());
-    ProductsPage productsPage;
-    Product product;
-    ProductPage productPage;
-    Set<String> fields;
-    ApiRequestBuilder requestBuilder;
-    ApiResponse apiResponse;
 
-    public CreateProductSteps(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
-                              final Product newProduct) {
-        this.requestBuilder = newRequestBuilder;
-        this.apiResponse = newApiResponse;
+    private Logger logger = LogManager.getLogger(getClass());
+    Product product;
+    ProductPageAbstract productPageAbstract;
+    private String lightningSkin = "lightning";
+
+    public CreateProductSteps(final Product newProduct) {
         this.product = newProduct;
     }
 
@@ -51,12 +43,9 @@ public class CreateProductSteps {
     @When("I create a new Product with fields")
     public void iCreateANewProductWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new product ==========================");
-        productsPage = new ProductsPage();
-        NewProductPage newProductPage = productsPage.clickNewProductButton();
         product.setProduct(ConverterToEntity.convertMapToEntity(table, Product.class));
-        fields = table.keySet();
-        productPage = newProductPage.createProduct(table.keySet(), product);
-        product.setId(productPage.getProductId());
+        NewProductPageAbstract newProductPageAbstract = AppPageFactory.getProductsPage().clickNewProductButton();
+        productPageAbstract = newProductPageAbstract.createProduct(table.keySet(), product);
     }
 
     /**
@@ -66,9 +55,11 @@ public class CreateProductSteps {
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(productPage.getUserSuccessMessage().contains(product.getName()),
-                "Message is incorrect");
-        softAssert.assertAll();
+        if (getSalesforceVersion().equals(lightningSkin)) {
+            softAssert.assertTrue(productPageAbstract.getSuccessMessage().contains(product.getName()),
+                    "Message is incorrect");
+            softAssert.assertAll();
+        }
     }
 
     /**
@@ -78,13 +69,8 @@ public class CreateProductSteps {
     public void allProductFieldsMatches() {
         logger.info("=================== And All the given details fields should match ==========================");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(product.getName(), productPage.getSpanText(FileTranslator
-                .translateValue("Products", "productName")), "Product name is incorrect");
-        softAssert.assertEquals(product.isActive(), productPage.isActive());
-        softAssert.assertEquals(product.getProductCode(), productPage.getSpanText(FileTranslator
-                .translateValue("Products", "productCode")), "Product code is incorrect");
-        softAssert.assertEquals(product.getFamily(), productPage.getSpanText(FileTranslator
-                .translateValue("Products", "productFamily")), "Product family is incorrect");
+        softAssert.assertEquals(product.getProductMap(), AppPageFactory.getProductPage().theProductMap(),
+                "Product map is incorrect");
         softAssert.assertAll();
     }
 
@@ -95,7 +81,8 @@ public class CreateProductSteps {
     public void validateTheTitleMatches() {
         logger.info("=================== And The title should match ==========================");
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertEquals(product.getName(), productPage.getProductTitle(), "The title is incorrect");
+        product.setId(productPageAbstract.getProductId());
+        softAssert.assertEquals(product.getName(), productPageAbstract.getProductTitle(), "The title is incorrect");
         softAssert.assertAll();
     }
 

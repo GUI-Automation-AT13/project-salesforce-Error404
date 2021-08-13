@@ -74,7 +74,7 @@ public final class EnvironmentConfig {
      *
      * @return a String with the salesforce.base url classic
      */
-    public String getBaseUrlClassic() {
+    public static String getBaseUrlClassic() {
         return BASE_URL_CLASSIC;
     }
 

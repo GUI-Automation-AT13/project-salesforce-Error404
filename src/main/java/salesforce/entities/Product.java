@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import salesforce.entities.support.Attribute;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Product {
@@ -448,4 +449,20 @@ public class Product {
         family = product.getFamily();
         description = product.getDescription();
     }
+
+    /**
+     * Builds a summary map, city-state-postalCode as the address.
+     *
+     * @return HashMap<String, String>.
+     */
+    public HashMap<String, String> getProductMap() {
+        HashMap<String, String> productMap = new HashMap<>();
+        productMap.put("Name", getName());
+        productMap.put("IsActive", String.valueOf(isActive()));
+        productMap.put("ProductCode", getProductCode());
+        productMap.put("Family", getFamily());
+        return productMap;
+    }
+
+
 }

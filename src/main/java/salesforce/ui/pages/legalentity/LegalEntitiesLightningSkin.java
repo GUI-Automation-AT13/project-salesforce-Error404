@@ -11,9 +11,9 @@ package salesforce.ui.pages.legalentity;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LegalEntitiesLightningVersion extends LegalEntitiesPageAbstract {
+public class LegalEntitiesLightningSkin extends LegalEntitiesPageAbstract {
 
-    @FindBy(xpath = "//li[contains(@class, \'slds-button--neutral\')]//a")
+    @FindBy(xpath = "//li[contains(@class,'slds-button--neutral')]//a")
     private WebElement newEntityBtn;
 
     private String legalEntityNumberCellXpath = "//table//*[@title='%s']";
