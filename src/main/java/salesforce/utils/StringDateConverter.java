@@ -17,8 +17,8 @@ import java.util.Locale;
 public class StringDateConverter {
 
     private static LocalDateTime date;
-    private static final String SIMPLE_DATE_FORMAT = "\\d{4}(-|/)(0[1-9]|1[012])(-|/)(0[1-9]|[12][0-9]|[3][01])"; //Y/M/D
-    private static final String SIMPLE_DATE_FORMATTED = "(0[1-9]|[12][0-9]|[3][01])(-|/)(0[1-9]|1[012])(-|/)\\d{4}"; // D/M/Y
+    private static final String SIMPLE_DATE_FORMAT = "\\d{4}(-|/)(0[1-9]|1[012])(-|/)(0[1-9]|[12][0-9]|[3][01])";
+    private static final String SIMPLE_DATE_FORMATTED = "(0[1-9]|[12][0-9]|[3][01])(-|/)(0[1-9]|1[012])(-|/)\\d{4}";
     private static final String SIMPLE_TIME_FORMAT = "T\\d{2}:\\d{2}:\\d{2}";
     private static final String SINGLE_WORD_FORMAT = "[ADEORSMWYT]+";
     private static final String ENUM_FORMAT = "[\\d]+\\s((day|days)|(month|months)|(year|years)|(seconds|second)"

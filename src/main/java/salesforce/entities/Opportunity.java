@@ -132,7 +132,7 @@ public class Opportunity {
     }
 
     /**
-     * Returns the Opportunity Close date formatted to M/d/YYYY
+     * Returns the Opportunity Close date formatted to M/d/YYYY.
      *
      * @return string of the close date.
      */

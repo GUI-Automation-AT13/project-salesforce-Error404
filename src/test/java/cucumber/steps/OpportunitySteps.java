@@ -47,7 +47,8 @@ public class OpportunitySteps {
     public void iCreateAFeatureWithFields(final Map<String, String> dataTable) throws IOException {
         logger.info("=================== When I create a new Opportunity with fields ==========================");
         String json = new ObjectMapper().writeValueAsString(dataTable);
-        opportunity.setOpportunityObject(new ObjectMapper().readValue(new ObjectMapper().writeValueAsString(dataTable), Opportunity.class));
+        opportunity.setOpportunityObject(new ObjectMapper().readValue(
+                new ObjectMapper().writeValueAsString(dataTable), Opportunity.class));
         opportunity.setOpportunityDetailField();
         OpportunityPage opportunityPage = new OpportunityPage();
         formOpportunity = opportunityPage.openNewOpportunityForm();
@@ -83,8 +84,6 @@ public class OpportunitySteps {
      */
     @And("Created date of Opportunity should match with current date")
     public void createdDateMatchWithCurrentDate() {
-        System.out.println("Entity " + opportunity.getCreatedDate());
-        System.out.println("Salesforce "+ createdForm.getCreatedDate());
         softAssert.assertEquals(opportunity.getCreatedDate(), createdForm.getCreatedDate());
     }
 

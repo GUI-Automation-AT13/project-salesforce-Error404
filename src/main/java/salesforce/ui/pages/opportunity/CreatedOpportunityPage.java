@@ -108,7 +108,8 @@ public class CreatedOpportunityPage extends BasePage {
      * @return String with date of created opportunity.
      */
     public String getCreatedDate() {
-        WebElement element = getDriver().findElement(By.cssSelector(".forceRelatedListSingleContainer .uiOutputDateTime"));
+        WebElement element = getDriver().findElement(
+                By.cssSelector(".forceRelatedListSingleContainer .uiOutputDateTime"));
         System.out.println(getWebElementAction().getTextOnWebElement(element));
         return getWebElementAction().getTextOnWebElement(element);
 
