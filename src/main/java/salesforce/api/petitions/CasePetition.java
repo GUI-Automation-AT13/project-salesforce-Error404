@@ -12,23 +12,24 @@ import core.api.ApiManager;
 import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
-import salesforce.entities.Case;
+import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static salesforce.api.petitions.ApiSetUp.generateToken;
 
 public class CasePetition {
 
     /**
      * Deletes a Case.
      *
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
-     * @param newCase the case to delete.
+     * @param caseId the case to delete.
      */
-    public void deleteCase(final ApiRequestBuilder requestBuilder, final ApiResponse apiResponse,
-                           final Case newCase) {
+    public static void deleteCase(final String caseId) {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Case/{caseID}")
-                .addPathParams("caseID", newCase.getId())
+                .addPathParams("caseID", caseId)
                 .addMethod(ApiMethod.DELETE)
                 .build();
         ApiManager.execute(requestBuilder.build(), apiResponse);

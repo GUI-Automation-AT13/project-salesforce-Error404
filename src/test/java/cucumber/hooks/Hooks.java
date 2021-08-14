@@ -8,38 +8,20 @@
 
 package cucumber.hooks;
 
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import salesforce.api.petitions.ApiSetUp;
 import salesforce.config.EnvironmentConfig;
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 
 public class Hooks {
     private WebDriver driver;
-    private ApiRequestBuilder requestBuilder;
-    private ApiResponse tokenApiResponse;
-    private static String token;
-    ApiSetUp apiSetUp = new ApiSetUp();
-
-    public Hooks(final ApiRequestBuilder newRequestBuilder, final  ApiResponse newTokenApiResponse) {
-        this.requestBuilder = newRequestBuilder;
-        this.tokenApiResponse = newTokenApiResponse;
-    }
 
     @Before(order = 0)
-    public void generateToken() {
-        token = apiSetUp.generateToken(requestBuilder, tokenApiResponse);
-    }
-
-    @Before(order = 1)
     public void setUp() {
-        apiSetUp.setTokenBaseUri(requestBuilder, token);
         driver = getWebDriverManager().getDriver();
         driver.get(EnvironmentConfig.getEnvironmentConfig().getLogin());
     }
@@ -56,14 +38,5 @@ public class Hooks {
     @After(order = 1)
     public void tearDown() {
         getWebDriverManager().quitDriver();
-    }
-
-    /**
-     * Gets the created token.
-     *
-     * @return a String with the token
-     */
-    public static String getCreatedToken() {
-        return token;
     }
 }

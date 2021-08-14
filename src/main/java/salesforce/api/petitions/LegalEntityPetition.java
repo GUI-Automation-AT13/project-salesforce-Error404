@@ -14,19 +14,22 @@ import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import salesforce.entities.LegalEntity;
 
+import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static salesforce.api.petitions.ApiSetUp.generateToken;
+
 public class LegalEntityPetition {
 
     /**
      * Deletes a Legal Entity.
      *
-     * @param requestBuilder the request builder.
      * @param legalEntity to delete.
-     * @param apiResponse the api response.
      */
-    public void deleteLegalEntity(final ApiRequestBuilder requestBuilder, final ApiResponse apiResponse,
-                                  final LegalEntity legalEntity) {
+    public static void deleteLegalEntity(final LegalEntity legalEntity) {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/LegalEntity/{legalId}")
                 .addPathParams("legalId", legalEntity.getId())
                 .addMethod(ApiMethod.DELETE)

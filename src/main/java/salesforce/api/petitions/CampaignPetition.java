@@ -14,8 +14,9 @@ import core.api.ApiManager;
 import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
-import salesforce.api.SalesforceApiResponse;
 import salesforce.entities.Campaign;
+import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static salesforce.api.petitions.ApiSetUp.generateToken;
 
 public class CampaignPetition {
 
@@ -23,36 +24,34 @@ public class CampaignPetition {
      * Creates a Campaign.
      *
      * @param campaign the campaign to set.
-     * @param campaignName the name of the campaign.
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
+     * @return a String with the campaign id.
      * @throws JsonProcessingException the exception to be thrown.
      */
-    public void createCampaign(final Campaign campaign, final String campaignName,
-                               final ApiRequestBuilder requestBuilder, final ApiResponse apiResponse)
-            throws JsonProcessingException {
-        campaign.setName(campaignName);
+    public static String createCampaign(final Campaign campaign) throws JsonProcessingException {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Campaign/")
                 .addBody(new ObjectMapper().writeValueAsString(campaign))
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        campaign.setId(apiResponse.getBody(SalesforceApiResponse.class).getId());
+        return apiResponse.getPath("id");
     }
 
     /**
      * Deletes a Campaign.
      *
-     * @param campaign the campaign to set.
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
+     * @param campaign the campaign to delete.
      */
-    public void deleteCampaign(final Campaign campaign, final ApiRequestBuilder requestBuilder,
-                               final ApiResponse apiResponse) {
+    public static void deleteCampaign(final Campaign campaign) {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Campaign/{campaignId}")
                 .addPathParams("campaignId", campaign.getId())
                 .addMethod(ApiMethod.DELETE)

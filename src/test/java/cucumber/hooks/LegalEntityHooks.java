@@ -8,27 +8,19 @@
 
 package cucumber.hooks;
 
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
 import io.cucumber.java.After;
-import salesforce.api.petitions.LegalEntityPetition;
 import salesforce.entities.LegalEntity;
+import static salesforce.api.petitions.LegalEntityPetition.deleteLegalEntity;
 
 public class LegalEntityHooks {
-    private ApiRequestBuilder requestBuilder;
-    private ApiResponse apiResponse;
     private LegalEntity legalEntity;
-    private LegalEntityPetition legalEntityPetition = new LegalEntityPetition();
 
-    public LegalEntityHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
-                            final LegalEntity newLegalEntity) {
-        this.requestBuilder = newRequestBuilder;
-        this.apiResponse = newApiResponse;
+    public LegalEntityHooks(final LegalEntity newLegalEntity) {
         this.legalEntity = newLegalEntity;
     }
 
     @After(value = "@DeleteLegalEntity", order = 2)
     public void deleteALegalEntity() {
-        legalEntityPetition.deleteLegalEntity(requestBuilder, apiResponse, legalEntity);
+        deleteLegalEntity(legalEntity);
     }
 }

@@ -15,6 +15,8 @@ import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import salesforce.entities.Account;
+import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static salesforce.api.petitions.ApiSetUp.generateToken;
 
 public class AccountPetition {
 
@@ -22,42 +24,38 @@ public class AccountPetition {
      * Creates an Account.
      *
      * @param account to set.
-     * @param accountName name of the account.
-     * @param accountId id of the account.
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
+     * @return a String with the account id
      * @throws JsonProcessingException exception to be thrown.
      */
-    public void createAccount(final Account account, final String accountName, String accountId,
-                              final ApiRequestBuilder requestBuilder, final ApiResponse apiResponse)
-            throws JsonProcessingException {
-        account.setName(accountName);
+    public static String createAccount(final Account account) throws JsonProcessingException {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Account/")
                 .addBody(new ObjectMapper().writeValueAsString(account))
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        accountId = apiResponse.getPath("id");
+        return apiResponse.getPath("id");
     }
 
     /**
      * Deletes an Account.
      *
      * @param accountId id of the account.
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
      */
-    public void deleteAccount(String accountId, final ApiRequestBuilder requestBuilder,
-                              final ApiResponse apiResponse) {
+    public static void deleteAccount(final String accountId) {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Account/{accountID}")
                 .addPathParams("accountID", accountId)
                 .addMethod(ApiMethod.DELETE)
                 .build();
         ApiManager.execute(requestBuilder.build(), apiResponse);
-        accountId = null;
     }
 }

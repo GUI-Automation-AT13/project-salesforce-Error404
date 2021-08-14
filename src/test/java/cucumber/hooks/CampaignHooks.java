@@ -9,34 +9,28 @@
 package cucumber.hooks;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import salesforce.api.petitions.CampaignPetition;
 import salesforce.entities.Campaign;
+import static salesforce.api.petitions.CampaignPetition.createCampaign;
+import static salesforce.api.petitions.CampaignPetition.deleteCampaign;
 
 public class CampaignHooks {
-    private ApiRequestBuilder requestBuilder;
-    private ApiResponse apiResponse;
     private Campaign campaign;
     final String campaignName = "Opportunity Campaign";
-    private CampaignPetition campaignPetition = new CampaignPetition();
 
-    public CampaignHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
-                         final Campaign newCampaign) {
-        this.requestBuilder = newRequestBuilder;
-        this.apiResponse = newApiResponse;
+    public CampaignHooks(final Campaign newCampaign) {
         this.campaign = newCampaign;
     }
 
     @Before(value = "@CreateCampaign")
     public void createACampaign() throws JsonProcessingException {
-        campaignPetition.createCampaign(campaign, campaignName, requestBuilder, apiResponse);
+        campaign.setName(campaignName);
+        createCampaign(campaign);
     }
 
     @After(value = "@CreateCampaign", order = 0)
     public void deleteACampaign() {
-        campaignPetition.deleteCampaign(campaign, requestBuilder, apiResponse);
+        deleteCampaign(campaign);
     }
 }

@@ -15,8 +15,8 @@ import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import salesforce.entities.Contact;
-
 import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static salesforce.api.petitions.ApiSetUp.generateToken;
 
 public class ContactPetition {
 
@@ -24,66 +24,38 @@ public class ContactPetition {
      * Creates a Contact.
      *
      * @param contact the contact to set.
-     * @param contactName the name of the contact.
-     * @param contactLastName the last name of the contact.
-     * @param contactId the contact id.
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
+     * @return a String with the contact id
      * @throws JsonProcessingException the exception to be thrown.
      */
-    public void createContact(final Contact contact, final String contactName, final String contactLastName,
-                              String contactId, final ApiRequestBuilder requestBuilder,
-                              final ApiResponse apiResponse) throws JsonProcessingException {
-        contact.setFirstName(contactName);
-        contact.setLastName(contactLastName);
+    public static String createContact(final Contact contact) throws JsonProcessingException {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Contact/")
                 .addBody(new ObjectMapper().writeValueAsString(contact))
                 .addMethod(ApiMethod.POST)
                 .build();
         ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        contactId = apiResponse.getPath("id");
+        return apiResponse.getPath("id");
     }
 
     /**
      * Deletes a Contact.
      *
-     * @param requestBuilder the request builder.
-     * @param apiResponse the api response.
      * @param contactId the id of the contact.
      */
-    public void deleteAContact(final ApiRequestBuilder requestBuilder, final ApiResponse apiResponse,
-                               String contactId) {
+    public static void deleteContact(final String contactId) {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
                 .addPathParams("contactID", contactId)
                 .addMethod(ApiMethod.DELETE)
                 .build();
         ApiManager.execute(requestBuilder.build(), apiResponse);
-        contactId = null;
-    }
-
-    /**
-     * Delete Contact.
-     *
-     * @param contactId the id of the contact.
-     * @param token the token generated.
-     */
-    public static void deleteContact(String contactId, final String token) {
-        if (contactId != null) {
-            ApiRequestBuilder apiRequestBuilder = new ApiRequestBuilder();
-            ApiResponse response = new ApiResponse();
-            apiRequestBuilder
-                    .addHeader("Authorization", token)
-                    .addBaseUri(getTheBaseUrlClassic())
-                    .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
-                    .addPathParams("contactID", contactId)
-                    .addMethod(ApiMethod.DELETE)
-                    .build();
-            ApiManager.execute(apiRequestBuilder.build(), response);
-            contactId = null;
-        }
     }
 }

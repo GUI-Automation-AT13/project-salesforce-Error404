@@ -13,7 +13,6 @@ import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import salesforce.config.EnvironmentConfig;
-import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
 import static core.config.LoadEnvironmentFile.getTheLoginUrl;
 import static salesforce.config.EnvironmentConfig.*;
 
@@ -22,12 +21,12 @@ public class ApiSetUp {
     /**
      * Generates the token.
      *
-     * @param requestBuilder the request builder.
-     * @param tokenApiResponse the api response.
      * @return the generated token.
      */
-    public String generateToken(final ApiRequestBuilder requestBuilder, final ApiResponse tokenApiResponse) {
+    public static String generateToken() {
         EnvironmentConfig.getEnvironmentConfig();
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse = new ApiResponse();
         requestBuilder
                 .addBaseUri(getTheLoginUrl())
                 .addEndpoint("/services/oauth2/token")
@@ -39,22 +38,8 @@ public class ApiSetUp {
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/x-www-form-urlencoded")
                 .addMethod(ApiMethod.POST);
-        ApiManager.executeWithoutLog(requestBuilder.build(), tokenApiResponse);
-        String token = tokenApiResponse.getPath("token_type").concat(" ")
-                .concat(tokenApiResponse.getPath("access_token"));
-
-        return token;
-    }
-
-    /**
-     * Sets the token and Base Uri.
-     *
-     * @param requestBuilder the request builder.
-     * @param token the token generated.
-     */
-    public void setTokenBaseUri(final ApiRequestBuilder requestBuilder, final String token) {
-        requestBuilder
-                .addHeader("Authorization", token)
-                .addBaseUri(getTheBaseUrlClassic());
+        ApiManager.executeWithoutLog(requestBuilder.build(), apiResponse);
+        return apiResponse.getPath("token_type").concat(" ")
+                .concat(apiResponse.getPath("access_token"));
     }
 }

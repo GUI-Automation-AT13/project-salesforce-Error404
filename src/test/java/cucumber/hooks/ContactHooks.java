@@ -9,54 +9,44 @@
 package cucumber.hooks;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import salesforce.api.petitions.ContactPetition;
 import salesforce.entities.Contact;
-import static cucumber.hooks.Hooks.getCreatedToken;
+import static salesforce.api.petitions.ContactPetition.createContact;
+import static salesforce.api.petitions.ContactPetition.deleteContact;
 
 public class ContactHooks {
-    private ApiRequestBuilder requestBuilder;
-    private ApiResponse apiResponse;
     private Contact contact;
     final String contactName = "Frank";
     final String contactLastName = "Castle";
     private static String contactId;
-    private ContactPetition contactPetition = new ContactPetition();
 
-    public ContactHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
-                        final Contact newContact) {
-        this.requestBuilder = newRequestBuilder;
-        this.apiResponse = newApiResponse;
+    public ContactHooks(final Contact newContact) {
         this.contact = newContact;
     }
 
     @Before(value = "@CreateContact")
     public void checkContactCreation() throws JsonProcessingException {
         if (contactId == null) {
-            contactPetition
-                    .createContact(contact, contactName, contactLastName, contactId, requestBuilder, apiResponse);
+            contact.setFirstName(contactName);
+            contact.setLastName(contactLastName);
+            contactId = createContact(contact);
         }
     }
 
     @Before(value = "not @CreateContact")
     public void checkAccountDeletion() {
         if (contactId != null) {
-            deleteAContact();
+            deleteContact(contactId);
+            contactId = null;
         }
     }
 
-    @After(value = "@DeleteContact", order = 1)
-    public void deleteAContact() {
-        contactPetition.deleteAContact(requestBuilder, apiResponse, contactId);
-    }
-
     /**
-     * Deletes a contact.
+     * Gets the contact id.
+     *
+     * @return a String with the id
      */
-    public static void deleteContact() {
-        ContactPetition.deleteContact(contactId, getCreatedToken());
+    public static String getContactId() {
+        return contactId;
     }
 }

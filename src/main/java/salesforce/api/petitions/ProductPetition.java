@@ -13,20 +13,22 @@ import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import salesforce.entities.Product;
+import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
+import static salesforce.api.petitions.ApiSetUp.generateToken;
 
 public class ProductPetition {
 
     /**
      * Deletes a Product.
      *
-     * @param requestBuilder the request builder.
      * @param product to delete.
-     * @param apiResponse the api response.
      */
-    public void deleteProduct(final ApiRequestBuilder requestBuilder, final Product product,
-                              final ApiResponse apiResponse) {
+    public static void deleteProduct(final Product product) {
+        ApiRequestBuilder requestBuilder = new ApiRequestBuilder();
+        ApiResponse apiResponse =  new ApiResponse();
         requestBuilder
-                .clearPathParams()
+                .addHeader("Authorization", generateToken())
+                .addBaseUri(getTheBaseUrlClassic())
                 .addEndpoint("/services/data/v52.0/sobjects/Product2/{productID}")
                 .addPathParams("productID", product.getId())
                 .addMethod(ApiMethod.DELETE)
