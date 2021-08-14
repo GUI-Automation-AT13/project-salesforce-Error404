@@ -9,12 +9,12 @@
 package cucumber.hooks;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import core.api.ApiManager;
 import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.Before;
+import salesforce.api.petitions.AccountPetition;
 import salesforce.entities.Account;
 import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
 import static cucumber.hooks.Hooks.getCreatedToken;
@@ -25,6 +25,7 @@ public class AccountHooks {
     private Account account;
     final String accountName = "Punisher";
     private static String accountId;
+    private AccountPetition accountPetition = new AccountPetition();
 
     public AccountHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
                         final Account newAccount) {
@@ -33,49 +34,18 @@ public class AccountHooks {
         this.account = newAccount;
     }
 
-    /**
-     * Creates an account through the API.
-     *
-     * @throws JsonProcessingException when invalid json provided
-     */
-    public void createAnAccount() throws JsonProcessingException {
-        account.setName(accountName);
-        requestBuilder
-                .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Account/")
-                .addBody(new ObjectMapper().writeValueAsString(account))
-                .addMethod(ApiMethod.POST)
-                .build();
-        ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        accountId = apiResponse.getPath("id");
-    }
-
     @Before(value = "@CreateAccount")
     public void checkAccountCreation() throws JsonProcessingException {
         if (accountId == null) {
-            createAnAccount();
+            accountPetition.createAccount(account, accountName, accountId, requestBuilder, apiResponse);
         }
     }
 
     @Before(value = "not @CreateAccount")
     public void checkAccountDeletion() {
         if (accountId != null) {
-            deleteAnAccount();
+            accountPetition.deleteAccount(accountId, requestBuilder, apiResponse);
         }
-    }
-
-    /**
-     * Deletes an account through API.
-     */
-    public void deleteAnAccount() {
-        requestBuilder
-                .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Account/{accountID}")
-                .addPathParams("accountID", accountId)
-                .addMethod(ApiMethod.DELETE)
-                .build();
-        ApiManager.execute(requestBuilder.build(), apiResponse);
-        accountId = null;
     }
 
     /**

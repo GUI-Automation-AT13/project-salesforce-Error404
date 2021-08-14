@@ -9,15 +9,12 @@
 package cucumber.hooks;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import core.api.ApiManager;
-import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import salesforce.api.petitions.ContactPetition;
 import salesforce.entities.Contact;
-import static core.config.LoadEnvironmentFile.getTheBaseUrlClassic;
 import static cucumber.hooks.Hooks.getCreatedToken;
 
 public class ContactHooks {
@@ -27,6 +24,7 @@ public class ContactHooks {
     final String contactName = "Frank";
     final String contactLastName = "Castle";
     private static String contactId;
+    private ContactPetition contactPetition = new ContactPetition();
 
     public ContactHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
                         final Contact newContact) {
@@ -38,7 +36,8 @@ public class ContactHooks {
     @Before(value = "@CreateContact")
     public void checkContactCreation() throws JsonProcessingException {
         if (contactId == null) {
-            createAContact();
+            contactPetition
+                    .createContact(contact, contactName, contactLastName, contactId, requestBuilder, apiResponse);
         }
     }
 
@@ -49,52 +48,15 @@ public class ContactHooks {
         }
     }
 
-    /**
-     * Creates a contact through API.
-     *
-     * @throws JsonProcessingException when invalid json provided
-     */
-    public void createAContact() throws JsonProcessingException {
-        contact.setFirstName(contactName);
-        contact.setLastName(contactLastName);
-        requestBuilder
-                .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Contact/")
-                .addBody(new ObjectMapper().writeValueAsString(contact))
-                .addMethod(ApiMethod.POST)
-                .build();
-        ApiManager.executeWithBody(requestBuilder.build(), apiResponse);
-        contactId = apiResponse.getPath("id");
-    }
-
     @After(value = "@DeleteContact", order = 1)
     public void deleteAContact() {
-        requestBuilder
-                .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
-                .addPathParams("contactID", contactId)
-                .addMethod(ApiMethod.DELETE)
-                .build();
-        ApiManager.execute(requestBuilder.build(), apiResponse);
-        contactId = null;
+        contactPetition.deleteAContact(requestBuilder, apiResponse, contactId);
     }
 
     /**
      * Deletes a contact.
      */
     public static void deleteContact() {
-        if (contactId != null) {
-            ApiRequestBuilder apiRequestBuilder = new ApiRequestBuilder();
-            ApiResponse response = new ApiResponse();
-            apiRequestBuilder
-                    .addHeader("Authorization", getCreatedToken())
-                    .addBaseUri(getTheBaseUrlClassic())
-                    .addEndpoint("/services/data/v52.0/sobjects/Contact/{contactID}")
-                    .addPathParams("contactID", contactId)
-                    .addMethod(ApiMethod.DELETE)
-                    .build();
-            ApiManager.execute(apiRequestBuilder.build(), response);
-            contactId = null;
-        }
+        ContactPetition.deleteContact(contactId, getCreatedToken());
     }
 }

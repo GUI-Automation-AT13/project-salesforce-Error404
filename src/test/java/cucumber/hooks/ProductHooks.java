@@ -7,17 +7,17 @@
  */
 package cucumber.hooks;
 
-import core.api.ApiManager;
-import core.api.ApiMethod;
 import core.api.ApiRequestBuilder;
 import core.api.ApiResponse;
 import io.cucumber.java.After;
+import salesforce.api.petitions.ProductPetition;
 import salesforce.entities.Product;
 
 public class ProductHooks {
     private ApiRequestBuilder requestBuilder;
     private ApiResponse apiResponse;
     private Product product;
+    private ProductPetition productPetition = new ProductPetition();
 
     public ProductHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse,
                         final Product newProduct) {
@@ -27,13 +27,7 @@ public class ProductHooks {
     }
 
     @After(value = "@DeleteProduct", order = 2)
-    public void deleteACase() {
-        requestBuilder
-                .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Product2/{productID}")
-                .addPathParams("productID", product.getId())
-                .addMethod(ApiMethod.DELETE)
-                .build();
-        ApiManager.execute(requestBuilder.build(), apiResponse);
+    public void deleteAProduct() {
+        productPetition.deleteProduct(requestBuilder, product, apiResponse);
     }
 }
