@@ -10,11 +10,15 @@ package cucumber.runner;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import salesforce.utils.Reports;
-import static cucumber.hooks.AccountHooks.deleteAccount;
-import static cucumber.hooks.ContactHooks.deleteContact;
+import static cucumber.hooks.AccountHooks.getAccountId;
+import static cucumber.hooks.ContactHooks.getContactId;
+import static salesforce.api.petitions.AccountPetition.deleteAccount;
+import static salesforce.api.petitions.ContactPetition.deleteContact;
 
 @CucumberOptions(
         glue = {"cucumber"},
@@ -25,13 +29,14 @@ import static cucumber.hooks.ContactHooks.deleteContact;
         monochrome = true
 )
 public class RunTests extends AbstractTestNGCucumberTests {
+    private Logger logger = LogManager.getLogger(getClass());
 
     /**
      * Sets the previous tasks to framework's execution.
      */
     @BeforeTest
     public void beforeExecution() {
-        System.out.println("Before Execution");
+        logger.info("=================== Before Execution ==========================");
     }
 
     /**
@@ -39,15 +44,9 @@ public class RunTests extends AbstractTestNGCucumberTests {
      */
     @AfterTest
     public void afterExecution() {
+        logger.info("=================== After Execution ==========================");
         Reports.generateJVMReport();
-        deleteRemainingEntities();
-    }
-
-    /**
-     * Deletes the created entities to run the scenarios.
-     */
-    public void deleteRemainingEntities() {
-        deleteContact();
-        deleteAccount();
+        deleteAccount(getAccountId());
+        deleteContact(getContactId());
     }
 }

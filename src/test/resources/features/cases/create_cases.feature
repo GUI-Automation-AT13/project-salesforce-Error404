@@ -1,6 +1,6 @@
 Feature: Create Cases
 
-  @CreateAccount @CreateContact @DeleteCase @DeleteContact
+  @CreateAccount @CreateContact
   Scenario: Create a case with all required fields
     Given I login to salesforce as an admin user
     And I navigate to the "CASES" page
@@ -29,7 +29,7 @@ Feature: Create Cases
     When I navigate to the "CASES" page
     Then the created case is displayed
 
-  @DeleteCase @CreateAccount
+  @CreateAccount @CreateContact
   Scenario Outline: Create a case with caseOrigin and status
     Given I login to salesforce as an admin user
     When I navigate to the "CASES" page
@@ -37,6 +37,7 @@ Feature: Create Cases
       | status      | <status>     |
       | caseOrigin  | <caseOrigin> |
       | accountName | Punisher     |
+      | contactName | Frank Castle |
     Then a case created message should be displayed
     And all header's fields should match the created case
     Then all detail's fields should match the created case
@@ -54,8 +55,7 @@ Feature: Create Cases
       | Escalated | Email      |
       | Escalated | Web        |
 
-  @DeleteCase
- Scenario Outline: Create a case with required fields
+  Scenario Outline: Create a case with required fields
     Given I login to salesforce as an admin user
     When I navigate to the "CASES" page
     When I create a case with fields
