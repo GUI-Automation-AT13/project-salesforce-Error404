@@ -10,7 +10,6 @@ package salesforce.ui;
 
 import core.selenium.MyWebDriverManager;
 import salesforce.config.EnvironmentConfig;
-import salesforce.ui.pages.cases.CasesPage;
 import salesforce.ui.urls.SalesforceClassicUrl;
 import salesforce.ui.urls.SalesforceUrl;
 
@@ -35,27 +34,15 @@ public class PageTransporter {
     }
 
     /**
-     * Navigates to the salesforce cases web page.
-     *
-     * @return the salesforce cases web Page
-     */
-    public CasesPage goToCases() {
-        goToUrl(baseUrl.concat("lightning/o/Case/list?filterName=Recent"));
-        return new CasesPage();
-    }
-
-    /**
      * Navigates to the salesforce web page.
      *
      * @param pageName a String with the page name
      */
     public void goToPage(final String pageName) {
         if (salesforceVersion.equals("classic")) {
-            goToUrl(baseUrlClassic.concat(String.format(SalesforceClassicUrl.FEATURE_URL.getUrl(),
-                    SalesforceClassicUrl.valueOf(pageName).getUrl())));
+            goToUrl(baseUrlClassic.concat(SalesforceClassicUrl.valueOf(pageName).getUrl()));
         } else {
-            goToUrl(baseUrl.concat(String.format(SalesforceUrl.FEATURE_URL.getUrl(),
-                    SalesforceUrl.valueOf(pageName).getUrl())));
+            goToUrl(baseUrl.concat(SalesforceUrl.valueOf(pageName).getUrl()));
         }
     }
 }

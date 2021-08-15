@@ -8,22 +8,20 @@
 
 package salesforce.ui.urls;
 
-public enum SalesforceUrl {
-    CASES("Case"),
-    LEGAL_ENTITIES("LegalEntity"),
-    PRODUCTS("Product2"),
-    OPPORTUNITY("Opportunity");
+public enum FeatureUrl {
+    FEATURE_URL_LIGHTNING("lightning/o/%s/list?filterName=Recent"),
+    FEATURE_URL_CLASSIC("%s/o");
 
     private final String url;
 
-    SalesforceUrl(final String enumUrl) {
-        this.url = String.format(FeatureUrl.FEATURE_URL_LIGHTNING.getUrl(), enumUrl);
+    FeatureUrl(final String enumUrl) {
+        this.url = enumUrl;
     }
 
     /**
-     * Gets the web site URL.
+     * Gets the web site default feature URL.
      *
-     * @return a String with the url
+     * @return a String with the feature url
      */
     public String getUrl() {
         return url;

@@ -8,32 +8,21 @@
 
 package cucumber.hooks;
 
-import core.api.ApiManager;
-import core.api.ApiMethod;
-import core.api.ApiRequestBuilder;
-import core.api.ApiResponse;
 import io.cucumber.java.After;
 import salesforce.entities.Case;
+import static salesforce.api.petitions.CasePetition.deleteCase;
 
 public class CaseHooks {
-    private ApiRequestBuilder requestBuilder;
-    private ApiResponse apiResponse;
     private Case newCase;
 
-    public CaseHooks(final ApiRequestBuilder newRequestBuilder, final ApiResponse newApiResponse, final Case aNewCase) {
-        this.requestBuilder = newRequestBuilder;
-        this.apiResponse = newApiResponse;
+    public CaseHooks(final Case aNewCase) {
         this.newCase = aNewCase;
     }
 
-    @After(value = "@DeleteCase", order = 2)
+    @After
     public void deleteACase() {
-        requestBuilder
-                .clearPathParams()
-                .addEndpoint("/services/data/v52.0/sobjects/Case/{caseID}")
-                .addPathParams("caseID", newCase.getId())
-                .addMethod(ApiMethod.DELETE)
-                .build();
-        ApiManager.execute(requestBuilder.build(), apiResponse);
+        if (newCase != null) {
+            deleteCase(newCase.getId());
+        }
     }
 }
