@@ -575,6 +575,12 @@ public class LegalEntity {
         TableRegister.addMapValues("LEGALENTITY_MODIFIEDBY", getSalesforceUserAlias());
     }
 
+    /**
+     * Separates the date of the name.
+     *
+     * @param data the name with date to separate.
+     * @return the date.
+     */
     private String separateDate(final String data) {
         String date = "";
         for (String separatedData : data.split(" ")) {
