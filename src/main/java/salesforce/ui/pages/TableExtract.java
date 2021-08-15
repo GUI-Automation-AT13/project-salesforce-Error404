@@ -10,24 +10,27 @@ package salesforce.ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import salesforce.ui.TableRegister;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import static core.selenium.MyWebDriverManager.getWebDriverManager;
 
 public class TableExtract {
 
     private String tableHeaders = "div.slds-cell-fixed span.slds-truncate";
-    private String tableRow = "//a[@title='%s']/../../..//*[contains(@class,'slds-truncate')]";
+    private String tableRow = "//th//a[@title='%s']/../../..//*[contains(@class,'slds-truncate')]";
 
     /**
      * Gets the table of the feature with the required element.
      *
-     * @param map provided map
+     * @param map    provided map
+     * @param entity to obtain table.
      * @return Map<String, String>
      */
-    public Map<String, String> getFeatureTable(final Map<String, String> map) {
+    public Map<String, String> getFeatureTable(final String entity, final Map<String, String> map) {
         List<WebElement> tableHeadersList = getWebDriverManager().getDriver()
                 .findElements(By.cssSelector(tableHeaders));
         List<WebElement> headersList = new ArrayList<>();
@@ -36,7 +39,7 @@ public class TableExtract {
                 headersList.add(element);
             }
         }
-        String uniqueValue = map.get(headersList.get(0).getText());
+        String uniqueValue = obtainUniqueValue(entity);
         List<WebElement> valuesList = getWebDriverManager().getDriver()
                 .findElements(By.xpath(String.format(tableRow, uniqueValue)));
         return buildTable(headersList, valuesList);
@@ -75,4 +78,33 @@ public class TableExtract {
         return map;
     }
 
+    /**
+     * Obtains the unique value of a entity.
+     *
+     * @param entity the entity to obtain the value.
+     * @return the unique value of the entity.
+     */
+    private String obtainUniqueValue(final String entity) {
+        if (entity.equals("LegalEntities")) {
+            return TableRegister.getMapValue("LEGALENTITY_NAME");
+        }
+        if (entity.equals("Products")) {
+            return TableRegister.getMapValue("PRODUCT_NAME");
+        }
+        return "No value";
+    }
+
+    /**
+     * Builds the actual map.
+     *
+     * @param map    the map obtained from the scenario.
+     * @return a Map<String, String>.
+     */
+    public Map<String, String> buildActualTable(final Map<String, String> map) {
+        Map<String, String> actualMap = new HashMap<>();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            actualMap.put(entry.getKey(), TableRegister.getMapValue(entry.getValue()));
+        }
+        return actualMap;
+    }
 }

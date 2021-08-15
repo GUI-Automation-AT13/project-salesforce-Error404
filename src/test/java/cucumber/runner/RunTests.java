@@ -14,11 +14,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import salesforce.ui.TableRegister;
 import salesforce.utils.Reports;
-import static cucumber.hooks.AccountHooks.getAccountId;
-import static cucumber.hooks.ContactHooks.getContactId;
-import static salesforce.api.petitions.AccountPetition.deleteAccount;
-import static salesforce.api.petitions.ContactPetition.deleteContact;
 
 @CucumberOptions(
         glue = {"cucumber"},
@@ -46,7 +43,6 @@ public class RunTests extends AbstractTestNGCucumberTests {
     public void afterExecution() {
         logger.info("=================== After Execution ==========================");
         Reports.generateJVMReport();
-        deleteAccount(getAccountId());
-        deleteContact(getContactId());
+        TableRegister.cleanMap();
     }
 }

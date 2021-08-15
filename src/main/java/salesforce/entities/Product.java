@@ -11,6 +11,7 @@ package salesforce.entities;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import salesforce.entities.support.Attribute;
+import salesforce.ui.TableRegister;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -448,6 +449,11 @@ public class Product {
         productCode = product.getProductCode();
         family = product.getFamily();
         description = product.getDescription();
+
+        TableRegister.addMapValues("PRODUCT_NAME", name);
+        TableRegister.addMapValues("PRODUCT_PRODUCTCODE", productCode);
+        TableRegister.addMapValues("PRODUCT_DESCRIPTION", description);
+        TableRegister.addMapValues("PRODUCT_FAMILY", family);
     }
 
     /**
