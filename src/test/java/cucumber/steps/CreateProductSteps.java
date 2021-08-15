@@ -26,9 +26,10 @@ import static salesforce.config.EnvironmentConfig.getSalesforceVersion;
 public class CreateProductSteps {
 
     private Logger logger = LogManager.getLogger(getClass());
-    Product product;
-    ProductPageAbstract productPageAbstract;
     private String lightningSkin = "lightning";
+    NewProductPageAbstract newProductPage;
+    ProductPageAbstract productPage;
+    Product product;
 
     public CreateProductSteps(final Product newProduct) {
         this.product = newProduct;
@@ -44,8 +45,8 @@ public class CreateProductSteps {
     public void iCreateANewProductWithFields(final Map<String, String> table) throws JsonProcessingException {
         logger.info("=================== When I create a new product ==========================");
         product.setProduct(ConverterToEntity.convertMapToEntity(table, Product.class));
-        NewProductPageAbstract newProductPageAbstract = AppPageFactory.getProductsPage().clickNewProductButton();
-        productPageAbstract = newProductPageAbstract.createProduct(table.keySet(), product);
+        newProductPage = AppPageFactory.getProductsPage().clickNewProductButton();
+        productPage = newProductPage.createProduct(table.keySet(), product);
     }
 
     /**
@@ -56,7 +57,7 @@ public class CreateProductSteps {
         logger.info("=================== Then A successful message should be displayed ==========================");
         SoftAssert softAssert = new SoftAssert();
         if (getSalesforceVersion().equals(lightningSkin)) {
-            softAssert.assertTrue(productPageAbstract.getSuccessMessage().contains(product.getName()),
+            softAssert.assertTrue(productPage.getSuccessMessage().contains(product.getName()),
                     "Message is incorrect");
             softAssert.assertAll();
         }
@@ -81,8 +82,8 @@ public class CreateProductSteps {
     public void validateTheTitleMatches() {
         logger.info("=================== And The title should match ==========================");
         SoftAssert softAssert = new SoftAssert();
-        product.setId(productPageAbstract.getProductId());
-        softAssert.assertEquals(product.getName(), productPageAbstract.getProductTitle(), "The title is incorrect");
+        product.setId(productPage.getProductId());
+        softAssert.assertEquals(product.getName(), productPage.getProductTitle(), "The title is incorrect");
         softAssert.assertAll();
     }
 

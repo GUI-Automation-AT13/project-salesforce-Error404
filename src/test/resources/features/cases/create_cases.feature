@@ -27,7 +27,7 @@ Feature: Create Cases
     And all header's fields should match the created case
     Then all detail's fields should match the created case
     When I navigate to the "CASES" page
-    Then the created case is displayed
+    Then the created case should be displayed
 
   @DeleteCase @CreateAccount
   Scenario Outline: Create a case with caseOrigin and status
@@ -41,7 +41,7 @@ Feature: Create Cases
     And all header's fields should match the created case
     Then all detail's fields should match the created case
     When I navigate to the "CASES" page
-    Then the created case is displayed
+    Then the created case should be displayed
     Examples:
       | status    | caseOrigin |
       | New       | Phone      |
@@ -55,7 +55,7 @@ Feature: Create Cases
       | Escalated | Web        |
 
   @DeleteCase
- Scenario Outline: Create a case with required fields
+ Scenario: Create a case with required fields
     Given I login to salesforce as an admin user
     When I navigate to the "CASES" page
     When I create a case with fields
@@ -65,13 +65,4 @@ Feature: Create Cases
     And all header's fields should match the created case
     Then all detail's fields should match the created case
     When I navigate to the "CASES" page
-    Then the created case is displayed
-    And The following information should be displayed on the table
-      | Case Number      | <caseNumber>  |
-      | Subject          | <caseSubject> |
-      | Status           | <caseStatus>  |
-      | Date/Time Opened | <dateOpened>  |
-      | Case Owner Alias | <caseOwner>   |
-    Examples:
-      | caseNumber | caseSubject | caseStatus | dateOpened      | caseOwner |
-      | 00001028   | asdasda     | Working    | 30/7/2021 10:36 | dsant     |
+    Then the created case should be displayed

@@ -159,4 +159,13 @@ public final class LoadEnvironmentFile {
     public static Locale getLanguage() {
         return new Locale(getDotenv().get("LANGUAGE"));
     }
+
+    /**
+     * Gets the salesforce user alias.
+     *
+     * @return a String with the salesforce user alias
+     */
+    public static String getSalesforceAlias() {
+        return getDotenv().get("SALESFORCE_ALIAS");
+    }
 }

@@ -25,11 +25,11 @@ Feature: Create Product
     And Check The title matches
     When I navigate to the "PRODUCTS" page
     Then The created product should be displayed on the legal entities table
-    And The following information should be displayed on the table
+    And The following information should be displayed on the Products table
       | Product Name        | <productName>        |
       | Product Code        | <productCode>        |
       | Product Description | <productDescription> |
       | Product Family      | <productFamily>      |
     Examples:
-      | productName  | productCode | productDescription                  | productFamily |
-      | test product | prod        | Esta es la descripcion del producto | None          |
+      | productName  | productCode         | productDescription  | productFamily  |
+      | PRODUCT_NAME | PRODUCT_PRODUCTCODE | PRODUCT_DESCRIPTION | PRODUCT_FAMILY |

@@ -26,8 +26,10 @@ import static salesforce.config.EnvironmentConfig.getSalesforceVersion;
 public class LegalEntitySteps {
 
     private final Logger logger = LogManager.getLogger(getClass());
-    SoftAssert softAssert = new SoftAssert();
     private String lightningSkin = "lightning";
+    SoftAssert softAssert = new SoftAssert();
+    NewLegalEntityPageAbstract newLegalEntityPage;
+    LegalEntityPageAbstract legalEntityPage;
     LegalEntity legalEntity;
 
     public LegalEntitySteps(final LegalEntity newLegalEntity) {
@@ -45,8 +47,8 @@ public class LegalEntitySteps {
         logger.info("=================== When I create a new legal entity ==========================");
         String json = new ObjectMapper().writeValueAsString(table);
         legalEntity.setEntity(new ObjectMapper().readValue(json, LegalEntity.class));
-        NewLegalEntityPageAbstract newLegalEntityPageAbstract = AppPageFactory.getLegalEntitiesPage().clickOnNew();
-        newLegalEntityPageAbstract.createLegalEntity(table.keySet(), legalEntity);
+        newLegalEntityPage = AppPageFactory.getLegalEntitiesPage().clickOnNew();
+        newLegalEntityPage.createLegalEntity(table.keySet(), legalEntity);
     }
 
     /**
@@ -56,8 +58,8 @@ public class LegalEntitySteps {
     public void aSuccessfulMessageIsDisplayed() {
         logger.info("=================== Then A successful message should be displayed ==========================");
         if (getSalesforceVersion().equals(lightningSkin)) {
-            LegalEntityPageAbstract legalEntityPageAbstract = AppPageFactory.getLegalEntityPage();
-            boolean message = legalEntityPageAbstract.getSuccessMessage().contains(legalEntity.getName());
+            legalEntityPage = AppPageFactory.getLegalEntityPage();
+            boolean message = legalEntityPage.getSuccessMessage().contains(legalEntity.getName());
             softAssert.assertTrue(message, "Message is incorrect");
         }
     }

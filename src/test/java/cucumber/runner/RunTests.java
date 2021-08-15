@@ -12,6 +12,7 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import salesforce.ui.TableRegister;
 import salesforce.utils.Reports;
 import static cucumber.hooks.AccountHooks.deleteAccount;
 import static cucumber.hooks.ContactHooks.deleteContact;
@@ -31,7 +32,6 @@ public class RunTests extends AbstractTestNGCucumberTests {
      */
     @BeforeTest
     public void beforeExecution() {
-        System.out.println("Before Execution");
     }
 
     /**
@@ -41,6 +41,7 @@ public class RunTests extends AbstractTestNGCucumberTests {
     public void afterExecution() {
         Reports.generateJVMReport();
         deleteRemainingEntities();
+        TableRegister.cleanMap();
     }
 
     /**

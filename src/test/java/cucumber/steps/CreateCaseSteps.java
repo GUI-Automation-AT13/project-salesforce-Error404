@@ -96,7 +96,7 @@ public class CreateCaseSteps {
      * Verifies that the created case is displayed on the cases page.
      * @throws IllegalAccessException
      */
-    @Then("the created case is displayed")
+    @Then("the created case should be displayed")
     public void theCreatedCaseIsDisplayed() throws IllegalAccessException {
         logger.info("=================== Then The created case should be displayed ==========================");
         CasesPage casesPage = new CasesPage();

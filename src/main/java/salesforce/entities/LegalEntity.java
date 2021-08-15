@@ -10,12 +10,13 @@ package salesforce.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.jar.Attributes;
+import salesforce.ui.TableRegister;
+import static salesforce.config.EnvironmentConfig.getSalesforceUserAlias;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LegalEntity {
@@ -155,7 +156,7 @@ public class LegalEntity {
      * @param newName the new Name
      */
     public void setName(final String newName) {
-        this.name = newName.concat(getTodayDate());
+        this.name = newName.concat(" " + getTodayDate());
     }
 
     /**
@@ -568,5 +569,22 @@ public class LegalEntity {
         legalEntityCountry = legalEntity.getLegalEntityCountry();
         legalEntityState = legalEntity.getLegalEntityState();
         legalEntityPostalCode = legalEntity.getLegalEntityPostalCode();
+
+        TableRegister.addMapValues("LEGALENTITY_NAME", name);
+        TableRegister.addMapValues("LEGALENTITY_MODIFIEDDATE", separateDate(name));
+        TableRegister.addMapValues("LEGALENTITY_MODIFIEDBY", getSalesforceUserAlias());
+    }
+
+    private String separateDate(final String data) {
+        String date = "";
+        for (String separatedData : data.split(" ")) {
+            if (separatedData.contains("/")) {
+                date += separatedData;
+            }
+            if (separatedData.contains(":")) {
+                date += " " + separatedData;
+            }
+        }
+        return date;
     }
 }

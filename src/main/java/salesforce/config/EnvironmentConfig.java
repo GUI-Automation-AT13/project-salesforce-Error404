@@ -22,6 +22,7 @@ public final class EnvironmentConfig {
     private static String SALESFORCE_TOKEN;
     private static String SALESFORCE_CLIENT_ID;
     private static String SALESFORCE_CLIENT_SECRET;
+    private static String SALESFORCE_USER_ALIAS;
 
     private EnvironmentConfig() {
         initialize();
@@ -49,6 +50,7 @@ public final class EnvironmentConfig {
         SALESFORCE_TOKEN = getTheSalesforceToken();
         SALESFORCE_CLIENT_ID = getTheSalesforceClientId();
         SALESFORCE_CLIENT_SECRET = getTheSalesforceClientSecret();
+        SALESFORCE_USER_ALIAS = getSalesforceAlias();
     }
 
     /**
@@ -130,5 +132,14 @@ public final class EnvironmentConfig {
      */
     public static String getClientSecret() {
         return SALESFORCE_CLIENT_SECRET;
+    }
+
+    /**
+     * Gets the salesforce user alias.
+     *
+     * @return a String with the salesforce user alias
+     */
+    public static String getSalesforceUserAlias() {
+        return SALESFORCE_USER_ALIAS;
     }
 }
